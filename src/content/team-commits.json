@@ -1,0 +1,540 @@
+{
+  "huy": [
+    {
+      "sha": "92b5ef6770d29e01d4b7eca6b815e273a7bfed3c",
+      "date": "2026-11-13",
+      "title": "feat(catalog): seed Chùa Xá Lợi and add pagoda category (#30)",
+      "subject": "feat(catalog): seed Chùa Xá Lợi and add pagoda category",
+      "summary": "Thêm Chùa Xá Lợi vào dữ liệu mẫu và bổ sung danh mục Chùa cho trang quản trị.",
+      "fileCount": 4,
+      "related": [
+        {
+          "page": "erd-catalog",
+          "label": "ERD Catalog"
+        }
+      ],
+      "pullRequest": 30
+    },
+    {
+      "sha": "36f4b025d77e6565960af6d96a51c88991ddfc47",
+      "date": "2026-10-19",
+      "title": "chore(speech): demo continuouse deployment (#21)",
+      "subject": "chore(speech): demo continuouse deployment",
+      "summary": "Chỉnh một chú thích trong Speech để minh họa quy trình triển khai liên tục.",
+      "fileCount": 1,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ],
+      "pullRequest": 21
+    },
+    {
+      "sha": "b1f9d65da59643df57d10418b8dd436914918987",
+      "date": "2026-10-18",
+      "title": "fix(ci): strip UTF-8 BOM from GHCR token piped to docker login (#20)",
+      "subject": "fix(ci): strip UTF-8 BOM from GHCR token piped to docker login",
+      "summary": "Sửa cách gửi thông tin đăng nhập GHCR cho Docker từ Windows PowerShell.",
+      "fileCount": 2,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ],
+      "pullRequest": 20
+    },
+    {
+      "sha": "f60c6ff3c6ba0b35d2449b77ce017557817164a0",
+      "date": "2026-10-16",
+      "title": "feat(speech): synthesis jobs admin API (#16)",
+      "subject": "feat(speech): synthesis jobs admin API",
+      "summary": "Thêm API quản trị để nhân viên vận hành xem và lọc công việc tạo âm thanh.",
+      "fileCount": 9,
+      "related": [
+        {
+          "page": "uc7",
+          "label": "UC7 · Theo dõi công việc"
+        }
+      ],
+      "pullRequest": 16
+    },
+    {
+      "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801",
+      "date": "2026-10-08",
+      "title": "feat(web): visitor PWA and admin web with mock mode and docker images (#9)",
+      "subject": "feat(web): visitor PWA and admin web with mock mode and docker images",
+      "summary": "Xây giao diện PWA cho khách và Admin Web cho nhân sự, kèm chế độ dữ liệu giả lập và bản build Docker.",
+      "fileCount": 222,
+      "related": [
+        {
+          "page": "component",
+          "label": "Component diagram"
+        }
+      ],
+      "pullRequest": 9
+    },
+    {
+      "sha": "e764299ad77485eeef32d8295ef09e889673d6bf",
+      "date": "2026-10-04",
+      "title": "feat(resilience): isolate per-language failures and add Polly retries (#4)",
+      "subject": "feat(resilience): isolate per-language failures and add Polly retries",
+      "summary": "Thêm cơ chế thử lại cho dịch và tổng hợp âm thanh, đồng thời tách lỗi theo từng ngôn ngữ.",
+      "fileCount": 18,
+      "related": [
+        {
+          "page": "dfd-6-translate",
+          "label": "DFD 6.0 · Dịch thuyết minh"
+        }
+      ],
+      "pullRequest": 4
+    },
+    {
+      "sha": "394ea48aacb855173556720b8aa0aa034267cdf1",
+      "date": "2026-10-03",
+      "title": "feat(speech): synthesize narrations with Google TTS and store in MinIO (#3)",
+      "subject": "feat(speech): synthesize narrations with Google TTS and store in MinIO",
+      "summary": "Tạo MP3 qua Google TTS, lưu trong MinIO và báo cho hệ thống khi audio đã sẵn sàng.",
+      "fileCount": 29,
+      "related": [
+        {
+          "page": "dfd-7-synthesize",
+          "label": "DFD 7.0 · Tổng hợp âm thanh"
+        }
+      ],
+      "pullRequest": 3
+    },
+    {
+      "sha": "229be9f9064d91a2a19d6b7ddae52582bdf098db",
+      "date": "2026-10-03",
+      "title": "feat(localization): translate narrations with Gemini (#2)",
+      "subject": "feat(localization): translate narrations with Gemini",
+      "summary": "Tích hợp Gemini để dịch thuyết minh, áp dụng bảng thuật ngữ và gửi bản dịch sang Speech.",
+      "fileCount": 34,
+      "related": [
+        {
+          "page": "dfd-6-translate",
+          "label": "DFD 6.0 · Dịch thuyết minh"
+        }
+      ],
+      "pullRequest": 2
+    },
+    {
+      "sha": "7675fcb7b04f770b841e45d123393fd0a6c7cb37",
+      "date": "2026-10-02",
+      "title": "feat(messaging): RabbitMQ, MassTransit and event contracts (#1)",
+      "subject": "feat(messaging): RabbitMQ, MassTransit and event contracts",
+      "summary": "Kết nối RabbitMQ với MassTransit và dùng hợp đồng sự kiện chung cho các dịch vụ nội dung.",
+      "fileCount": 31,
+      "related": [
+        {
+          "page": "microservices",
+          "label": "Cách microservices phối hợp"
+        }
+      ],
+      "pullRequest": 1
+    },
+    {
+      "sha": "d459a623ba56debc544c425635798e2b42307cda",
+      "date": "2026-09-19",
+      "title": "fix(web): route api calls through the gateway catalog prefix",
+      "subject": "fix(web): route api calls through the gateway catalog prefix",
+      "summary": "Chuyển yêu cầu API của giao diện qua tiền tố Catalog của Gateway.",
+      "fileCount": 3,
+      "related": [
+        {
+          "page": "microservices",
+          "label": "Cách microservices phối hợp"
+        }
+      ]
+    },
+    {
+      "sha": "85d2cd8b786ec09ad6d62b65cb56dd70d5d3e022",
+      "date": "2026-09-19",
+      "title": "chore: scaffold monorepo with 5 services and infrastructure",
+      "subject": "chore: scaffold monorepo with 5 services and infrastructure",
+      "summary": "Tạo cấu trúc repo, khung năm dịch vụ và môi trường phát triển của Nearby Stories.",
+      "fileCount": 80,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ]
+    }
+  ],
+  "nhan": [
+    {
+      "sha": "fbf425462cbab0e1ec5e8a70d1f190f7af4f8696",
+      "date": "2026-11-14",
+      "title": "feat: POIs are now all visible on map but only POI within 100m narration can be listened to",
+      "subject": "feat: POIs are now all visible on map but only POI within 100m narration can be listened to",
+      "summary": "Gộp thay đổi mở rộng điểm bản đồ và giới hạn bắt đầu nghe trong bán kính 100 m vào main.",
+      "fileCount": 26,
+      "related": [
+        {
+          "page": "uc2",
+          "label": "UC2 · Khám phá địa điểm"
+        },
+        {
+          "page": "uc3",
+          "label": "UC3 · Nghe thuyết minh"
+        }
+      ],
+      "merge": true
+    },
+    {
+      "sha": "9c36747b000ba1b5deeed072879500422d0ae078",
+      "date": "2026-11-14",
+      "title": "feat: POIs are now all visible on map but only POI within 100m has listenable narration",
+      "subject": "feat: POIs are now all visible on map but only POI within 100m has listenable narration",
+      "summary": "Mở rộng phạm vi POI hiển thị trên bản đồ, giới hạn phát thuyết minh mới cho khách trong 100 m.",
+      "fileCount": 26,
+      "related": [
+        {
+          "page": "uc2",
+          "label": "UC2 · Khám phá địa điểm"
+        },
+        {
+          "page": "uc3",
+          "label": "UC3 · Nghe thuyết minh"
+        }
+      ]
+    },
+    {
+      "sha": "676d87c29df6d9173236542750577f2f5ff2107b",
+      "date": "2026-10-26",
+      "title": "Merge pull request #28 from n1giahuy/chore/update-code-map",
+      "subject": "Merge pull request #28 from n1giahuy/chore/update-code-map",
+      "summary": "Gộp PR #28 cập nhật bảng đối chiếu mã nguồn và chú thích thống kê, xuất Excel.",
+      "fileCount": 19,
+      "related": [
+        {
+          "page": "uc8",
+          "label": "UC8 · Xem thống kê"
+        },
+        {
+          "page": "uc9",
+          "label": "UC9 · Xuất báo cáo"
+        }
+      ],
+      "pullRequest": 28,
+      "merge": true
+    },
+    {
+      "sha": "ffceece7caca9fb935fa9f11068a6571de49a329",
+      "date": "2026-10-26",
+      "title": "chore: added comment for UC8 and UC9 and updated code map",
+      "subject": "chore: added comment for UC8 and UC9 and updated code map",
+      "summary": "Cập nhật chú thích UC8, UC9 và tài liệu nối use case với vị trí mã.",
+      "fileCount": 19,
+      "related": [
+        {
+          "page": "uc8",
+          "label": "UC8 · Xem thống kê"
+        },
+        {
+          "page": "uc9",
+          "label": "UC9 · Xuất báo cáo"
+        }
+      ]
+    },
+    {
+      "sha": "30b3808895669a0bd39253c8ac4b324b1712902c",
+      "date": "2026-10-26",
+      "title": "Chore: bind mount guard, credentials path validation",
+      "subject": "Chore: bind mount guard, credentials path validation",
+      "summary": "Gộp kiểm tra đường dẫn tệp gắn với Docker và bộ sơ đồ tuần tự.",
+      "fileCount": 23,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ],
+      "merge": true
+    },
+    {
+      "sha": "f3d48eb6c25be02d52337a0e236b6703540a6d03",
+      "date": "2026-10-26",
+      "title": "Chore: bind mount guard, credentials path validation",
+      "subject": "Chore: bind mount guard, credentials path validation",
+      "summary": "Kiểm tra đường dẫn tệp thông tin xác thực khi dựng Docker và cập nhật sơ đồ tuần tự.",
+      "fileCount": 23,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ]
+    },
+    {
+      "sha": "95389be39c42bba17bc698383a1e62c5b651238e",
+      "date": "2026-10-20",
+      "title": "Merge pull request #22 from n1giahuy/Commenting-US-in-code",
+      "subject": "Merge pull request #22 from n1giahuy/Commenting-US-in-code",
+      "summary": "Gộp PR #22 về chú thích UC, US và tài liệu nối yêu cầu với code.",
+      "fileCount": 91,
+      "related": [
+        {
+          "page": "use-case-tong-quat",
+          "label": "Use case tổng quát"
+        }
+      ],
+      "pullRequest": 22,
+      "merge": true
+    },
+    {
+      "sha": "d00a0cba06de613ff5a615cf8688b2dbb526983f",
+      "date": "2026-10-20",
+      "title": "Task: add comments in files and a summary doc of UC/US in code file",
+      "subject": "Task: add comments in files and a summary doc of UC/US in code file",
+      "summary": "Gắn mã UC và US vào các vị trí triển khai và thêm tài liệu đối chiếu.",
+      "fileCount": 91,
+      "related": [
+        {
+          "page": "use-case-tong-quat",
+          "label": "Use case tổng quát"
+        }
+      ]
+    },
+    {
+      "sha": "ffe41d37912ccb7be97f7dbffe68965a0d414d37",
+      "date": "2026-10-12",
+      "title": "Feat: Observability",
+      "subject": "Feat: Observability",
+      "summary": "Gộp chuỗi thay đổi về log, truy vết, kiểm tra phụ thuộc và môi trường demo.",
+      "fileCount": 51,
+      "related": [
+        {
+          "page": "microservices",
+          "label": "Cách microservices phối hợp"
+        }
+      ],
+      "merge": true
+    },
+    {
+      "sha": "01c187605e1aee5c93252c79ce28ae8de08a7279",
+      "date": "2026-10-12",
+      "title": "feat: Observability",
+      "subject": "feat: Observability",
+      "summary": "Thêm kiểm tra mức sẵn sàng của dịch vụ và kịch bản demo quan sát hệ thống.",
+      "fileCount": 20,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ]
+    },
+    {
+      "sha": "b0d0451b20da7cafea9fa19e66fba8affe3ae2fd",
+      "date": "2026-10-12",
+      "title": "One connected trace through the publication pipeline",
+      "subject": "One connected trace through the publication pipeline",
+      "summary": "Nối truy vết HTTP, outbox và RabbitMQ thành một đường đi của phiên xuất bản.",
+      "fileCount": 22,
+      "related": [
+        {
+          "page": "dfd-5-publish",
+          "label": "DFD 5.0 · Xuất bản"
+        }
+      ]
+    },
+    {
+      "sha": "5b435bdd2df7dc9acf28470d0cd89bf6fbf5b1c0",
+      "date": "2026-10-12",
+      "title": "Useful structured logs across all five services",
+      "subject": "Useful structured logs across all five services",
+      "summary": "Thêm log có cấu trúc cho yêu cầu HTTP, thông điệp và các dịch vụ.",
+      "fileCount": 20,
+      "related": [
+        {
+          "page": "microservices",
+          "label": "Cách microservices phối hợp"
+        }
+      ]
+    },
+    {
+      "sha": "d4629d66cd27e5552837daf52f27ea52b4a74dbf",
+      "date": "2026-10-12",
+      "title": "feat: CI/CD 5 pipelines + pathfilter",
+      "subject": "feat: CI/CD 5 pipelines + pathfilter",
+      "summary": "Gộp phần phát hành Gateway và năm pipeline theo đường dẫn vào main.",
+      "fileCount": 21,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ],
+      "merge": true
+    },
+    {
+      "sha": "5329d26eea13b8083df4767bbc69e7c420a18741",
+      "date": "2026-10-12",
+      "title": "feat: CI/CD- 5 pipeline + pathfilter completed",
+      "subject": "feat: CI/CD- 5 pipeline + pathfilter completed",
+      "summary": "Hoàn thiện năm workflow backend theo đường dẫn và cách triển khai riêng từng dịch vụ.",
+      "fileCount": 16,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ]
+    },
+    {
+      "sha": "1afaecf80e4bdce127a6e4ae58631afdae182fa0",
+      "date": "2026-10-12",
+      "title": "feat: automatic gateway image deployment and handle unsuccessful deployments",
+      "subject": "feat: automatic gateway image deployment and handle unsuccessful deployments",
+      "summary": "Tự động triển khai image Gateway và xử lý trường hợp phát hành thất bại.",
+      "fileCount": 16,
+      "related": [
+        {
+          "page": "deployment",
+          "label": "Deployment diagram"
+        }
+      ]
+    },
+    {
+      "sha": "4efad39cdf6951b6ec82d1a92541da4667526fdb",
+      "date": "2026-10-12",
+      "title": "Merge pull request #12 from n1giahuy/Identity-service+JWT",
+      "subject": "Merge pull request #12 from n1giahuy/Identity-service+JWT",
+      "summary": "Gộp PR #12 để đưa xác thực JWT và phân quyền nhân sự vào main.",
+      "fileCount": 51,
+      "related": [
+        {
+          "page": "uc1",
+          "label": "UC1 · Xác thực người dùng"
+        }
+      ],
+      "pullRequest": 12,
+      "merge": true
+    },
+    {
+      "sha": "1c79cbd5971841f374a7627fbc0158c8c9bc71f5",
+      "date": "2026-10-11",
+      "title": "Merge main into Identity-service+JWT and reconcile Catalog authentication",
+      "subject": "Merge main into Identity-service+JWT and reconcile Catalog authentication",
+      "summary": "Đồng bộ main vào nhánh Identity và hòa giải thay đổi xác thực ở Catalog.",
+      "fileCount": 27,
+      "related": [
+        {
+          "page": "uc1",
+          "label": "UC1 · Xác thực người dùng"
+        },
+        {
+          "page": "uc6",
+          "label": "UC6 · Xuất bản"
+        }
+      ],
+      "merge": true
+    },
+    {
+      "sha": "090ab2442a3076fa3f90f03dd1bc621d0fc0daa8",
+      "date": "2026-10-11",
+      "title": "feat: authentication + JWT",
+      "subject": "feat: authentication + JWT",
+      "summary": "Thêm đăng nhập nhân sự với JWT, làm mới phiên và phân quyền Editor hoặc Operator.",
+      "fileCount": 45,
+      "related": [
+        {
+          "page": "uc1",
+          "label": "UC1 · Xác thực người dùng"
+        }
+      ]
+    },
+    {
+      "sha": "98bddb5cf67e812b8cfc7a21981b63bece1ecb00",
+      "date": "2026-10-09",
+      "title": "Merge pull request #10 from n1giahuy/gateway-yarp-routing",
+      "subject": "Merge pull request #10 from n1giahuy/gateway-yarp-routing",
+      "summary": "Gộp PR #10 để đưa định tuyến YARP, CORS và giới hạn tần suất vào main.",
+      "fileCount": 11,
+      "related": [
+        {
+          "page": "component",
+          "label": "Component diagram"
+        }
+      ],
+      "pullRequest": 10,
+      "merge": true
+    },
+    {
+      "sha": "c06786659e4a57d5534fd1f4186f9ff671cdb32b",
+      "date": "2026-10-08",
+      "title": "Feat:Gateway YARP + routing",
+      "subject": "Feat:Gateway YARP + routing",
+      "summary": "Thiết lập định tuyến YARP và CORS tại Gateway, tổ chức lại bài kiểm thử trên nhánh.",
+      "fileCount": 10,
+      "related": [
+        {
+          "page": "component",
+          "label": "Component diagram"
+        }
+      ]
+    },
+    {
+      "sha": "4b52026f70cf468970e7d07f25e0eaea970fbafe",
+      "date": "2026-10-08",
+      "title": "Merge branch 'main' of https://github.com/n1giahuy/Nearby-Stories into gateway-yarp-routing",
+      "subject": "Merge branch 'main' of https://github.com/n1giahuy/Nearby-Stories into gateway-yarp-routing",
+      "summary": "Đồng bộ main vào nhánh Gateway, mang phần PWA và Admin Web của PR #9 vào nhánh.",
+      "fileCount": 222,
+      "related": [
+        {
+          "page": "component",
+          "label": "Component diagram"
+        }
+      ],
+      "merge": true
+    },
+    {
+      "sha": "580d6bdbc6c2e119e3d0188b7f55389700e690e8",
+      "date": "2026-10-07",
+      "title": "changing the rates and git pull before PR",
+      "subject": "changing the rates and git pull before PR",
+      "summary": "Định dạng lại JSON cấu hình tuyến proxy ở Gateway.",
+      "fileCount": 1,
+      "related": [
+        {
+          "page": "component",
+          "label": "Component diagram"
+        }
+      ]
+    },
+    {
+      "sha": "b05ed9425206fd71c8aa4b8313bdf2d5c2021b9d",
+      "date": "2026-10-07",
+      "title": "Merge branch 'main' of https://github.com/n1giahuy/Nearby-Stories into codex/gateway-rate-limiting",
+      "subject": "Merge branch 'main' of https://github.com/n1giahuy/Nearby-Stories into codex/gateway-rate-limiting",
+      "summary": "Đồng bộ main vào nhánh Gateway rate limiting, gồm phần tìm kiếm toàn văn của PR #7.",
+      "fileCount": 8,
+      "related": [
+        {
+          "page": "erd-catalog",
+          "label": "ERD Catalog"
+        }
+      ],
+      "merge": true
+    },
+    {
+      "sha": "bdd698afb8ea4c5934a9d50ac144798226285cf5",
+      "date": "2026-10-05",
+      "title": "work in progress",
+      "subject": "work in progress",
+      "summary": "Bổ sung bước đầu giới hạn số yêu cầu proxy theo máy khách ở Gateway.",
+      "fileCount": 6,
+      "related": [
+        {
+          "page": "component",
+          "label": "Component diagram"
+        }
+      ]
+    }
+  ]
+}

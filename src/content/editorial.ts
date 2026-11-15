@@ -1,0 +1,227 @@
+import type { DiagramContent, Page, UseCaseContent } from './types'
+import { dataFlowDiagrams } from './data-flows'
+import { commitMembers, commitPageId } from './member-commits'
+
+export const rules = [
+  'Danh sách lân cận tìm trong bán kính 100 m. Chức năng khám phá trên bản đồ tìm trong vùng bản đồ được chọn.',
+  'Khách chỉ thấy POI đang hoạt động, được bật hiển thị và chưa bị xóa. POI mới hoạt động khi văn bản và âm thanh tiếng Việt đã sẵn sàng.',
+  'Hỗ trợ năm ngôn ngữ VI, EN, JA, KO và ZH. Nội dung nguồn luôn là tiếng Việt.',
+  'Xuất bản đưa bốn bản dịch và năm bản âm thanh vào hàng đợi xử lý nền. Bản tiếng Việt dùng nội dung nguồn.',
+  'Thứ tự ngôn ngữ dự phòng: ngôn ngữ đã chọn, sau đó tiếng Anh, cuối cùng tiếng Việt.',
+  'Mỗi cặp phiên bản thuyết minh và ngôn ngữ có tối đa một yêu cầu tạo nội dung đang xử lý.',
+  'Kiểm tra ngôn ngữ còn thiếu mỗi 2 giây, tối đa 30 giây. Chỉ chuyển âm thanh đang phát khi khách đồng ý.',
+  'Chỉ xuất bản bản Draft đã lưu và đủ thông tin. Số phiên bản được cấp khi tạo bản nháp mới; xuất bản sử dụng phiên bản đó.',
+  'Phiên bản cũ phục vụ đến khi phiên bản mới có văn bản và âm thanh tiếng Việt. Các ngôn ngữ khác có thể tạm dùng nội dung dự phòng.',
+  'Xóa sẽ lưu trữ POI và giữ nội dung. Khôi phục POI có phiên bản đang phục vụ sẽ đưa về Hidden; các POI khác về Draft.',
+  'Sau các lần thử lại áp dụng, ngôn ngữ lỗi được đánh dấu Failed và kết quả thành công được giữ. Nhân viên vận hành có thể yêu cầu thử tiếp.',
+  'Chỉ Content Editor quản lý POI và xuất bản. Chỉ Operator chạy lại công việc. Cả hai vai trò được xem thống kê và xuất báo cáo.',
+  'Tổng khách đếm mỗi định danh khách một lần trong phạm vi và khoảng thời gian đã chọn.',
+  'Ngày báo cáo dùng UTC+7. Số người trực tuyến và trạng thái địa điểm phản ánh thời điểm xem hoặc xuất báo cáo.',
+  'Lượt nghe dựa trên phát âm thanh thực tế và ngôn ngữ đã phát. Tạm dừng rồi tiếp tục không cộng thêm lượt nghe.',
+  'Khoảng ngày xuất bao gồm cả hai đầu, phải đúng thứ tự, kết thúc không muộn hơn hôm nay và nằm trong 25 tháng gần nhất.',
+]
+
+const mapImplementation = 'Danh sách lân cận vẫn giới hạn trong 100 m. Bản đồ hiện lấy tối đa 100 POI công khai gần vị trí khách trong phạm vi 50 km. Di chuyển khung bản đồ không làm tải lại nhóm POI.'
+const playbackImplementation = 'PWA cần biết khách đang cách POI tối đa 100 m để bắt đầu phát. Khách vẫn đọc được bài khi ở xa hoặc chưa có vị trí. Bài đã tải vào trình phát vẫn có thể nghe tiếp khi khách rời phạm vi.'
+
+export const useCases: UseCaseContent[] = [
+  {
+    id: 'UC1', title: 'Xác thực người dùng', actor: 'Biên tập viên · Nhân viên vận hành',
+    summary: 'Xác nhận phiên nhân sự đang có hoặc đăng nhập để mở đúng chức năng được cấp quyền.',
+    precondition: 'Nhân sự có tài khoản được tạo sẵn.', trigger: 'Nhân sự muốn truy cập ứng dụng quản trị.',
+    flow: ['Nhân sự nhập tên đăng nhập hoặc email cùng mật khẩu. Hệ thống xác thực thông tin, kiểm tra trạng thái tài khoản và các vai trò nhân sự đang hoạt động.', 'Khi hợp lệ, hệ thống tạo phiên đăng nhập và mở trang Places với các chức năng được phép. Tài khoản chỉ có vai trò Operator được mở Synthesis Jobs.'],
+    alternatives: ['Phiên đăng nhập còn hợp lệ, hoặc có thể làm mới, được dùng lại để quay về chức năng đang truy cập; không yêu cầu đăng nhập lại.'],
+    errors: ['Sai thông tin hoặc bị khóa tạm thời: hiển thị lỗi và cho phép nhập lại.', 'Tài khoản không hoạt động hoặc không có vai trò nhân sự hợp lệ: từ chối truy cập.', 'Lỗi dịch vụ khác: hiển thị thông báo và cho phép thử đăng nhập lại.'],
+    outcome: 'Nhân sự có phiên hợp lệ và quyền truy cập tương ứng với vai trò.', rules: [12],
+  },
+  {
+    id: 'UC2', title: 'Khám phá địa điểm lân cận', actor: 'Khách tham quan',
+    summary: 'Khám phá các địa điểm đang được công khai qua danh sách lân cận hoặc trên bản đồ.',
+    precondition: 'Không yêu cầu đăng nhập. Thiết bị có dịch vụ vị trí và kết nối Internet.', trigger: 'Khách muốn tìm địa điểm để khám phá.',
+    flow: ['Khách mở chức năng tìm địa điểm. Ứng dụng lấy vị trí của thiết bị để tìm các POI trong danh sách lân cận.', 'Catalog lọc những địa điểm đang hoạt động, được hiển thị và chưa bị lưu trữ trong bán kính 100 m; kết quả được sắp theo khoảng cách tăng dần.', 'Ứng dụng hiển thị các địa điểm. Khách xem danh sách hoặc chọn một địa điểm để tìm hiểu và nghe thuyết minh.'],
+    alternatives: ['Khi mở bản đồ, phạm vi tìm là vùng bản đồ được chọn, thay cho bán kính cố định 100 m của danh sách.', 'Không tìm thấy địa điểm: hiển thị trạng thái rỗng; khách có thể khám phá vùng bản đồ khác.'],
+    errors: ['Vị trí bị từ chối hoặc chưa lấy được: hướng dẫn cấp quyền và cho phép thử lại.', 'Tải dữ liệu thất bại: báo lỗi và cho phép tải lại.'],
+    outcome: 'Khách nhìn thấy danh sách hoặc bản đồ địa điểm phù hợp, hoặc trạng thái chưa có kết quả.', rules: [1, 2],
+    implementation: mapImplementation,
+  },
+  {
+    id: 'UC3', title: 'Nghe thuyết minh', actor: 'Khách tham quan',
+    summary: 'Nghe câu chuyện của một địa điểm bằng ngôn ngữ đã chọn hoặc ngôn ngữ dự phòng sẵn sàng.',
+    precondition: 'Địa điểm được chọn đang hoạt động và được hiển thị công khai; thiết bị phát được MP3.', trigger: 'Khách muốn nghe về một địa điểm.',
+    flow: ['Khách mở địa điểm từ danh sách hoặc bản đồ, rồi chọn ngôn ngữ. Hệ thống lấy văn bản và thông tin âm thanh tương ứng.', 'Ứng dụng hiển thị văn bản cùng bộ điều khiển phát. Khách chọn Play để nghe âm thanh.'],
+    alternatives: ['Nếu ngôn ngữ đã chọn chưa sẵn sàng, hệ thống dùng tiếng Anh nếu có; nếu không thì dùng tiếng Việt.', 'Khi is_fallback = true ở lúc hiển thị nội dung, UC4 được kích hoạt để chuẩn bị ngôn ngữ còn thiếu.', 'Chọn phát ngay từ thẻ địa điểm sẽ bắt đầu nghe sau khi tải xong nội dung.'],
+    errors: ['Lấy thuyết minh thất bại: hiển thị lỗi và cho phép thử tải lại.', 'Không phát được âm thanh: báo lỗi và cho phép chọn Play lại.'],
+    outcome: 'Thuyết minh được phát bằng ngôn ngữ đã chọn hoặc bản dự phòng.', rules: [2, 3, 5],
+    implementation: playbackImplementation,
+  },
+  {
+    id: 'UC4', title: 'Chuẩn bị ngôn ngữ còn thiếu', actor: 'Khách tham quan · Dịch vụ dịch · Dịch vụ tạo giọng nói',
+    summary: 'Chuẩn bị văn bản và âm thanh cho ngôn ngữ khách cần trong lúc vẫn phục vụ nội dung dự phòng.',
+    precondition: 'UC3 đang cung cấp một phiên bản dự phòng. Các dịch vụ dịch và TTS có thể được gọi.', trigger: 'Ngôn ngữ yêu cầu chưa sẵn sàng và UC3 trả bản dự phòng.',
+    flow: ['Ứng dụng gửi yêu cầu cho ngôn ngữ đã chọn. Hệ thống tạo nội dung trong nền; khách tiếp tục đọc hoặc nghe bản dự phòng.', 'Ứng dụng kiểm tra trạng thái mỗi 2 giây. Khi văn bản và âm thanh mới sẵn sàng, ngôn ngữ yêu cầu được chuẩn bị cho lần phát tiếp theo.'],
+    alternatives: ['Nếu cùng phiên bản và ngôn ngữ đã có yêu cầu đang chạy, dùng lại yêu cầu đó.', 'Nếu khách vẫn đang nghe, ứng dụng đưa ra lựa chọn Switch. Chỉ khi khách đồng ý mới phát lại từ đầu bằng ngôn ngữ mới; nếu không thì giữ bản đang nghe.'],
+    errors: ['Tạo nội dung thất bại hoặc quá 30 giây: giữ bản dự phòng và cho phép thử lại.', 'Yêu cầu thất bại hoặc bị giới hạn tần suất: dừng chờ và tiếp tục dùng bản dự phòng.'],
+    outcome: 'Ngôn ngữ yêu cầu sẵn sàng, hoặc khách tiếp tục sử dụng bản dự phòng.', rules: [5, 6, 7, 11],
+  },
+  {
+    id: 'UC5', title: 'Quản lý điểm tham quan', actor: 'Biên tập viên nội dung',
+    summary: 'Thêm, sửa, lưu trữ, ẩn, hiện hoặc khôi phục các địa điểm trên trang quản trị.',
+    precondition: 'Tài khoản có vai trò Content Editor. Tọa độ sử dụng WGS 84.', trigger: 'Biên tập viên muốn cập nhật danh mục địa điểm.',
+    flow: ['Sau khi xác thực, biên tập viên mở Places và xem danh sách theo bộ lọc. Thông tin địa điểm gồm tên, danh mục và tọa độ; tọa độ có thể nhập trực tiếp hoặc chọn trên bản đồ.', 'Hệ thống kiểm tra dữ liệu, lưu thông tin và cập nhật danh sách. Địa điểm mới giữ trạng thái Draft cho tới khi đủ điều kiện kích hoạt.'],
+    alternatives: ['Xác nhận Delete sẽ lưu trữ địa điểm và giữ lại nội dung.', 'Hide/Show thay đổi khả năng hiển thị. Restore đưa địa điểm có phiên bản đang phục vụ về Hidden; trường hợp khác về Draft.', 'Hủy thao tác đang chờ sẽ giữ nguyên dữ liệu và quay lại danh sách.'],
+    errors: ['Dữ liệu không hợp lệ: chỉ rõ lỗi để biên tập viên sửa.', 'Lưu hoặc thao tác thất bại: báo lỗi. Nếu bản ghi đã đổi, tải lại trước khi thử tiếp.'],
+    outcome: 'Thay đổi được lưu; địa điểm bị ẩn hoặc lưu trữ không xuất hiện công khai.', rules: [2, 10, 12],
+  },
+  {
+    id: 'UC6', title: 'Xuất bản nội dung thuyết minh', actor: 'Biên tập viên · Dịch vụ dịch · Dịch vụ tạo giọng nói',
+    summary: 'Đưa bản nháp tiếng Việt đã lưu vào quy trình dịch và tạo âm thanh trong nền.',
+    precondition: 'Tài khoản Content Editor có bản Draft đã lưu; nội dung tiếng Việt đã được người biên tập rà soát.', trigger: 'Biên tập viên hoàn tất bản thuyết minh tiếng Việt.',
+    flow: ['Biên tập viên lưu, kiểm tra bản nháp rồi chọn Publish. Hệ thống xác nhận bản nháp có thể xuất bản; số phiên bản đã được cấp từ lúc tạo bản nháp.', 'Catalog đổi trạng thái và ghi yêu cầu xử lý nền cùng sự kiện vào outbox trong một transaction. Giao diện xác nhận tiếp nhận và cập nhật tiến trình mỗi 2 giây.', 'Localization tạo bốn bản dịch EN, JA, KO, ZH; Speech tạo âm thanh cho cả năm ngôn ngữ, gồm tiếng Việt.', 'Phiên bản được đưa vào phục vụ khi văn bản và âm thanh tiếng Việt đã sẵn sàng, đồng thời giữ thiết lập hiển thị. Các ngôn ngữ khác tiếp tục hoàn tất hoặc dùng nội dung dự phòng.'],
+    alternatives: ['Ngôn ngữ thất bại không làm mất kết quả thành công của các ngôn ngữ khác. Operator có thể yêu cầu chạy lại.', 'Phiên bản trước vẫn phục vụ cho đến khi phiên bản mới đáp ứng điều kiện tiếng Việt của BR 2.9.'],
+    errors: ['Bản nháp không hợp lệ: sửa và lưu lại trước khi xuất bản.', 'Lỗi xuất bản hoặc tải tiến trình: hiển thị thông báo, tải lại hoặc thử lại.'],
+    outcome: 'Phiên bản được xếp hàng xử lý; việc kích hoạt tuân theo BR 2.9.', rules: [3, 4, 8, 9, 11, 12],
+  },
+  {
+    id: 'UC7', title: 'Theo dõi công việc tổng hợp', actor: 'Nhân viên vận hành',
+    summary: 'Theo dõi việc tạo giọng nói và yêu cầu một lần xử lý mới cho công việc thất bại.',
+    precondition: 'Tài khoản có vai trò Operator.', trigger: 'Nhân viên vận hành muốn kiểm tra công việc hoặc xử lý lỗi.',
+    flow: ['Sau khi xác thực, nhân viên mở Synthesis Jobs. Danh sách được làm mới mỗi 2 giây; có thể lọc trạng thái hoặc chuyển trang.', 'Nhân viên mở một công việc thất bại để xem lỗi và các lần thực hiện. Chọn Regenerate sẽ gửi yêu cầu xử lý lại trong nền; danh sách tiếp tục được cập nhật.'],
+    alternatives: ['Không có công việc lỗi cần xử lý: kết thúc việc kiểm tra.', 'Nhân viên có thể xem chi tiết rồi quay về danh sách mà không chạy lại.'],
+    errors: ['Tải danh sách thất bại: thông báo và cho phép thử lại.', 'Yêu cầu chạy lại thất bại: báo lỗi để nhân viên thử tiếp hoặc quay về danh sách.'],
+    outcome: 'Các yêu cầu chạy lại được chấp nhận sẽ vào hàng đợi xử lý nền.', rules: [11, 12],
+  },
+  {
+    id: 'UC8', title: 'Xem thống kê sử dụng', actor: 'Biên tập viên · Nhân viên vận hành',
+    summary: 'Xem số khách và hoạt động nghe thuyết minh ở phạm vi toàn ứng dụng hoặc từng địa điểm.',
+    precondition: 'Nhân sự có vai trò Content Editor hoặc Operator; thiết bị có kết nối Internet.', trigger: 'Nhân sự muốn đánh giá mức sử dụng ứng dụng hoặc địa điểm.',
+    flow: ['Nhân sự mở Overview hoặc Place Statistics sau khi xác thực. Mặc định hệ thống hiển thị 7 ngày gần nhất, bao gồm hôm nay.', 'Chọn Hôm nay, 7 ngày, 30 ngày hoặc một địa điểm để xem chỉ số, biểu đồ và chi tiết theo lịch. Ngày báo cáo dùng UTC+7.'],
+    alternatives: ['Chọn một địa điểm sẽ chuyển sang thống kê của địa điểm đó.', 'Chưa có dữ liệu: hiển thị trạng thái rỗng hoặc ký hiệu chưa có dữ liệu.', 'Từ báo cáo đang hiển thị, chọn Export data để thực hiện UC9.'],
+    errors: ['Tải báo cáo thất bại: báo lỗi và cho phép thử lại; nhân sự có thể kết thúc việc xem.'],
+    outcome: 'Thống kê của phạm vi và khoảng thời gian được chọn được hiển thị.', rules: [13, 14, 15],
+  },
+  {
+    id: 'UC9', title: 'Xuất báo cáo sử dụng', actor: 'Biên tập viên · Nhân viên vận hành',
+    summary: 'Tải thống kê ra Excel theo phạm vi và khoảng ngày để lưu trữ hoặc chia sẻ.',
+    precondition: 'Nhân sự đã đăng nhập và đang có một trang thống kê tải thành công. Trình duyệt cho phép tải tệp.', trigger: 'Nhân sự muốn lưu hoặc chia sẻ báo cáo thống kê.',
+    flow: ['Nhân sự mở Export data từ Overview hoặc phạm vi địa điểm. Hộp thoại hiển thị phạm vi, ngày bắt đầu và ngày kết thúc.', 'Sau khi chọn ngày hợp lệ, nhấn Export Excel. Hệ thống tạo và tải tệp báo cáo theo phạm vi và cả hai đầu của khoảng ngày.'],
+    alternatives: ['Xuất từ danh sách hoặc chi tiết địa điểm sử dụng đúng phạm vi đang xem.', 'Có thể hủy hộp thoại trước khi xuất.'],
+    errors: ['Ngày không hợp lệ: nút xuất không hoạt động cho tới khi được chỉnh sửa. Ngày phải đúng thứ tự, không vượt hôm nay và trong 25 tháng gần nhất.', 'Xuất thất bại: hiển thị lỗi để thử lại hoặc hủy.'],
+    outcome: 'Tệp Excel của phạm vi và khoảng ngày được chọn đã được tải xuống.', rules: [14, 16],
+  },
+]
+
+export const storyTitles = ['Khám phá địa điểm gần hoặc trong vùng bản đồ', 'Nghe thuyết minh bằng ngôn ngữ đã chọn', 'Sử dụng ngôn ngữ dự phòng', 'Ghi nhớ ngôn ngữ đã chọn', 'Chuẩn bị ngôn ngữ và chủ động chuyển khi nghe', 'Mô phỏng vị trí để trải nghiệm', 'Hiển thị nguồn và giấy phép ảnh', 'Cài ứng dụng lên màn hình chính', 'Đăng nhập và truy cập theo vai trò', 'Thêm, sửa, lưu trữ, ẩn/hiện và khôi phục POI', 'Xuất bản bản nháp và tự động tạo nội dung', 'Giữ đúng tên riêng qua bản dịch', 'Theo dõi tiến trình của chín công việc', 'Giữ phiên bản trước đến khi tiếng Việt sẵn sàng', 'Lọc công việc theo trạng thái', 'Yêu cầu xử lý lại ngôn ngữ thất bại', 'Dùng lại kết quả khi nhận thông điệp trùng', 'Cô lập lỗi của từng ngôn ngữ', 'Kiểm tra các service và app bị ảnh hưởng', 'Triển khai backend độc lập theo thay đổi', 'Truy vết thông điệp qua các service', 'Xem thống kê khách và lượt nghe', 'Xuất báo cáo Excel theo phạm vi và ngày']
+export const storyDescriptions = [
+  'Khách xem các địa điểm công khai đang hoạt động trong 100 m, sắp theo khoảng cách, hoặc khám phá vùng bản đồ để chọn nơi tham quan.',
+  'Khách nghe câu chuyện bằng ngôn ngữ đã chọn để hiểu địa điểm mà không cần người hướng dẫn.',
+  'Khi ngôn ngữ chưa sẵn sàng, khách vẫn sử dụng được thuyết minh bằng tiếng Anh hoặc tiếng Việt dự phòng.',
+  'Ứng dụng ghi nhớ một trong năm ngôn ngữ để khách không phải chọn lại mỗi lần.',
+  'Hệ thống chuẩn bị ngôn ngữ còn thiếu; trong lúc đang nghe, khách được quyết định thời điểm chuyển âm thanh.',
+  'Khách chọn điểm đứng mô phỏng để trải nghiệm ứng dụng khi chưa có mặt tại địa điểm.',
+  'Chủ dự án yêu cầu hiển thị nguồn ảnh để tuân thủ giấy phép Wikimedia.',
+  'Khách cài ứng dụng lên màn hình chính để mở thuận tiện như ứng dụng trên thiết bị.',
+  'Nhân sự đăng nhập và chỉ truy cập những chức năng mà vai trò được cấp cho phép.',
+  'Biên tập viên kiểm soát danh sách địa điểm công khai bằng các thao tác thêm, sửa, lưu trữ, ẩn, hiện và khôi phục.',
+  'Biên tập viên xuất bản bản nháp tiếng Việt, hệ thống chuẩn bị văn bản và âm thanh cho năm ngôn ngữ.',
+  'Bảo vệ tên địa điểm để bản dịch giữ đúng tên riêng ở mọi ngôn ngữ.',
+  'Biên tập viên theo dõi bốn công việc dịch và năm công việc tạo âm thanh sau khi xuất bản.',
+  'Phiên bản trước tiếp tục phục vụ cho tới khi phiên bản mới có văn bản và âm thanh tiếng Việt.',
+  'Nhân viên vận hành lọc công việc theo trạng thái để phát hiện lỗi cần xử lý.',
+  'Yêu cầu một lần tạo nội dung mới cho ngôn ngữ thất bại mà không cần xuất bản lại toàn bộ.',
+  'Thông điệp được giao lại dùng kết quả đã lưu, tránh tạo lại bản dịch và âm thanh đã hoàn thành.',
+  'Một ngôn ngữ lỗi không chặn việc xử lý các ngôn ngữ còn lại.',
+  'CI build và kiểm thử các service, ứng dụng bị ảnh hưởng trong pull request trước khi hợp nhất.',
+  'Hợp nhất vào main build và triển khai những backend bị ảnh hưởng một cách độc lập.',
+  'Lần theo một thông điệp qua nhiều service để tìm nguyên nhân sự cố.',
+  'Nhân sự xem thống kê toàn ứng dụng hoặc theo địa điểm trong khoảng thời gian đã chọn.',
+  'Nhân sự tải thống kê ra Excel theo phạm vi và khoảng ngày để lưu hoặc chia sẻ.',
+]
+export const backlogGroups = [
+  { id: 'visitor', title: 'Khách tham quan', ids: ['US01', 'US02', 'US03', 'US04', 'US05', 'US06', 'US08'] },
+  { id: 'staff', title: 'Nhân sự', ids: ['US09', 'US10', 'US11', 'US12', 'US13', 'US14', 'US15', 'US16', 'US22', 'US23'] },
+  { id: 'shared', title: 'Yêu cầu chung & kỹ thuật', ids: ['US07', 'US17', 'US18', 'US19', 'US20', 'US21'] },
+]
+
+export const diagrams: DiagramContent[] = [
+  { id: 'general', title: 'Sơ đồ use case tổng quát', image: 'uc-general', summary: 'Ba vai trò sử dụng và các chức năng mà họ tương tác trong Nearby Stories.', items: [{ name: 'Khách tham quan', description: 'Khám phá địa điểm, nghe thuyết minh và nhận nội dung ngôn ngữ còn thiếu.' }, { name: 'Biên tập viên nội dung', description: 'Đăng nhập, quản lý địa điểm, xuất bản nội dung, xem thống kê và xuất báo cáo.' }, { name: 'Nhân viên vận hành', description: 'Đăng nhập, theo dõi và chạy lại công việc, xem thống kê và xuất báo cáo.' }, { name: 'Các hệ thống hỗ trợ', description: 'Dịch vụ dịch và tạo giọng nói cung cấp nội dung đa ngôn ngữ. Các tác nhân này không phải một vai trò nhân sự đăng nhập.' }], related: ['UC1', 'UC2', 'UC6', 'UC7'] },
+  { id: 'class-catalog-application', title: 'Catalog · Lớp ứng dụng', image: 'class-catalog-application', summary: 'Các lớp tiếp nhận yêu cầu và phối hợp việc xuất bản, cập nhật kết quả, phát sự kiện.', items: [{ name: 'CatalogEndpoints', description: 'Tiếp nhận các yêu cầu đọc địa điểm, thuyết minh và yêu cầu ngôn ngữ qua API.' }, { name: 'CatalogWorkflow', description: 'Kiểm tra bản nháp, ghi nhận xuất bản, điều phối thử lại và quyết định kích hoạt phiên bản khi tiếng Việt đã sẵn sàng.' }, { name: 'CatalogEventProjection', description: 'Nhận kết quả bản dịch và âm thanh để cập nhật dữ liệu sẵn sàng phục vụ.' }, { name: 'CatalogOutboxDispatcher', description: 'Phát các sự kiện đã được lưu trong outbox, tách việc phát message khỏi transaction nghiệp vụ.' }, { name: 'INearbyPoiQuery', description: 'Định nghĩa việc truy vấn địa điểm gần khách; triển khai cụ thể thực hiện truy vấn không gian.' }], related: ['UC2', 'UC6'], code: ['CE', 'CW', 'PROJECTION', 'OUTBOX', 'NEARBY'] },
+  { id: 'class-catalog-domain', title: 'Catalog · Lớp miền', image: 'class-catalog-domain', summary: 'Các đối tượng nghiệp vụ liên kết địa điểm, phiên bản thuyết minh và nội dung theo ngôn ngữ.', items: [{ name: 'PointOfInterest', description: 'Địa điểm cùng thông tin địa lý, trạng thái vòng đời và khả năng hiển thị.' }, { name: 'Narration / NarrationSource', description: 'Nội dung thuyết minh và phiên bản nguồn tiếng Việt được lưu dưới trạng thái bản nháp hoặc đã xuất bản.' }, { name: 'GenerationRequest', description: 'Theo dõi một yêu cầu chuẩn bị nội dung cho từng phiên bản và ngôn ngữ.' }, { name: 'CatalogDeliveryContent', description: 'Văn bản và metadata âm thanh đã sẵn sàng để ứng dụng cung cấp cho khách.' }, { name: 'SupportedLanguage', description: 'Các ngôn ngữ được hỗ trợ và cấu hình dùng ngôn ngữ dự phòng.' }], related: ['UC5', 'UC6'], code: ['DOMAIN-PointOfInterest', 'DOMAIN-Narration', 'DOMAIN-NarrationSource', 'DOMAIN-GenerationRequest', 'DOMAIN-CatalogDeliveryContent', 'DOMAIN-SupportedLanguage'] },
+  { id: 'class-localization', title: 'Localization', image: 'class-localization', summary: 'Các lớp tạo bản dịch từ nội dung xuất bản và bảo vệ tên riêng.', items: [{ name: 'ContentPublishedConsumer', description: 'Nhận ContentPublished, điều phối nội dung từng ngôn ngữ và phát TranslationReady.' }, { name: 'ITranslationProvider', description: 'Tách giao tiếp với nhà cung cấp. GeminiTranslationProvider gọi dịch vụ thật; bản Fake phục vụ kiểm thử.' }, { name: 'TermGuard', description: 'Thay tên riêng bằng ký hiệu trước khi dịch, khôi phục theo glossary và kiểm tra sau dịch.' }, { name: 'Translation', description: 'Kết quả dịch kèm thông tin mô hình và phiên bản prompt để có thể truy vết.' }], related: ['UC4', 'UC6'], code: ['LOCALIZATION', 'TERM-GUARD', 'TRANSLATION', 'TRANSLATION-STORE'] },
+  { id: 'class-speech', title: 'Speech', image: 'class-speech', summary: 'Các lớp tạo giọng nói, quản lý trạng thái công việc và lưu âm thanh.', items: [{ name: 'TranslationReadyConsumer', description: 'Nhận văn bản theo ngôn ngữ, tạo âm thanh, lưu tệp và phát AudioReady.' }, { name: 'ITtsProvider / TtsProviderSelector', description: 'Tách nhà cung cấp giọng đọc và chọn provider. GoogleTtsProvider dùng deadline và chính sách thử lại cho lỗi tạm thời.' }, { name: 'IAudioStorage', description: 'Tách thao tác lưu âm thanh. MinioAudioStorage ghi và đọc tệp trong kho MinIO.' }, { name: 'SynthesisJob', description: 'Quản lý Pending, Processing, Succeeded, Failed; lưu số lần thực hiện và lỗi gần nhất. Các hàm thay đổi trạng thái kiểm tra tính hợp lệ.' }, { name: 'AudioFile', description: 'Thông tin tệp âm thanh được tạo thành công, gồm vị trí object và thời lượng.' }], related: ['UC6', 'UC7'], code: ['SPEECH', 'JOB-STATE', 'JOB-COMPLETE', 'TTS', 'STORAGE'] },
+  { id: 'sequence-auth', title: 'Xác thực người dùng', image: 'sequence-auth', summary: 'Trình tự đăng nhập giữa nhân sự, giao diện quản trị, Gateway và Identity.', items: [{ name: 'Gửi thông tin', description: 'Nhân sự nhập tên đăng nhập hoặc email và mật khẩu. Gateway chuyển yêu cầu đến Identity.' }, { name: 'Kiểm tra và cấp phiên', description: 'Identity kiểm tra thông tin, tài khoản và vai trò; trả JWT cùng refresh token khi hợp lệ.' }, { name: 'Mở giao diện phù hợp', description: 'Giao diện mở chức năng tương ứng với vai trò; sai thông tin hoặc tài khoản không hoạt động thì không cấp phiên hợp lệ.' }], related: ['UC1'], code: ['AF', 'SM', 'AL'] },
+  { id: 'sequence-nearby', title: 'Khám phá địa điểm', image: 'sequence-nearby', summary: 'Trình tự lấy vị trí và truy vấn danh sách địa điểm lân cận.', items: [{ name: 'Vị trí của khách', description: 'Ứng dụng xin quyền và lấy tọa độ; khi chưa sẵn sàng thì hướng dẫn hoặc cho phép thử lại.' }, { name: 'Truy vấn qua Gateway', description: 'Catalog tìm địa điểm công khai đang hoạt động trong 100 m và trả theo khoảng cách.' }, { name: 'Hiển thị', description: 'Ứng dụng hiển thị địa điểm, lỗi tải hoặc trạng thái rỗng. Nhánh bản đồ của UC2 v2 dùng vùng bản đồ được chọn.' }], related: ['UC2'], code: ['LG', 'NR', 'NS', 'NEARBY', 'MAP-NEAREST', 'MAP'], implementation: mapImplementation },
+  { id: 'sequence-generate', title: 'Tạo ngôn ngữ còn thiếu', image: 'sequence-generate', summary: 'Trình tự phối hợp tạo văn bản và âm thanh cho ngôn ngữ khách đang cần.', items: [{ name: 'Ghi nhận yêu cầu', description: 'Catalog kiểm tra yêu cầu trùng theo phiên bản và ngôn ngữ rồi ghi nhận xử lý nền.' }, { name: 'Dịch và tạo âm thanh', description: 'Localization dịch văn bản; Speech tạo giọng đọc và cập nhật kết quả về Catalog.' }, { name: 'Theo dõi trên giao diện', description: 'Ứng dụng kiểm tra mỗi 2 giây, tối đa 30 giây. Lỗi hoặc hết thời gian chờ vẫn giữ bản dự phòng.' }], related: ['UC4'], code: ['LANG-REQUEST', 'REQUEUE', 'REQUEST-STATUS', 'LR', 'PM'] },
+  { id: 'sequence-play', title: 'Phát thuyết minh', image: 'sequence-play', summary: 'Trình tự chọn nội dung theo ngôn ngữ và phát âm thanh cho khách.', items: [{ name: 'Chọn nội dung', description: 'Khách chọn địa điểm và ngôn ngữ. Catalog ưu tiên ngôn ngữ đó, rồi tiếng Anh, rồi tiếng Việt.' }, { name: 'Phát âm thanh', description: 'Giao diện hiển thị văn bản và bộ điều khiển; âm thanh được phục vụ từ kho lưu trữ qua Speech và Gateway.' }, { name: 'Chuẩn bị ngôn ngữ mới', description: 'Nếu dùng dự phòng, UC4 chuẩn bị ngôn ngữ còn thiếu. Âm thanh đang phát chỉ chuyển khi khách chấp nhận.' }], related: ['UC3', 'UC4'], code: ['SC', 'STORY-FALLBACK', 'STORY-ROUTE', 'LISTEN-RANGE', 'AUDIO-HTTP', 'AE', 'PM'], implementation: playbackImplementation },
+  { id: 'sequence-publish', title: 'Xuất bản nội dung', image: 'sequence-publish', summary: 'Trình tự từ yêu cầu xuất bản đến nội dung đa ngôn ngữ sẵn sàng phục vụ.', items: [{ name: 'Xác nhận xuất bản', description: 'Catalog kiểm tra bản Draft đã lưu, chuyển trạng thái và ghi outbox cùng transaction; có thể xác nhận trước khi tác vụ nền xong.' }, { name: 'Chuỗi sự kiện', description: 'ContentPublished đưa nội dung sang Localization; TranslationReady kích hoạt Speech; AudioReady mang kết quả về Catalog.' }, { name: 'Kích hoạt theo v2', description: 'Phiên bản mới phục vụ khi văn bản và âm thanh tiếng Việt đã sẵn sàng. Số phiên bản được cấp khi tạo bản nháp, như BR 2.8 và 2.9 v2.' }], related: ['UC6'], code: ['DRAFT', 'CW', 'OUTBOX', 'LOCALIZATION', 'SPEECH', 'ACTIVATE'] },
+  { id: 'sequence-jobs', title: 'Theo dõi và chạy lại công việc', image: 'sequence-jobs', summary: 'Trình tự xem lỗi và yêu cầu tạo lại âm thanh từ ứng dụng quản trị.', items: [{ name: 'Kiểm tra danh sách', description: 'Operator xem danh sách, lọc trạng thái và mở công việc lỗi để đọc chi tiết.' }, { name: 'Yêu cầu chạy lại', description: 'Giao diện gửi yêu cầu; backend kiểm tra quyền và đưa một lần xử lý mới vào hàng đợi.' }, { name: 'Theo dõi kết quả', description: 'Danh sách tiếp tục cập nhật. Speech giữ số lần thử và lỗi gần nhất để Operator theo dõi.' }], related: ['UC7'], code: ['JS', 'JOBS-HTTP', 'RETRY-HTTP', 'REQUEUE'] },
+  {
+    id: 'sequence-statistics', title: 'Xem thống kê sử dụng', image: 'sequence-statistics',
+    summary: 'Admin Web tải thống kê theo kỳ và phạm vi đã chọn, mặc định là 7 ngày gồm hôm nay.',
+    items: [
+      { name: 'Chọn kỳ và phạm vi', description: 'Nhân sự chọn thống kê toàn hệ thống, danh sách POI hoặc một POI. Giao diện tải lại dữ liệu khi bộ lọc thay đổi.' },
+      { name: 'Tổng hợp dữ liệu', description: 'Catalog đếm khách duy nhất theo phạm vi và lượt nghe theo âm thanh thực tế. Số online và trạng thái POI lấy tại thời điểm xem.' },
+      { name: 'Hiển thị kết quả', description: 'Admin Web hiển thị biểu đồ, dữ liệu rỗng hoặc lỗi có nút thử lại. Lệnh xuất dữ liệu mở UC9.' },
+    ],
+    related: ['UC8', 'UC9'], code: ['DS', 'REPORTS-HTTP', 'REPORT'],
+  },
+  {
+    id: 'sequence-export', title: 'Xuất báo cáo sử dụng', image: 'sequence-export',
+    summary: 'Admin Web tải số liệu cho khoảng ngày và phạm vi được chọn, sau đó tạo tệp Excel trong trình duyệt.',
+    items: [
+      { name: 'Chọn khoảng ngày', description: 'Hộp thoại giữ phạm vi hiện tại. Khoảng ngày tính cả hai đầu, kết thúc muộn nhất hôm nay và nằm trong 25 tháng gần nhất.' },
+      { name: 'Tải thống kê', description: 'Catalog xác thực quyền và kiểm tra lại ngày theo UTC+7 rồi trả số liệu của phạm vi yêu cầu.' },
+      { name: 'Tạo tệp', description: 'Trình duyệt tạo và tải Excel. Nhân sự có thể thử lại nếu tải số liệu hoặc tạo tệp thất bại.' },
+    ],
+    related: ['UC8', 'UC9'], code: ['EXPORT-DIALOG', 'REPORTS-HTTP', 'REPORT', 'EXPORT'],
+  },
+  ...dataFlowDiagrams,
+  { id: 'component', title: 'Component diagram', image: 'component', summary: 'Trách nhiệm các thành phần và cách chúng trao đổi dữ liệu.', items: [{ name: 'PWA và Admin Web', description: 'PWA phục vụ khách; Admin Web phục vụ biên tập viên và nhân viên vận hành.' }, { name: 'Gateway và Identity', description: 'Gateway là cổng HTTP; Identity xác thực tài khoản và quyền nhân sự.' }, { name: 'Catalog, Localization, Speech', description: 'Catalog quản lý sản phẩm và dữ liệu phục vụ; Localization dịch; Speech tạo và phục vụ âm thanh.' }, { name: 'RabbitMQ, SQL Server, MinIO', description: 'Message broker chuyển sự kiện, các database lưu dữ liệu theo service và MinIO giữ tệp âm thanh.' }], related: ['UC2', 'UC6'], code: ['GATEWAY', 'AUTH-ROUTES', 'CE', 'LOCALIZATION', 'SPEECH', 'MESSAGING', 'COMPOSE'] },
+  { id: 'deployment', title: 'Deployment diagram', image: 'deployment', summary: 'Các chương trình và hạ tầng được triển khai độc lập, phối hợp qua mạng nội bộ.', items: [{ name: 'Cổng vào backend', description: 'Gateway là backend HTTP được công bố cho ứng dụng. Identity, Catalog và Speech được gọi qua Gateway; Localization là worker nội bộ.' }, { name: 'Dữ liệu theo service', description: 'Bốn database logic tách dữ liệu của Catalog, Identity, Localization và Speech; có thể cùng nằm trên một SQL Server trong Compose.' }, { name: 'Xử lý nền và tệp', description: 'RabbitMQ truyền sự kiện; MinIO lưu object âm thanh. Dữ liệu được giữ bằng volume theo cấu hình triển khai.' }, { name: 'Theo dõi và phát hành', description: 'Jaeger hiển thị tracing. GitHub Actions build, kiểm tra và triển khai từng backend bị ảnh hưởng bởi thay đổi.' }], related: [], code: ['COMPOSE', 'DEFAULTS'] },
+]
+
+export const groups = [
+  { id: 'intro', title: 'Giới thiệu', icon: 'book' }, { id: 'backlog', title: 'Product backlog', icon: 'list' },
+  { id: 'rules', title: 'Business rules', icon: 'rules' }, { id: 'usecases', title: 'Use case', icon: 'workflow' },
+  { id: 'dfd', title: 'DFD', icon: 'dfd' },
+  { id: 'erd', title: 'ERD', icon: 'database' }, { id: 'class', title: 'Class diagram', icon: 'boxes' },
+  { id: 'sequence', title: 'Sequence diagram', icon: 'sequence' },
+  { id: 'component', title: 'Component diagram', icon: 'network', direct: true },
+  { id: 'deployment', title: 'Deployment diagram', icon: 'server', direct: true },
+  { id: 'member-commits', title: 'Commit', icon: 'commits' },
+]
+const dfdPages = dataFlowDiagrams.map(diagram => ({
+  id: diagram.id,
+  title: 'DFD Level ' + diagram.level + ' · ' + diagram.title,
+  shortTitle: diagram.level === 2 ? diagram.title : 'DFD Level ' + diagram.level + ' · ' + diagram.title,
+  group: 'dfd',
+  kind: 'diagram' as const,
+  key: diagram.id,
+  dfdLevel: diagram.level,
+}))
+
+export const pages: Page[] = [
+  { id: 'gioi-thieu', title: 'Nearby Stories', shortTitle: 'App hoạt động ra sao?', group: 'intro', kind: 'intro' },
+  { id: 'khach-tham-quan', title: 'Dành cho khách tham quan', shortTitle: 'Khách tham quan', group: 'intro', kind: 'role', key: 'visitor' },
+  { id: 'bien-tap-vien', title: 'Dành cho biên tập viên', shortTitle: 'Biên tập viên nội dung', group: 'intro', kind: 'role', key: 'editor' },
+  { id: 'nhan-vien-van-hanh', title: 'Dành cho nhân viên vận hành', shortTitle: 'Nhân viên vận hành', group: 'intro', kind: 'role', key: 'operator' },
+  { id: 'cong-nghe', title: 'Công nghệ trong dự án', shortTitle: 'Các công nghệ sử dụng', group: 'intro', kind: 'technologies' },
+  { id: 'microservices', title: 'Cách microservices phối hợp', shortTitle: 'Microservices hoạt động ra sao?', group: 'intro', kind: 'microservices' },
+  ...backlogGroups.map(g => ({ id: 'backlog-' + g.id, title: g.title, shortTitle: g.title, group: 'backlog', kind: 'backlog' as const, key: g.id })),
+  ...['Khám phá & ngôn ngữ', 'Xuất bản & xử lý', 'Thống kê & báo cáo'].map((title, i) => ({ id: 'quy-tac-' + (i + 1), title, shortTitle: title, group: 'rules', kind: 'rules' as const, key: String(i) })),
+  { id: 'use-case-tong-quat', title: 'Sơ đồ use case tổng quát', shortTitle: 'Use case tổng quát', group: 'usecases', kind: 'general', key: 'general' },
+  ...useCases.map(u => ({ id: u.id.toLowerCase(), title: u.title, shortTitle: u.title, group: 'usecases', kind: 'usecase' as const, key: u.id })),
+  ...dfdPages.filter(page => page.dfdLevel < 2),
+  { id: 'dfd-level-2', title: 'DFD Level 2 · Phân rã tiến trình', shortTitle: 'DFD Level 2 · Phân rã tiến trình', group: 'dfd', kind: 'dfd-index', dfdLevel: 2 },
+  ...dfdPages.filter(page => page.dfdLevel === 2).sort((a, b) => a.title.localeCompare(b.title, 'vi')),
+  ...['Catalog', 'Identity', 'Localization', 'Speech'].map(name => ({ id: 'erd-' + name.toLowerCase(), title: name, shortTitle: name, group: 'erd', kind: 'erd' as const, key: name.toLowerCase() })),
+  ...diagrams.filter(d => d.id.startsWith('class-')).map(d => ({ id: d.id, title: d.title, shortTitle: d.title, group: 'class', kind: 'diagram' as const, key: d.id })),
+  ...diagrams.filter(d => d.id.startsWith('sequence-')).map(d => ({ id: d.id, title: d.title, shortTitle: d.title, group: 'sequence', kind: 'diagram' as const, key: d.id })),
+  ...['component', 'deployment'].map(id => ({ id, title: diagrams.find(d => d.id === id)!.title, shortTitle: diagrams.find(d => d.id === id)!.title, group: id, kind: 'diagram' as const, key: id })),
+  ...commitMembers.flatMap(member => [
+    { id: member.page, title: member.name, shortTitle: member.name, group: 'member-commits', kind: 'member-commits' as const },
+    ...member.commits.map(commit => ({
+      id: commitPageId(commit.sha), title: commit.title, shortTitle: commit.sha.slice(0, 7),
+      group: 'member-commits', kind: 'commit-detail' as const, key: commit.sha, tocParent: member.page,
+    })),
+  ]),
+]

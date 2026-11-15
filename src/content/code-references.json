@@ -1,0 +1,999 @@
+{
+  "revision": "fbf425462cbab0e1ec5e8a70d1f190f7af4f8696",
+  "files": {
+    "AF": {
+      "id": "AF",
+      "path": "src/Identity/Auth/AuthEndpoints.cs",
+      "symbol": "LoginAsync / ActiveRolesAsync",
+      "line": 33,
+      "description": "Kiểm tra tên đăng nhập hoặc email, mật khẩu, trạng thái tài khoản và vai trò đang hoạt động.",
+      "excerpt": "    private static async Task<IResult> LoginAsync(LoginRequest request, UserManager<ApplicationUser> users,\n        SignInManager<ApplicationUser> signIn, IdentityDbContext db, TokenIssuer issuer, TimeProvider clock,\n        CancellationToken cancellationToken)\n    {\n        if (string.IsNullOrWhiteSpace(request.UserName) || request.UserName.Length > 256 ||\n            string.IsNullOrEmpty(request.Password) || request.Password.Length > 1024)\n            return Results.ValidationProblem(new Dictionary<string, string[]>\n            {\n                [\"credentials\"] = [\"A username/email and password are required (max 256/1024 characters).\"]\n            });\n        var name = request.UserName.Trim();\n        var user = name.Contains('@') ? await users.FindByEmailAsync(name) : await users.FindByNameAsync(name);\n        if (user is null) return InvalidCredentials();\n        var result = await signIn.CheckPasswordSignInAsync(user, request.Password, lockoutOnFailure: true);",
+      "endLine": 46
+    },
+    "SM": {
+      "id": "SM",
+      "path": "src/Web/apps/admin/src/features/auth/model/session.ts",
+      "symbol": "session.token / session.refresh / roleHome",
+      "line": 36,
+      "description": "Dùng lại hoặc làm mới phiên và chọn trang mở đầu theo vai trò nhân sự.",
+      "excerpt": "export const session = {\n  get: () => current,\n  version: () => version,\n  token: () => (current && new Date(current.expiresAt).getTime() > Date.now() ? current.token : null),\n  wasExpired: () => expired,\n  // UC1/US09: Store the authenticated staff session and make its assigned roles available to the app.\n  signIn(res: LoginResponse) { version++; expired = false; set(fromResponse(res)) },\n  // UC1/US09: Clear the local staff session and revoke its refresh token.\n  signOut() {\n    version++\n    const refreshToken = current?.refreshToken\n    expired = false\n    set(null)\n    if (refreshToken) void adminApi.logout(refreshToken).catch(() => {})",
+      "endLine": 49
+    },
+    "AL": {
+      "id": "AL",
+      "path": "src/Web/apps/admin/src/app/AdminLayout.tsx",
+      "symbol": "AdminLayout / RequireRole",
+      "line": 12,
+      "description": "Hiển thị chức năng theo quyền, bảo vệ các trang và điều hướng nhân sự chưa đăng nhập.",
+      "excerpt": "export function AdminLayout() {\n  const { t } = useI18n(), { theme, setTheme } = useTheme()\n  const queryClient = useQueryClient(), current = useSession(), navigate = useNavigate(), { pathname } = useLocation()\n  const [collapsed, setCollapsed] = useState(() => { try { return localStorage.getItem('ns-admin-sidebar-collapsed') === 'true' } catch { return false } })\n  const [panel, setPanel] = useState<'preferences' | 'account' | null>(null)\n  const panelRef = useRef<HTMLDivElement>(null), triggerRef = useRef<HTMLButtonElement | null>(null)\n  useEffect(() => {\n    if (!panel) return\n    panelRef.current?.querySelector<HTMLButtonElement>('button')?.focus()\n    const close = (event: KeyboardEvent) => { if (event.key === 'Escape') { setPanel(null); triggerRef.current?.focus() } }\n    const outside = (event: PointerEvent) => { if (event.target instanceof Node && !panelRef.current?.contains(event.target) && !triggerRef.current?.contains(event.target)) setPanel(null) }\n    document.addEventListener('keydown', close); document.addEventListener('pointerdown', outside)\n    return () => { document.removeEventListener('keydown', close); document.removeEventListener('pointerdown', outside) }\n  }, [panel])",
+      "endLine": 25
+    },
+    "LG": {
+      "id": "LG",
+      "path": "src/Web/apps/pwa/src/app/LocationGate.tsx",
+      "symbol": "LocationGate",
+      "line": 10,
+      "description": "Hiển thị trạng thái định vị, hướng dẫn khi bị từ chối quyền và nút thử lại.",
+      "excerpt": "export function LocationGate() {\n  const position = useVisitorLocation()\n  const navigate = useNavigate()\n  const { t } = useTranslation()\n  const setDemoMode = useSettings(s => s.setDemoMode)\n  const locating = position.status === 'locating'\n  return <>\n    <AppBarFrosted end={<ButtonIconCircular icon=\"settings\" aria-label={t('common.settings')} onClick={() => navigate('/settings')} />} />\n    <section className={styles.gate} aria-live=\"polite\">\n      <LocatingRadar denied={position.status === 'denied'} still={!locating} />\n      <Text as=\"h1\" variant=\"title\">{t(locating ? 'location.lookingAround' : position.status === 'unavailable' ? 'location.unavailableTitle' : 'location.deniedTitle')}</Text>\n      {!locating && <>\n        <Text variant=\"body\" tone=\"muted-72\">{t(position.status === 'denied' ? 'location.blocked' : position.status === 'unavailable' ? 'location.unavailableBody' : 'location.deniedBody')}</Text>\n        <ButtonPrimary block onClick={position.retry}>{t(position.status === 'idle' ? 'location.allow' : 'app.retry')}</ButtonPrimary>",
+      "endLine": 23
+    },
+    "NR": {
+      "id": "NR",
+      "path": "src/Web/apps/pwa/src/app/routes/NearbyRoute.tsx",
+      "symbol": "NearbyRoute",
+      "line": 10,
+      "description": "Chọn màn hình định vị hoặc danh sách lân cận dựa trên trạng thái vị trí.",
+      "excerpt": "export function NearbyRoute() {\n  const navigate = useNavigate()\n  const lang = useSettings(s => s.lang)\n  const setDemoMode = useSettings(s => s.setDemoMode)\n  const position = useVisitorLocation()\n\n  const open = (poiId: string, state: PlaceNavState) => navigate(`/places/${encodeURIComponent(poiId)}`, { state })\n\n  return (\n    <Page>\n      {position.status !== 'located' ? <LocationGate /> :\n      <NearbyScreen\n        position={position}\n        lang={lang}",
+      "endLine": 23
+    },
+    "NS": {
+      "id": "NS",
+      "path": "src/Web/apps/pwa/src/features/nearby/components/NearbyScreen.tsx",
+      "symbol": "NearbyScreen / renderBody",
+      "line": 32,
+      "description": "Hiển thị địa điểm, trạng thái tải, lỗi và danh sách không có kết quả.",
+      "excerpt": "export function NearbyScreen({ position, lang, onOpenPlace, onPlayPlace, onTryDemo, onAllowLocation, onOpenSettings, onOpenMap }: NearbyScreenProps) {\n  const { t } = useTranslation()\n  const nearby = useNearby(position.status === 'located' ? position.coords : null, lang)\n  const places = nearby.data ?? []\n\n  const pill = position.simulated\n    ? <LocationPill simulated>{t('location.simulated')}</LocationPill>\n    : position.status === 'denied' || position.status === 'unavailable'\n      ? <LocationPill off>{t('location.off')}</LocationPill>\n      : position.status === 'locating'\n        ? <LocationPill>{t('location.locating')}</LocationPill>\n        : <LocationPill><span lang=\"vi\">{places[0]?.name ?? t('location.yourArea')}</span></LocationPill>\n\n  return (",
+      "endLine": 45
+    },
+    "MR": {
+      "id": "MR",
+      "path": "src/Web/apps/pwa/src/app/routes/MapRoute.tsx",
+      "symbol": "LocatedMap · useQuery",
+      "line": 66,
+      "description": "Tải nhóm POI gần vị trí của khách và hiển thị kết quả trên bản đồ.",
+      "excerpt": "  const result = useQuery({\n    queryKey: ['map-pois', 'nearest', anchor?.lat, anchor?.lng, lang],\n    queryFn: ({ signal }) => visitorApi.findMapNearest({ lat: anchor!.lat, lng: anchor!.lng, lang }, signal),\n    enabled: anchor !== null,\n    staleTime: 30_000,\n    // Keep the old pins on screen while the list for a new position loads.\n    placeholderData: keepPreviousData,\n    refetchOnWindowFocus: 'always',\n  })\n\n  // A new origin (another demo spot, or GPS after simulation) recenters the camera and reloads around it.\n  useEffect(() => {\n    const state = useMapState.getState()\n    if (state.origin !== origin) update({ origin, view: { ...position.coords, zoom: 17 }, anchor: position.coords, selected: null })",
+      "endLine": 79
+    },
+    "SC": {
+      "id": "SC",
+      "path": "src/Web/apps/pwa/src/features/story/components/StoryScreen.tsx",
+      "symbol": "StoryScreen",
+      "line": 41,
+      "description": "Hiển thị tải nội dung, lỗi và văn bản đã sẵn sàng để đọc hoặc phát.",
+      "excerpt": "export function StoryScreen(props: StoryScreenProps) {\n  const { t } = useTranslation()\n  const { status, story, simulated, onBack } = props\n\n  return (\n    <>\n      <AppBarFrosted\n        start={<ButtonIconCircular icon=\"arrow-left\" aria-label={t('common.back')} onClick={onBack} />}\n        title={t('story.title')}\n        end={simulated ? <LocationPill simulated>{t('location.simulated')}</LocationPill> : undefined}\n      />\n      {status === 'loading' && <StoryLoading />}\n      {status === 'error' && (\n        <EmptyState",
+      "endLine": 54
+    },
+    "CE": {
+      "id": "CE",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "MapCatalogEndpoints",
+      "line": 18,
+      "description": "Cung cấp API địa điểm, chọn nội dung theo chuỗi ngôn ngữ dự phòng và nhận yêu cầu tạo lại.",
+      "excerpt": "    public static void MapCatalogEndpoints(this WebApplication app)\n    {\n        var api = app.MapGroup(\"/api\");\n        api.MapAdminPoiEndpoints();\n        api.MapLocationSearchEndpoints();\n        api.MapAnalyticsEndpoints();\n        api.MapMapPoiEndpoints();\n\n        // UC2/US01: Validate the visitor location and return active nearby places using a default radius of 100 metres.\n        api.MapGet(\"/pois/nearby\", async (\n            double lat, double lng, INearbyPoiQuery query, CancellationToken ct,\n            int radius = DefaultRadiusMetres, string lang = \"vi\") =>\n        {\n            var errors = ValidateNearbyRequest(lat, lng, radius);",
+      "endLine": 31
+    },
+    "AE": {
+      "id": "AE",
+      "path": "src/Web/apps/pwa/src/features/player/components/AudioEngine.tsx",
+      "symbol": "AudioEngine",
+      "line": 8,
+      "description": "Điều khiển phát MP3 và chuyển sự kiện hoặc lỗi media về trạng thái trình phát.",
+      "excerpt": "export function AudioEngine() {\n  const ref = useRef<HTMLAudioElement>(null)\n  const playback = usePlayer(s => s.state.playback)\n  const seekTo = usePlayer(s => s.state.seekTo)\n  const dispatch = usePlayer(s => s.dispatch)\n  const url = playback.status === 'idle' ? null : playback.track.url\n  const wantsSound = playback.status === 'loading' || playback.status === 'playing'\n\n  useEffect(() => {\n    const audio = ref.current\n    if (!audio) return\n    if (!url) {\n      audio.pause()\n      audio.removeAttribute('src')",
+      "endLine": 21
+    },
+    "LR": {
+      "id": "LR",
+      "path": "src/Web/apps/pwa/src/features/story/api/useLanguageRequest.ts",
+      "symbol": "useLanguageRequest",
+      "line": 29,
+      "description": "Gửi hoặc dùng lại yêu cầu ngôn ngữ; kiểm tra mỗi 2 giây với giới hạn chờ 30 giây.",
+      "excerpt": "export function useLanguageRequest({ poiId, lang, enabled, existingId = null, timeoutMs = 30_000, intervalMs = 2_000 }: LanguageRequestOptions) {\n  const [run, setRun] = useState(0)\n  const [state, setState] = useState<LanguageRequestState>({ phase: 'idle' })\n  const [requestId, setRequestId] = useState<string | null>(null)\n  const existingRef = useRef(existingId)\n  existingRef.current = existingId\n\n  useEffect(() => {\n    if (!enabled) {\n      setState({ phase: 'idle' })\n      setRequestId(null)\n      return\n    }\n    let cancelled = false",
+      "endLine": 42
+    },
+    "PM": {
+      "id": "PM",
+      "path": "src/Web/apps/pwa/src/features/player/model/playerMachine.ts",
+      "symbol": "playerReducer · NATIVE_READY / SWITCH_TO_NATIVE",
+      "line": 129,
+      "description": "Giữ bản đang phát khi ngôn ngữ mới sẵn sàng và chỉ chuyển âm thanh khi khách đồng ý.",
+      "excerpt": "    case 'NATIVE_READY': {\n      if (fallback.phase !== 'preparing' && fallback.phase !== 'timed-out') return state\n      if (fallback.poiId !== event.track.poiId || fallback.requestedLang !== event.track.lang) return state\n      const { poiId, requestedLang, servedLang } = fallback\n      // Never switch audio mid-playback without the visitor's action: offer the switch instead.\n      if (isActive(playback) && playback.track.poiId === poiId) {\n        return { ...state, fallback: { phase: 'native-ready', poiId, requestedLang, servedLang, native: event.track } }\n      }\n      // Nothing is playing, so the native language simply takes over (text and the next Play).\n      const replaces = playback.status !== 'idle' && playback.track.poiId === poiId\n      return {\n        ...state,\n        fallback: { phase: 'none' },\n        playback: replaces ? { status: 'paused', track: event.track } : playback,",
+      "endLine": 142
+    },
+    "PS": {
+      "id": "PS",
+      "path": "src/Web/apps/admin/src/features/places/components/PlacesScreen.tsx",
+      "symbol": "PlacesScreen / confirm",
+      "line": 16,
+      "description": "Hiển thị địa điểm và xác nhận thao tác lưu trữ, hiển thị hoặc khôi phục.",
+      "excerpt": "export function PlacesScreen({ filter, onFilterChange, onOpen, onNew }: PlacesScreenProps) {\n  const [input, setInput] = useState('')\n  const [query, setQuery] = useState('')\n  const [page, setPage] = useState(1)\n  const { t } = useI18n(), places = usePlaces(filter, { q: query || undefined, page }), toast = useToast(), client = useQueryClient(), archive = useArchivePlace()\n  const [confirmation, setConfirmation] = useState<{ place: PlaceListItem; action: 'visibility' | 'delete' | 'restore' } | null>(null)\n  const visibility = useMutation({ mutationFn: async (place: PlaceListItem) => {\n    const detail = await adminApi.getPlace(place.id)\n    return analyticsApi.visibility(place.id, place.status === 'hidden', detail.rowVersion)\n  }, onSuccess: async () => { await client.invalidateQueries({ queryKey: ['places'] }); await client.invalidateQueries({ queryKey: ['analytics'] }) } })\n  const restore = useMutation({ mutationFn: async (place: PlaceListItem) => {\n    const detail = await adminApi.getPlace(place.id)\n    return analyticsApi.restore(place.id, detail.rowVersion)\n  }, onSuccess: async () => { await client.invalidateQueries({ queryKey: ['places'] }); await client.invalidateQueries({ queryKey: ['analytics'] }); toast.show('Place restored.') } })",
+      "endLine": 29
+    },
+    "PE": {
+      "id": "PE",
+      "path": "src/Web/apps/admin/src/features/places/components/PlaceEditorScreen.tsx",
+      "symbol": "PlaceEditorScreen / save",
+      "line": 29,
+      "description": "Thu thập, kiểm tra và lưu dữ liệu địa điểm, bản nháp nội dung.",
+      "excerpt": "export function PlaceEditorScreen({ placeId, onCreated, onPublished, onArchived }: PlaceEditorScreenProps) {\n    useI18n();\n    const toast = useToast();\n    const place = usePlace(placeId);\n    const categories = useCategories();\n    const savePlace = useSavePlace();\n    const publish = usePublish();\n    const archive = useArchivePlace();\n    const [confirmArchive, setConfirmArchive] = useState(false);\n    const [conflict, setConflict] = useState(false);\n    const [publisherName, setPublisherName] = useState('');\n    const form = useForm<PlaceForm>({ resolver: zodResolver(placeFormSchema), mode: 'onChange', defaultValues: emptyPlaceForm });\n    const { register, control, reset, getValues, formState } = form;\n    const values = useWatch({ control }) as PlaceForm;",
+      "endLine": 42
+    },
+    "AP": {
+      "id": "AP",
+      "path": "src/Catalog/Catalog.Api/Endpoints/AdminPoiEndpoints.cs",
+      "symbol": "MapAdminPoiEndpoints / SaveDraftAsync / Validate",
+      "line": 12,
+      "description": "Định tuyến quản lý POI và bản nháp, gồm lưu trữ, khôi phục và cập nhật hiển thị.",
+      "excerpt": "    public static void MapAdminPoiEndpoints(this RouteGroupBuilder api)\n    {\n        var admin = api.MapGroup(\"/admin\").RequireAuthorization(StaffPolicies.Staff);\n        // UC5/US10: List active categories that the editor can assign to a point of interest.\n        admin.MapGet(\"/categories\", async (CatalogDbContext db, CancellationToken ct) =>\n            Results.Ok(await db.Categories.AsNoTracking().Where(x => x.IsActive).OrderBy(x => x.NameVi)\n                .Select(x => new { x.Code, x.NameVi }).ToListAsync(ct)));\n        admin.MapGet(\"/pois\", ListAsync);\n        // UC5/US10: Load the selected point of interest and its narration versions for editing.\n        admin.MapGet(\"/pois/{id:guid}\", async (Guid id, CatalogDbContext db, CancellationToken ct) =>\n        {\n            var poi = await Query(db).AsNoTracking().SingleOrDefaultAsync(x => x.Id == id, ct);\n            return poi is null ? Results.NotFound() : Results.Ok(Detail(poi));\n        });",
+      "endLine": 25
+    },
+    "CW": {
+      "id": "CW",
+      "path": "src/Catalog/Catalog.Api/Application/CatalogWorkflow.cs",
+      "symbol": "PublishAsync",
+      "line": 16,
+      "description": "Kiểm tra bản nháp đã lưu, ghi người xuất bản, yêu cầu tạo nội dung và outbox trong cùng giao dịch.",
+      "excerpt": "    public async Task<PublishOutcome> PublishAsync(Guid poiId, Guid publisherId, string? publisherName, CancellationToken ct)\n    {\n        ArgumentOutOfRangeException.ThrowIfEqual(publisherId, Guid.Empty);\n        publisherName = publisherName?.Trim();\n        if (string.IsNullOrEmpty(publisherName) || publisherName.Length > 150)\n            return PublishOutcome.Invalid(\"Publisher name is required and must not exceed 150 characters.\");\n\n        await using var tx = await db.Database.BeginTransactionAsync(ct);\n        var poi = await db.PointsOfInterest.Include(x => x.Narration)\n            .ThenInclude(x => x!.Sources).SingleOrDefaultAsync(x => x.Id == poiId && x.DeletedAt == null, ct);\n        if (poi?.Narration is null || poi.LifecycleStatus == PoiLifecycleStatus.Archived)\n            return PublishOutcome.NotFound();\n\n        var source = poi.Narration.Sources.Where(x => x.LifecycleStatus == NarrationSourceStatus.Draft)",
+      "endLine": 29
+    },
+    "JS": {
+      "id": "JS",
+      "path": "src/Web/apps/admin/src/features/jobs/components/JobsScreen.tsx",
+      "symbol": "JobsScreen / onRegenerate",
+      "line": 19,
+      "description": "Lọc, phân trang và xem lỗi công việc; gửi yêu cầu chạy lại và phản hồi kết quả.",
+      "excerpt": "export function JobsScreen({ filter, onFilterChange, placeNames, focus = {}, onClearFocus }: JobsScreenProps) {\n    useI18n();\n    const toast = useToast();\n    const [page, setPage] = useState(1);\n    const jobs = useJobs(filter, 2000, page, focus);\n    const regenerate = useRegenerate();\n    const [expanded, setExpanded] = useState<string | null>(null);\n    const counts = jobs.data?.counts;\n    const items = jobs.data?.items ?? [];\n    const placeName = (job: SynthesisJob) => placeNames[job.poiId] ?? job.poiId;\n    // UC7/US16: Queue regeneration for the selected failed job and report the result to the Operator.\n    const onRegenerate = (job: SynthesisJob) => {\n        regenerate.mutate(job, {\n            onSuccess: result => {",
+      "endLine": 32
+    },
+    "DS": {
+      "id": "DS",
+      "path": "src/Web/apps/admin/src/features/dashboard/DashboardScreen.tsx",
+      "symbol": "DashboardScreen / ExportDialog",
+      "line": 14,
+      "description": "Xem thống kê theo kỳ hoặc địa điểm, kiểm tra ngày xuất và điều phối tải báo cáo Excel.",
+      "excerpt": "export function DashboardScreen({ scope, canManagePlaces = false }: { scope: 'overview' | 'places'; canManagePlaces?: boolean }) {\n  const { t, locale, language } = useI18n(), [search, setSearch] = useSearchParams(), { poiId } = useParams(), navigate = useNavigate()\n  const rawPeriod = search.get('period'), period: ReportPeriod = rawPeriod === 'today' || rawPeriod === 'month' ? rawPeriod : 'week'\n  const [exportOpen, setExportOpen] = useState(false), [languageView, setLanguageView] = useState<'columns' | 'percent'>('columns')\n  const report = useQuery({ queryKey: ['analytics', scope, period, poiId], queryFn: ({ signal }) => analyticsApi.report(period, scope, poiId, signal), refetchInterval: 30000, refetchIntervalInBackground: false })\n  const data = report.data, number = (value: number) => new Intl.NumberFormat(locale).format(value)\n  const date = (iso: string) => new Intl.DateTimeFormat(locale, { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: timezone }).format(new Date(iso))\n  const metricValue = (value: number) => data?.dataStartedAt ? number(value) : '—'\n  const growth = data?.previousVisitors ? (data.visitors - data.previousVisitors) / data.previousVisitors : null\n  const catalog = (status: string) => navigate(status === 'all' ? '/places' : `/places?status=${status}`)\n  const mostViewed = data?.places.filter(p => p.visitors > 0).sort((a, b) => b.visitors - a.visitors || a.name.localeCompare(b.name))[0]\n  const topLanguage = data?.languages.find(l => l.plays > 0)\n  return <>\n    <PageHeader title={poiId && data?.name ? data.name : t(scope === 'overview' ? 'Overview' : 'Place statistics')}",
+      "endLine": 27
+    },
+    "TOKEN": {
+      "id": "TOKEN",
+      "path": "src/Identity/Auth/TokenIssuer.cs",
+      "symbol": "TokenIssuer.Create",
+      "line": 15,
+      "description": "Cấp JWT và tạo refresh token. Identity chỉ lưu mã băm của refresh token.",
+      "excerpt": "    public (LoginResponse Response, RefreshToken Record) Create(ApplicationUser user, string[] roles)\n    {\n        var jwt = settings.Value;\n        var now = clock.GetUtcNow();\n        var expires = now.AddMinutes(jwt.AccessTokenMinutes);\n        var claims = new List<Claim>\n        {\n            new(JwtRegisteredClaimNames.Sub, user.Id.ToString()),\n            new(\"name\", user.UserName!),\n            new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),\n            new(JwtRegisteredClaimNames.Iat, now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)\n        };\n        claims.AddRange(roles.Select(role => new Claim(\"role\", role)));\n        var token = new JwtSecurityToken(jwt.Issuer, jwt.Audience, claims, now.UtcDateTime,",
+      "endLine": 28
+    },
+    "NEARBY": {
+      "id": "NEARBY",
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Queries/DapperNearbyPoiQuery.cs",
+      "symbol": "DapperNearbyPoiQuery.FindAsync",
+      "line": 63,
+      "description": "Truy vấn không gian các POI công khai trong bán kính và sắp theo khoảng cách.",
+      "excerpt": "    public async Task<IReadOnlyList<NearbyPoi>> FindAsync(\n        double latitude,\n        double longitude,\n        int radiusMetres,\n        int maxResults,\n        string languageCode,\n        CancellationToken cancellationToken = default)\n    {\n        var command = new CommandDefinition(\n            FindNearbySql,\n            new\n            {\n                Latitude = latitude,\n                Longitude = longitude,",
+      "endLine": 76
+    },
+    "MAP": {
+      "id": "MAP",
+      "path": "src/Catalog/Catalog.Api/Endpoints/MapPoiEndpoints.cs",
+      "symbol": "GET /api/pois/map",
+      "line": 20,
+      "description": "API truy vấn POI theo vùng tọa độ.",
+      "excerpt": "        api.MapGet(\"/pois/map\", async (double west, double south, double east, double north,\n            CatalogDbContext db, CancellationToken ct, string lang = \"vi\") =>\n        {\n            var errors = new Dictionary<string, string[]>();\n            if (!double.IsFinite(south) || !double.IsFinite(north) || south < -90 || north > 90 || south >= north)\n                errors[\"bounds\"] = [\"Use -90 <= south < north <= 90.\"];\n            if (!double.IsFinite(west) || !double.IsFinite(east) || west is < -180 or > 180 ||\n                east is < -180 or > 180 || west == east)\n                errors[\"bounds\"] = [\"West and east must be distinct longitudes between -180 and 180.\"];\n            if (!CatalogWorkflow.Languages.Contains(lang, StringComparer.Ordinal))\n                errors[\"lang\"] = [\"Unsupported language.\"];\n            if (errors.Count != 0) return Results.ValidationProblem(errors);\n\n            var query = PoiDiscovery.PublicPlaces(db).Where(p =>",
+      "endLine": 33
+    },
+    "MAP-NEAREST": {
+      "id": "MAP-NEAREST",
+      "path": "src/Catalog/Catalog.Api/Endpoints/MapPoiEndpoints.cs",
+      "symbol": "GET /api/pois/map/nearest",
+      "line": 44,
+      "description": "Tìm tối đa 100 POI công khai gần khách trong phạm vi 50 km.",
+      "excerpt": "        api.MapGet(\"/pois/map/nearest\", async (double lat, double lng,\n            CatalogDbContext db, CancellationToken ct, string lang = \"vi\") =>\n        {\n            var errors = new Dictionary<string, string[]>();\n            if (!double.IsFinite(lat) || lat is < -90 or > 90)\n                errors[\"lat\"] = [\"Latitude must be between -90 and 90.\"];\n            if (!double.IsFinite(lng) || lng is < -180 or > 180)\n                errors[\"lng\"] = [\"Longitude must be between -180 and 180.\"];\n            if (!CatalogWorkflow.Languages.Contains(lang, StringComparer.Ordinal))\n                errors[\"lang\"] = [\"Unsupported language.\"];\n            if (errors.Count != 0) return Results.ValidationProblem(errors);\n\n            var places = PoiDiscovery.PublicPlaces(db);\n            IOrderedQueryable<PointOfInterest> nearest;",
+      "endLine": 57
+    },
+    "STORY-ROUTE": {
+      "id": "STORY-ROUTE",
+      "path": "src/Web/apps/pwa/src/app/routes/StoryRoute.tsx",
+      "symbol": "StoryRoute",
+      "line": 29,
+      "description": "Chặn bắt đầu bài nếu vị trí chưa xác định hoặc ngoài tầm nghe. Bài đã tải vẫn điều khiển được.",
+      "excerpt": "  const listenBlocked = ownsPlayer || withinListeningRange(distance) ? undefined : distance === undefined ? 'unknown' : 'far'\n\n  // UC3/US02: Resume the selected narration or load its served-language audio for playback.\n  const play = () => {\n    if (!track || listenBlocked) return\n    if (playback.status !== 'idle' && playback.track.url === track.url) dispatch({ type: 'PLAY' })\n    else dispatch({ type: 'LOAD', track, autoplay: true })\n  }\n\n  // The play button on a Nearby card opens the story and starts it once.\n  const autoplayed = useRef(false)\n  useEffect(() => {\n    if (!place.autoplay || autoplayed.current || !track || listenBlocked) return\n    autoplayed.current = true",
+      "endLine": 42
+    },
+    "LISTEN-RANGE": {
+      "id": "LISTEN-RANGE",
+      "path": "src/Web/apps/pwa/src/components/listeningRange.ts",
+      "symbol": "withinListeningRange",
+      "line": 13,
+      "description": "PWA chỉ bắt đầu phát khi khoảng cách đã biết và không quá 100 m.",
+      "excerpt": "export const withinListeningRange = (distance: number | undefined): distance is number =>\n  distance !== undefined && distance <= LISTEN_RADIUS_M",
+      "endLine": 14
+    },
+    "STORY": {
+      "id": "STORY",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "GET /api/pois/{id}/story",
+      "line": 40,
+      "description": "Tìm nội dung phục vụ theo phiên bản đang hoạt động và trả lựa chọn ngôn ngữ dự phòng.",
+      "excerpt": "        api.MapGet(\"/pois/{id:guid}/story\", async (Guid id, CatalogDbContext db, CancellationToken ct,\n            string lang = \"vi\") =>\n        {\n            if (!CatalogWorkflow.Languages.Contains(lang, StringComparer.Ordinal))\n                return Results.ValidationProblem(new Dictionary<string, string[]> { [\"lang\"] = [\"Unsupported language.\"] });\n            var poi = await db.PointsOfInterest.AsNoTracking().Include(x => x.Category)\n                .Include(x => x.Localizations).Include(x => x.Media).Include(x => x.Narration)\n                .SingleOrDefaultAsync(x => x.Id == id && x.LifecycleStatus == PoiLifecycleStatus.Active &&\n                    x.DeletedAt == null && x.IsVisible, ct);\n            if (poi?.Narration?.ActiveSourceId is null) return Results.NotFound();\n            var source = await db.NarrationSources.AsNoTracking()\n                .SingleAsync(x => x.Id == poi.Narration.ActiveSourceId, ct);\n            var contents = await db.CatalogDeliveryContents.AsNoTracking().Where(x =>\n                x.NarrationId == poi.Narration.Id && x.SourceVersion == source.Version &&",
+      "endLine": 53
+    },
+    "AUDIO-HTTP": {
+      "id": "AUDIO-HTTP",
+      "path": "src/Speech/Speech.Api/Program.cs",
+      "symbol": "GET /api/audio/{narrationId}/v{version}/{lang}.mp3",
+      "line": 55,
+      "description": "Tra khóa đối tượng của bản tổng hợp thành công và phục vụ MP3 với hỗ trợ HTTP Range.",
+      "excerpt": "app.MapGet(\"/api/audio/{narrationId:guid}/v{version:int}/{lang}.mp3\", async (\n    Guid narrationId, int version, string lang, SpeechDbContext db, MinioAudioStorage storage, HttpContext http,\n    CancellationToken ct) =>\n{\n    if (version < 1 || !new[] { \"vi\", \"en\", \"ja\", \"ko\", \"zh\" }.Contains(lang, StringComparer.Ordinal))\n        return Results.NotFound();\n    var key = await (from job in db.SynthesisJobs\n                     join file in db.AudioFiles on job.Id equals file.JobId\n                     where job.NarrationId == narrationId && job.SourceVersion == version &&\n                           job.Lang == lang && job.Status == SynthesisStatus.Succeeded\n                     select file.ObjectKey).SingleOrDefaultAsync(ct)\n        ?? $\"narration/{narrationId}/v{version}/{lang}.mp3\";\n    try\n    {",
+      "endLine": 68
+    },
+    "LANG-REQUEST": {
+      "id": "LANG-REQUEST",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "POST /api/pois/{id}/languages/{lang}/requests",
+      "line": 96,
+      "description": "Nhận yêu cầu ngôn ngữ thiếu của khách và chuyển cho CatalogWorkflow.",
+      "excerpt": "        api.MapPost(\"/pois/{id:guid}/languages/{lang}/requests\", async (\n            Guid id, string lang, CatalogDbContext db, CatalogWorkflow workflow, CancellationToken ct) =>\n        {\n            if (!CatalogWorkflow.Languages.Contains(lang, StringComparer.Ordinal))\n                return Results.ValidationProblem(new Dictionary<string, string[]> { [\"lang\"] = [\"Unsupported language.\"] });\n            var narration = await db.Narrations.AsNoTracking().Include(x => x.Poi)\n                .SingleOrDefaultAsync(x => x.PoiId == id && x.ActiveSourceId != null &&\n                    x.Poi.DeletedAt == null && x.Poi.IsVisible && x.Poi.LifecycleStatus == PoiLifecycleStatus.Active, ct);\n            if (narration is null) return Results.NotFound();\n            var version = await db.NarrationSources.AsNoTracking()\n                .Where(x => x.Id == narration.ActiveSourceId).Select(x => x.Version).SingleAsync(ct);\n            var ready = await db.CatalogDeliveryContents.AsNoTracking().AnyAsync(x =>\n                x.NarrationId == narration.Id && x.SourceVersion == version && x.LanguageCode == lang &&\n                x.TextReadyAt != null && x.AudioReadyAt != null && x.AudioObjectKey != null, ct);",
+      "endLine": 109
+    },
+    "REQUEST-STATUS": {
+      "id": "REQUEST-STATUS",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "GET /api/generation-requests/{id}",
+      "line": 124,
+      "description": "Đọc trạng thái yêu cầu tạo nội dung theo mã yêu cầu.",
+      "excerpt": "        api.MapGet(\"/generation-requests/{id:guid}\", async (Guid id, CatalogDbContext db, CancellationToken ct) =>\n        {\n            var request = await db.GenerationRequests.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id, ct);\n            return request is null ? Results.NotFound() : Results.Ok(ToRequestDto(request));\n        });\n\n        var admin = api.MapGroup(\"/admin\").RequireAuthorization(StaffPolicies.Staff);\n\n        // UC6/US11: Accept an editor publication and return the URL for tracking its background generation progress.\n        admin.MapPost(\"/pois/{id:guid}/publish\", async (\n            Guid id, PublishRequest? request, HttpContext context, CatalogWorkflow workflow, CancellationToken ct) =>\n        {\n            if (!Guid.TryParse(context.User.FindFirst(\"sub\")?.Value, out var publisherId) || publisherId == Guid.Empty)\n                return Results.Forbid();",
+      "endLine": 137
+    },
+    "DRAFT": {
+      "id": "DRAFT",
+      "path": "src/Catalog/Catalog.Api/Endpoints/AdminPoiEndpoints.cs",
+      "symbol": "SaveDraftAsync",
+      "line": 171,
+      "description": "Kiểm tra và lưu bản nháp, cấp số phiên bản khi tạo bản nháp mới.",
+      "excerpt": "    private static async Task<IResult> SaveDraftAsync(Guid id, DraftUpsert input, HttpContext context, CatalogDbContext db, CancellationToken ct)\n    {\n        if (!TryGetStaffId(context, out var staffId)) return Results.Forbid();\n        var poi = await Query(db).SingleOrDefaultAsync(x => x.Id == id, ct);\n        if (poi is null) return Results.NotFound();\n        if (Status(poi) == \"archived\") return Conflict(\"Archived places cannot be edited.\");\n        if (input.Title is null || input.Title.Length > 300) return Invalid(\"title\", \"Title is required and must not exceed 300 characters.\");\n        if (input.Body is null || input.Body.Length > 1200) return Invalid(\"body\", \"Body is required and must not exceed 1200 characters.\");\n        var narration = poi.Narration;\n        if (narration is null)\n        {\n            narration = new Narration { Id = Guid.NewGuid(), PoiId = id, Poi = poi };\n            db.Narrations.Add(narration);\n            poi.Narration = narration;",
+      "endLine": 184
+    },
+    "GEOCODING": {
+      "id": "GEOCODING",
+      "path": "src/Catalog/Catalog.Api/Application/LocationSearch.cs",
+      "symbol": "LocationSearch.SearchAsync",
+      "line": 32,
+      "description": "Tìm vị trí qua Photon để biên tập viên chọn tọa độ cho POI.",
+      "excerpt": "    public async Task<LocationSuggestion[]> SearchAsync(string query, string language, CancellationToken ct)\n    {\n        if (query.Any(char.IsControl)) throw new ArgumentException(\"Invalid location search.\");\n        query = string.Join(' ', query.Split((char[]?)null, StringSplitOptions.RemoveEmptyEntries));\n        if (query.Length is < 3 or > 200 || query.Any(char.IsControl) || language is not (\"vi\" or \"en\"))\n            throw new ArgumentException(\"Invalid location search.\");\n        var config = options.CurrentValue;\n        if (!Uri.TryCreate(config.BaseUrl, UriKind.Absolute, out var origin) || origin.Scheme != \"https\" ||\n            origin.Query.Length != 0 || origin.Fragment.Length != 0 || origin.UserInfo.Length != 0 || string.IsNullOrWhiteSpace(config.UserAgent))\n            throw new LocationSearchUnavailableException();\n        var key = $\"{origin}|{language}|{query.ToUpperInvariant()}\";\n        if (cache.TryGetValue(key, out LocationSuggestion[]? hit)) return hit!;\n        // Reject concurrent misses rather than building an unbounded request queue.\n        if (!await gate.WaitAsync(0, ct)) throw new LocationSearchBusyException();",
+      "endLine": 45
+    },
+    "RETRY-HTTP": {
+      "id": "RETRY-HTTP",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "POST /api/admin/narrations/{narrationId}/versions/{version}/languages/{lang}/retry",
+      "line": 150,
+      "description": "Chỉ Operator được gọi đường dẫn xếp hàng thử lại cho phiên bản và ngôn ngữ.",
+      "excerpt": "        admin.MapPost(\"/narrations/{narrationId:guid}/versions/{version:int}/languages/{lang}/retry\",\n            async (Guid narrationId, int version, string lang, CatalogWorkflow workflow, CancellationToken ct) =>\n            {\n                var retry = await workflow.RetryAsync(narrationId, version, lang, ct);\n                if (retry is null) return Results.NotFound();\n                var request = retry.Request;\n                var response = new\n                {\n                    id = request?.Id, lang, version, queued = retry.Queued,\n                    status = retry.AlreadyReady ? \"succeeded\" : StatusFor(request!),\n                    updatedAt = request?.StatusUpdatedAt\n                };\n                return retry.Queued ? Results.Accepted($\"/api/generation-requests/{request!.Id}\", response)\n                    : Results.Ok(response);",
+      "endLine": 163
+    },
+    "REQUEUE": {
+      "id": "REQUEUE",
+      "path": "src/Catalog/Catalog.Api/Application/CatalogWorkflow.cs",
+      "symbol": "CatalogWorkflow.RetryAsync",
+      "line": 78,
+      "description": "Tái dùng yêu cầu đang chạy hoặc ghi yêu cầu thử lại theo phiên bản và ngôn ngữ.",
+      "excerpt": "    public async Task<RetryResult?> RetryAsync(Guid narrationId, int version, string lang, CancellationToken ct,\n        bool allowFailedRetry = true)\n    {\n        if (!Languages.Contains(lang, StringComparer.Ordinal))\n            return null;\n        await using var tx = await db.Database.BeginTransactionAsync(ct);\n        var source = await db.NarrationSources.SingleOrDefaultAsync(x =>\n            x.NarrationId == narrationId && x.Version == version && x.PublishedAt != null &&\n            x.LifecycleStatus != NarrationSourceStatus.Archived, ct);\n        if (source is null)\n            return null;\n        var narration = await db.Narrations.Include(x => x.Poi).SingleAsync(x => x.Id == narrationId, ct);\n        if (narration.Poi.DeletedAt is not null || narration.Poi.LifecycleStatus == PoiLifecycleStatus.Archived)\n            return null;",
+      "endLine": 91
+    },
+    "OUTBOX": {
+      "id": "OUTBOX",
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Messaging/CatalogOutboxDispatcher.cs",
+      "symbol": "CatalogOutboxDispatcher.ExecuteAsync",
+      "line": 16,
+      "description": "Đọc outbox, phát ContentPublished qua message broker và cập nhật trạng thái gửi.",
+      "excerpt": "    protected override async Task ExecuteAsync(CancellationToken stoppingToken)\n    {\n        while (!stoppingToken.IsCancellationRequested)\n        {\n            try\n            {\n                using var scope = scopes.CreateScope();\n                var db = scope.ServiceProvider.GetRequiredService<CatalogDbContext>();\n                var publisher = scope.ServiceProvider.GetRequiredService<IPublishEndpoint>();\n                var pending = await db.OutboxMessages.Where(x => x.PublishedAt == null)\n                    .OrderBy(x => x.OccurredAt).Take(20).ToListAsync(stoppingToken);\n                foreach (var row in pending)\n                {\n                    // US21: Resume the publication trace when dispatching each persisted generation message.",
+      "endLine": 29
+    },
+    "PROJECTION": {
+      "id": "PROJECTION",
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "symbol": "CatalogEventProjection",
+      "line": 9,
+      "description": "Ghi nhận kết quả dịch và tổng hợp, cập nhật tiến độ và ghi nhận lỗi.",
+      "excerpt": "public sealed class CatalogEventProjection(CatalogDbContext db, CatalogWorkflow workflow)\n{\n    // UC4/UC6/US05/US11: Store translated narration text and update the language request before checking activation readiness.\n    public async Task TranslationReadyAsync(TranslationReady message, Guid messageId, CancellationToken ct)\n    {\n        await using var tx = await db.Database.BeginTransactionAsync(ct);\n        if (await AlreadyProcessed(messageId, nameof(TranslationReady), ct)) return;\n        if (!await SourceExists(message.NarrationId, message.PoiId, message.SourceVersion, ct)) return;\n\n        var content = await GetOrCreate(message.NarrationId, message.SourceVersion, message.Lang, ct);\n        content.Title = message.Title;\n        content.Body = message.Body;\n        content.TextReadyAt ??= DateTimeOffset.UtcNow;\n        content.ProjectionUpdatedAt = DateTimeOffset.UtcNow;",
+      "endLine": 22
+    },
+    "ACTIVATE": {
+      "id": "ACTIVATE",
+      "path": "src/Catalog/Catalog.Api/Application/CatalogWorkflow.cs",
+      "symbol": "CatalogWorkflow.TryActivateAsync",
+      "line": 157,
+      "description": "Chuyển con trỏ phiên bản khi văn bản và âm thanh tiếng Việt sẵn sàng.",
+      "excerpt": "    public async Task<bool> TryActivateAsync(Guid narrationId, int version, CancellationToken ct)\n    {\n        var ready = await db.CatalogDeliveryContents.AsNoTracking()\n            .Where(x => x.NarrationId == narrationId && x.SourceVersion == version &&\n                x.TextReadyAt != null && x.AudioReadyAt != null && x.AudioObjectKey != null)\n            .Select(x => x.LanguageCode).ToListAsync(ct);\n        // Vietnamese is the terminal fallback for every supported language.\n        if (!ready.Contains(\"vi\"))\n            return false;\n\n        var narration = await db.Narrations.Include(x => x.Poi).Include(x => x.Sources)\n            .SingleOrDefaultAsync(x => x.Id == narrationId, ct);\n        if (narration is null || narration.Poi.DeletedAt is not null ||\n            narration.Poi.LifecycleStatus == PoiLifecycleStatus.Archived)",
+      "endLine": 170
+    },
+    "PROGRESS": {
+      "id": "PROGRESS",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "GET /api/admin/pois/{id}/versions/{version}/progress",
+      "line": 167,
+      "description": "Trả tiến độ bốn bản dịch, năm bản âm thanh và phiên bản đang phục vụ.",
+      "excerpt": "        admin.MapGet(\"/pois/{id:guid}/versions/{version:int}/progress\", async (\n            Guid id, int version, CatalogDbContext db, CancellationToken ct) =>\n        {\n            var narration = await db.Narrations.AsNoTracking().SingleOrDefaultAsync(x => x.PoiId == id, ct);\n            if (narration is null) return Results.NotFound();\n            var source = await db.NarrationSources.AsNoTracking().SingleOrDefaultAsync(x =>\n                x.NarrationId == narration.Id && x.Version == version && x.PublishedAt != null, ct);\n            if (source is null) return Results.NotFound();\n            var requests = await db.GenerationRequests.AsNoTracking().Where(x =>\n                x.NarrationId == narration.Id && x.SourceVersion == version).ToDictionaryAsync(x => x.LanguageCode, ct);\n            var contents = await db.CatalogDeliveryContents.AsNoTracking().Where(x =>\n                x.NarrationId == narration.Id && x.SourceVersion == version).ToDictionaryAsync(x => x.LanguageCode, ct);\n            var languages = CatalogWorkflow.Languages.Select(lang =>\n            {",
+      "endLine": 180
+    },
+    "LOCALIZATION": {
+      "id": "LOCALIZATION",
+      "path": "src/Localization/Localization.Api/Consumers/ContentPublishedConsumer.cs",
+      "symbol": "ContentPublishedConsumer.Consume",
+      "line": 28,
+      "description": "Dùng lại hoặc tạo văn bản từng ngôn ngữ và phát TranslationReady.",
+      "excerpt": "    public async Task Consume(ConsumeContext<ContentPublished> context)\n    {\n        var m = context.Message;\n        var ct = context.CancellationToken;\n        string[] langs = m.TargetLang is null ? AllLangs : [m.TargetLang];\n\n        // RabbitMQ delivers at least once and a retry re-runs the whole message,\n        // so only languages not stored yet are produced.\n        // US17: Load existing translations so a repeated publication event can reuse work already produced.\n        var stored = await db.Translations\n            .Where(t => t.NarrationId == m.NarrationId && t.SourceVersion == m.SourceVersion)\n            .ToDictionaryAsync(t => t.Lang, ct);\n        var skipped = langs.Count(stored.ContainsKey);\n",
+      "endLine": 41
+    },
+    "TRANSLATION": {
+      "id": "TRANSLATION",
+      "path": "src/Localization/Localization.Api/Providers/GeminiTranslationProvider.cs",
+      "symbol": "GeminiTranslationProvider.TranslateAsync",
+      "line": 51,
+      "description": "Gửi văn bản đã bảo vệ thuật ngữ đến Gemini và đọc kết quả dịch.",
+      "excerpt": "    public async Task<(string Title, string Body)> TranslateAsync(\n        string title, string body, string targetLang, CancellationToken ct = default)\n    {\n        using var request = new HttpRequestMessage(HttpMethod.Post,\n            $\"https://generativelanguage.googleapis.com/v1beta/models/{Model}:generateContent\")\n        {\n            Content = JsonContent.Create(new\n            {\n                contents = new[] { new { role = \"user\", parts = new[] { new { text = Prompt(title, body, targetLang) } } } },\n                generationConfig = new\n                {\n                    temperature = 0.2,\n                    responseMimeType = \"application/json\",\n                    responseSchema = new",
+      "endLine": 64
+    },
+    "TRANSLATION-STORE": {
+      "id": "TRANSLATION-STORE",
+      "path": "src/Localization/Localization.Api/Consumers/ContentPublishedConsumer.cs",
+      "symbol": "ContentPublishedConsumer.Store",
+      "line": 82,
+      "description": "Ghi văn bản và metadata của bản dịch vào D3.",
+      "excerpt": "    private async Task<Translation> Store(ContentPublished m, string lang, TermGuard guard, CancellationToken ct)\n    {\n        var translation = lang == \"vi\"\n            ? NewTranslation(m, lang, m.Title, m.Body, \"passthrough\", \"none\")\n            : await Translate(m, lang, guard, ct);\n\n        db.Translations.Add(translation);\n        // Saved per language so a failure in one keeps the ones already paid for.\n        await db.SaveChangesAsync(ct);\n        return translation;\n    }\n\n    // UC4/UC6/US05/US11/US12: Protect landmark names before translation and restore the glossary names in the translated narration.\n    private async Task<Translation> Translate(ContentPublished m, string lang, TermGuard guard, CancellationToken ct)",
+      "endLine": 95
+    },
+    "TERM-GUARD": {
+      "id": "TERM-GUARD",
+      "path": "src/Localization/Localization.Core/TermGuard.cs",
+      "symbol": "TermGuard.Protect",
+      "line": 21,
+      "description": "Thay thuật ngữ trong văn bản bằng ký hiệu trước khi gọi dịch.",
+      "excerpt": "    public (string Text, IReadOnlyDictionary<string, string> Tokens) Protect(string text)\n    {\n        // Vietnamese arrives as NFC or NFD depending on the keyboard; compare in one form.\n        text = text.Normalize(NormalizationForm.FormC);\n        var tokens = new Dictionary<string, string>();\n\n        foreach (var term in _terms.Where(t => text.Contains(t, StringComparison.Ordinal)))\n        {\n            var token = $\"[[T{tokens.Count + 1}]]\";\n            text = text.Replace(term, token, StringComparison.Ordinal);\n            tokens[token] = term;\n        }\n\n        return (text, tokens);",
+      "endLine": 34
+    },
+    "SPEECH": {
+      "id": "SPEECH",
+      "path": "src/Speech/Speech.Api/Consumers/TranslationReadyConsumer.cs",
+      "symbol": "TranslationReadyConsumer.Consume",
+      "line": 28,
+      "description": "Dùng lại kết quả hoặc tạo âm thanh, ghi MP3 và phát AudioReady.",
+      "excerpt": "    public async Task Consume(ConsumeContext<TranslationReady> context)\n    {\n        var m = context.Message;\n        var ct = context.CancellationToken;\n        var job = await jobs.GetOrCreateAsync(m, () => tts.Value.Voices[m.Lang], ct);\n        var token = Guid.NewGuid();\n        var waitedForOwner = false;\n        while (true)\n        {\n            if (job.Status == SynthesisStatus.Succeeded)\n            {\n                var stored = await jobs.GetAudioAsync(job.Id, ct);\n                await Publish(context, stored);\n                Log(\"skipped\", m, stored);",
+      "endLine": 41
+    },
+    "AUDIO-OBJECT": {
+      "id": "AUDIO-OBJECT",
+      "path": "src/Speech/Speech.Api/Consumers/TranslationReadyConsumer.cs",
+      "symbol": "Tạo khóa đối tượng MP3",
+      "line": 64,
+      "description": "Mỗi lần xử lý ghi một khóa riêng ở MinIO, rồi lưu khóa đó trong bản ghi tệp.",
+      "excerpt": "            var objectKey = $\"narration/{m.NarrationId}/v{m.SourceVersion}/{m.Lang}/{token:N}.mp3\";\n            await ServiceTracing.RunAsync(\"speech.storage.upload\", m.NarrationId, m.PoiId,\n                m.SourceVersion, m.Lang, () => storage.SaveAsync(objectKey, audio.Audio, work.Token));\n\n            var file = new AudioFile\n            {\n                JobId = job.Id, ObjectKey = objectKey, DurationMs = audio.DurationMs, SizeBytes = audio.Audio.Length,\n                TranscriptJson = audio.Cues is { Count: > 0 }\n                    ? new AudioTranscript(m.NarrationId, m.SourceVersion, m.Lang, audio.DurationMs,\n                        audio.Cues.Select(c => new TranscriptCue(c.StartMs, c.EndMs, c.Text)).ToArray()).ToJson() : null,\n            };\n            if (!await jobs.TryCompleteAsync(file, token, ct))\n                throw new InvalidOperationException(\"Synthesis lease expired before completion.\");\n",
+      "endLine": 77
+    },
+    "AUDIO-READY": {
+      "id": "AUDIO-READY",
+      "path": "src/Speech/Speech.Api/Consumers/TranslationReadyConsumer.cs",
+      "symbol": "Publish AudioReady",
+      "line": 92,
+      "description": "Báo Catalog rằng phiên bản và ngôn ngữ này đã có âm thanh.",
+      "excerpt": "        return context.Publish(new AudioReady(\n            m.NarrationId, m.PoiId, m.SourceVersion, m.Lang, file.ObjectKey, file.DurationMs, file.TranscriptJson), context.CancellationToken);\n    }\n\n    private void Log(string outcome, TranslationReady m, AudioFile file) =>\n        logger.LogInformation(\n            \"TranslationReady {Outcome}: narration={NarrationId} v={SourceVersion} lang={Lang} bytes={SizeBytes} durationMs={DurationMs}\",\n            outcome, m.NarrationId, m.SourceVersion, m.Lang, file.SizeBytes, file.DurationMs);\n}",
+      "endLine": 100
+    },
+    "JOB-STATE": {
+      "id": "JOB-STATE",
+      "path": "src/Speech/Speech.Core/Entities/SynthesisJob.cs",
+      "symbol": "SynthesisJob.Start / Succeed / Fail",
+      "line": 43,
+      "description": "Chuyển trạng thái job, tăng số lần thử và ghi nhận thông tin lỗi.",
+      "excerpt": "    public void Start(Guid? leaseToken = null, DateTimeOffset? leaseExpiresAt = null)\n    {\n        MoveTo(SynthesisStatus.Processing,\n            SynthesisStatus.Pending, SynthesisStatus.Failed, SynthesisStatus.Processing);\n        AttemptCount++;\n        LeaseToken = leaseToken;\n        LeaseExpiresAt = leaseExpiresAt;\n    }\n\n    // UC4/UC6/US05/US11: Mark an audio-generation job as succeeded and clear its previous error.\n    public void Succeed()\n    {\n        MoveTo(SynthesisStatus.Succeeded, SynthesisStatus.Processing);\n        LastError = null;",
+      "endLine": 56
+    },
+    "JOB-STORE": {
+      "id": "JOB-STORE",
+      "path": "src/Speech/Speech.Api/Infrastructure/SynthesisJobStore.cs",
+      "symbol": "SynthesisJobStore.TryClaimAsync / TryCompleteAsync",
+      "line": 40,
+      "description": "Dùng lease để một worker xử lý công việc và kiểm tra quyền hoàn tất của lần chạy.",
+      "excerpt": "    public async Task<bool> TryClaimAsync(Guid id, Guid token, CancellationToken ct)\n    {\n        var now = DateTimeOffset.UtcNow;\n        var expires = now + LeaseDuration;\n        var claimable = db.SynthesisJobs.Where(j => j.Id == id &&\n            (j.Status == SynthesisStatus.Pending || j.Status == SynthesisStatus.Failed ||\n             j.Status == SynthesisStatus.Processing && (j.LeaseExpiresAt == null || j.LeaseExpiresAt <= now)));\n        if (db.Database.IsRelational())\n        {\n            return await claimable.ExecuteUpdateAsync(set => set\n                .SetProperty(j => j.Status, SynthesisStatus.Processing)\n                .SetProperty(j => j.UpdatedAt, now)\n                .SetProperty(j => j.LeaseToken, (Guid?)token)\n                .SetProperty(j => j.LeaseExpiresAt, (DateTimeOffset?)expires)",
+      "endLine": 53
+    },
+    "TTS": {
+      "id": "TTS",
+      "path": "src/Speech/Speech.Api/Providers/GoogleTtsProvider.cs",
+      "symbol": "GoogleTtsProvider.SynthesizeWithTimingAsync",
+      "line": 68,
+      "description": "Gọi Google Cloud Text-to-Speech và lấy MP3 cùng mốc đồng bộ văn bản.",
+      "excerpt": "    public async Task<SynthesizedSpeech> SynthesizeWithTimingAsync(string text, string lang, string voice, CancellationToken ct = default)\n    {\n        if (timingClient is null) throw new InvalidOperationException(\"The timepoint TTS client is not configured.\");\n        var script = TimedSpeechScript.Create(text);\n        // SSML counts toward Google's input-byte limit. Preserve existing plain-text synthesis\n        // when adding marks would push an otherwise valid narration over that limit.\n        var timed = Encoding.UTF8.GetByteCount(script.Ssml) <= 5000;\n        var request = new Google.Cloud.TextToSpeech.V1Beta1.SynthesizeSpeechRequest\n        {\n            Input = timed ? new() { Ssml = script.Ssml } : new() { Text = text },\n            Voice = new() { Name = voice, LanguageCode = string.Join('-', voice.Split('-').Take(2)) },\n            AudioConfig = new() { AudioEncoding = Google.Cloud.TextToSpeech.V1Beta1.AudioEncoding.Mp3 },\n        };\n        if (timed) request.EnableTimePointing.Add(Google.Cloud.TextToSpeech.V1Beta1.SynthesizeSpeechRequest.Types.TimepointType.SsmlMark);",
+      "endLine": 81
+    },
+    "STORAGE": {
+      "id": "STORAGE",
+      "path": "src/Speech/Speech.Api/Providers/MinioAudioStorage.cs",
+      "symbol": "MinioAudioStorage.SaveAsync",
+      "line": 35,
+      "description": "Ghi tệp âm thanh vào MinIO và đọc theo khóa đối tượng.",
+      "excerpt": "    public async Task SaveAsync(string objectKey, byte[] content, CancellationToken ct = default)\n    {\n        using var stream = new MemoryStream(content);\n        await _minio.PutObjectAsync(new PutObjectArgs()\n            .WithBucket(_options.Bucket)\n            .WithObject(objectKey)\n            .WithStreamData(stream)\n            .WithObjectSize(content.Length)\n            .WithContentType(\"audio/mpeg\"), ct);\n    }\n\n    // UC3/US02: Read the stored narration MP3 requested by the visitor audio player.\n    public async Task<byte[]> ReadAsync(string objectKey, CancellationToken ct = default)\n    {",
+      "endLine": 48
+    },
+    "JOBS-HTTP": {
+      "id": "JOBS-HTTP",
+      "path": "src/Speech/Speech.Api/Endpoints/SpeechAdminEndpoints.cs",
+      "symbol": "MapSpeechAdminEndpoints",
+      "line": 29,
+      "description": "Giới hạn quyền Operator, lọc và phân trang danh sách, đọc chi tiết job.",
+      "excerpt": "    public static void MapSpeechAdminEndpoints(this WebApplication app)\n    {\n        // Route protection already requires Operator; the group repeats it so a middleware change cannot open it.\n        var jobs = app.MapGroup(\"/api/admin/synthesis-jobs\").RequireAuthorization(StaffPolicies.Operator);\n\n        // UC7/US15: Return paginated synthesis jobs with status filters and counts for the Operator dashboard.\n        jobs.MapGet(\"\", async (SpeechDbContext db, CancellationToken ct,\n            string status = \"all\", int page = 1, int pageSize = 50, Guid? poiId = null, string? lang = null, int? version = null) =>\n        {\n            var errors = new Dictionary<string, string[]>();\n            if (status != \"all\" && !Statuses.ContainsKey(status)) errors[\"status\"] = [\"Unsupported status.\"];\n            if (page < 1) errors[\"page\"] = [\"Must be 1 or greater.\"];\n            if (pageSize is < 1 or > MaximumPageSize) errors[\"pageSize\"] = [$\"Must be between 1 and {MaximumPageSize}.\"];\n            if (lang != null && lang is not (\"vi\" or \"en\" or \"ja\" or \"ko\" or \"zh\")) errors[\"lang\"] = [\"Unsupported language.\"];",
+      "endLine": 42
+    },
+    "USAGE-HTTP": {
+      "id": "USAGE-HTTP",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsEndpoints.cs",
+      "symbol": "POST /api/analytics/events",
+      "line": 16,
+      "description": "Kiểm tra và tiếp nhận các lô sự kiện sử dụng từ PWA.",
+      "excerpt": "        api.MapPost(\"/analytics/events\", async (UsageBatch batch, CatalogDbContext db, CancellationToken ct) =>\n        {\n            try\n            {\n                await using var tx = db.Database.IsRelational() ? await db.Database.BeginTransactionAsync(IsolationLevel.Serializable, ct) : null;\n                var count = await new AnalyticsService(db).IngestAsync(batch, ct);\n                if (tx != null) await tx.CommitAsync(ct);\n                return Results.Ok(new { accepted = count });\n            }\n            catch (ArgumentException) { return Results.BadRequest(new { code = \"invalid_analytics_event\" }); }\n            catch (DbUpdateException) { return Results.Conflict(new { code = \"analytics_retry\" }); }\n            catch (SqlException ex) when (ex.Number == 1205) { return Results.StatusCode(503); }\n        }).WithMetadata(new RequestSizeLimitAttribute(64 * 1024));\n",
+      "endLine": 29
+    },
+    "USAGE-INGEST": {
+      "id": "USAGE-INGEST",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsService.cs",
+      "symbol": "AnalyticsService.IngestAsync",
+      "line": 29,
+      "description": "Ghi sự kiện khách và cập nhật hiện diện, lượt nghe hoặc sự cố.",
+      "excerpt": "    public async Task<int> IngestAsync(UsageBatch batch, CancellationToken ct)\n    {\n        var now = time.GetUtcNow();\n        if (batch.Mode != \"live\" || batch.Events is null || batch.Events.Length is < 1 or > 50)\n            throw new ArgumentException(\"Invalid analytics batch.\");\n        foreach (var e in batch.Events)\n            if (e.EventId == Guid.Empty || (e.Kind != \"error\" && (e.VisitorId == Guid.Empty || e.TabId == Guid.Empty)) ||\n                !Kinds.Contains(e.Kind) || !Languages.Contains(e.Language) ||\n                e.OccurredAt < now.AddDays(-1) || e.OccurredAt > now.AddMinutes(5) ||\n                (e.Kind is \"view\" or \"play\" && (e.PoiId is null || e.ContextId is null || e.ContextId == Guid.Empty)) ||\n                (e.Kind == \"error\" && (e.PoiId is null || !ErrorKinds.Contains(e.ErrorType ?? \"\"))) ||\n                e.PoiId == Guid.Empty || e.Version is < 1 || (e.AudioLanguage != null && !Languages.Contains(e.AudioLanguage)))\n                throw new ArgumentException(\"Invalid analytics event.\");\n        var ids = batch.Events.Where(e => e.PoiId != null).Select(e => e.PoiId!.Value).Distinct().ToArray();",
+      "endLine": 42
+    },
+    "USAGE-PWA": {
+      "id": "USAGE-PWA",
+      "path": "src/Web/apps/pwa/src/analytics/usage.ts",
+      "symbol": "recordPlaying",
+      "line": 53,
+      "description": "Ghi lượt nghe theo nội dung thực sự phát, kèm ngôn ngữ của bản phát.",
+      "excerpt": "export function recordPlaying(track: { poiId: string; version: number; lang: Lang; url: string }) {\n  if (!trackingEnabled()) { lastTrack = ''; countedPlay = false; return }\n  const key = `${track.poiId}:${track.version}:${track.lang}:${track.url}`\n  if (key !== lastTrack) { lastTrack = key; playbackId = uuid(); countedPlay = false }\n  if (countedPlay) return\n  countedPlay = true; enqueue('play', track.poiId, { contextId: playbackId, version: track.version, audioLanguage: track.lang })\n}\nexport function playbackEnded() { countedPlay = false; playbackId = uuid() }\nexport function recordPlaceError(poiId: string, errorType: 'story_load' | 'audio_load' | 'audio_play', version?: number) { enqueue('error', poiId, { errorType, version }) }",
+      "endLine": 61
+    },
+    "REPORTS-HTTP": {
+      "id": "REPORTS-HTTP",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsEndpoints.cs",
+      "symbol": "GET /api/admin/analytics/overview và /places",
+      "line": 32,
+      "description": "Trả thống kê tổng quan hoặc theo POI, hỗ trợ kỳ chuẩn và khoảng ngày tùy chọn.",
+      "excerpt": "        reports.MapGet(\"/overview\", (CatalogDbContext db, CancellationToken ct, string period = \"week\", DateOnly? from = null, DateOnly? to = null) => Report(db, period, null, ct, false, from, to));\n        reports.MapGet(\"/places\", (CatalogDbContext db, CancellationToken ct, string period = \"week\", DateOnly? from = null, DateOnly? to = null) => Report(db, period, null, ct, true, from, to));\n        reports.MapGet(\"/places/{id:guid}\", (Guid id, CatalogDbContext db, CancellationToken ct, string period = \"week\", DateOnly? from = null, DateOnly? to = null) => Report(db, period, id, ct, false, from, to));\n        // UC8: Return the annual visitor activity heatmap for the staff overview dashboard.\n        reports.MapGet(\"/calendar\", async (CatalogDbContext db, CancellationToken ct, int year) =>\n        {\n            try { return Results.Ok(await new AnalyticsService(db).CalendarAsync(year, ct)); }\n            catch (ArgumentException) { return Results.BadRequest(new { code = \"invalid_year\" }); }\n        });\n        // UC8: List tracked system errors grouped by place, version, and language for staff inspection.\n        reports.MapGet(\"/errors\", async (CatalogDbContext db, CancellationToken ct, string status = \"all\", int page = 1) =>\n        {\n            if (status is not (\"all\" or \"new\" or \"doing\" or \"done\") || page < 1) return Results.BadRequest();\n            var grouped = await db.SystemIssues.AsNoTracking().GroupBy(x => x.Status).Select(g => new { Status = g.Key, Count = g.Count() }).ToListAsync(ct);",
+      "endLine": 45
+    },
+    "REPORT": {
+      "id": "REPORT",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsService.cs",
+      "symbol": "AnalyticsService.ReportAsync",
+      "line": 129,
+      "description": "Tính kỳ theo UTC+7 rồi tổng hợp khách duy nhất, lượt nghe, hiện diện và trạng thái POI.",
+      "excerpt": "    public async Task<UsageReport> ReportAsync(string period, Guid? poiId, CancellationToken ct, bool placesOnly = false,\n        DateOnly? fromDate = null, DateOnly? toDate = null)\n    {\n        var now = time.GetUtcNow(); var today = LocalDate(now);\n        if (fromDate.HasValue != toDate.HasValue || (fromDate != null && (fromDate > toDate || toDate > today || fromDate < LocalDate(now.AddMonths(-25)))))\n            throw new ArgumentException(\"Invalid date range.\");\n        var custom = fromDate != null;\n        var days = custom ? toDate!.Value.DayNumber - fromDate!.Value.DayNumber + 1 :\n            period switch { \"today\" => 1, \"week\" => 7, \"month\" => 30, _ => throw new ArgumentException(\"Invalid period.\") };\n        var first = fromDate ?? today.AddDays(1 - days); var last = toDate ?? today;\n        var from = new DateTimeOffset(first.ToDateTime(TimeOnly.MinValue), Offset).ToUniversalTime();\n        var end = new DateTimeOffset(last.AddDays(1).ToDateTime(TimeOnly.MinValue), Offset).ToUniversalTime();\n        var to = end < now ? end : now;\n        var previousFrom = from.AddDays(-days); var previousTo = previousFrom + (to - from);",
+      "endLine": 142
+    },
+    "REPORT-OVERVIEW": {
+      "id": "REPORT-OVERVIEW",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsService.cs",
+      "symbol": "ReportAsync · Khách và lượt nghe",
+      "line": 149,
+      "description": "Đếm khách duy nhất và tổng hợp lượt nghe theo POI và ngôn ngữ.",
+      "excerpt": "        var visitors = await selected.Select(x => x.VisitorId).Distinct().CountAsync(ct);\n        // Aggregate in SQL instead of transferring every visitor/hour/place membership to the dashboard process.\n        var playback = await db.ListeningMetrics.AsNoTracking().Where(x => x.Date >= first && x.Date <= last && (poiId == null || x.PoiId == poiId))\n            .GroupBy(x => new { x.PoiId, x.Language }).Select(g => new { g.Key.PoiId, g.Key.Language, Plays = g.Sum(x => x.Plays) }).ToListAsync(ct);\n        var totalPlays = playback.Sum(x => x.Plays);\n        var placeVisitors = await members.Where(x => x.ScopeId != Guid.Empty).Select(x => new { x.ScopeId, x.VisitorId }).Distinct()\n            .GroupBy(x => x.ScopeId).Select(g => new { Id = g.Key, Count = g.Count() }).ToDictionaryAsync(x => x.Id, x => x.Count, ct);\n        var daily = await selected.Select(x => new { x.Date, x.VisitorId }).Distinct().GroupBy(x => x.Date)\n            .Select(g => new { Date = g.Key, Count = g.Count() }).ToDictionaryAsync(x => x.Date, x => x.Count, ct);\n        var hourly = !custom && period == \"today\" ? await selected.Select(x => new { x.Hour, x.VisitorId }).Distinct().GroupBy(x => x.Hour)\n            .Select(g => new { Hour = g.Key, Count = g.Count() }).ToDictionaryAsync(x => x.Hour, x => x.Count, ct) : new Dictionary<int, int>();\n        var previousVisitors = custom || started is null || started > previousFrom ? (int?)null : await db.VisitorMemberships.AsNoTracking()\n            .Where(x => x.ScopeId == scope && x.Date >= first.AddDays(-days) && x.Date < first && x.FirstSeen < previousTo &&\n                (!placesOnly || poiId != null || db.VisitorMemberships.Any(view => view.ScopeId != Guid.Empty && view.VisitorId == x.VisitorId &&",
+      "endLine": 162
+    },
+    "REPORT-PLACES": {
+      "id": "REPORT-PLACES",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsService.cs",
+      "symbol": "ReportAsync · Số liệu theo POI",
+      "line": 171,
+      "description": "Ghép tên POI với khách, lượt xem, lượt nghe và khách đang trực tuyến.",
+      "excerpt": "        var places = pois.Select(p => new PlaceStatistics(p.Id, p.Localizations.FirstOrDefault(l => l.LanguageCode == \"vi\")?.Name ?? p.Id.ToString(),\n            Status(p), placeVisitors.GetValueOrDefault(p.Id),\n            events.Where(e => e.PoiId == p.Id && e.Kind == \"view\").Sum(e => e.Count), playback.Where(e => e.PoiId == p.Id).Sum(e => e.Plays),\n            online.Where(x => x.PoiId == p.Id).Select(x => x.VisitorId).Distinct().Count())).OrderByDescending(p => p.Visitors).ThenBy(p => p.Name).ToArray();\n        var active = pois.Where(p => p.DeletedAt == null && p.LifecycleStatus != PoiLifecycleStatus.Archived).ToArray();\n        var placeCounts = new PlaceSnapshot(active.Length, active.Count(p => p.LifecycleStatus == PoiLifecycleStatus.Active && p.IsVisible),\n            active.Count(p => p.LifecycleStatus == PoiLifecycleStatus.Active && !p.IsVisible), active.Count(p => p.LifecycleStatus == PoiLifecycleStatus.Draft));\n        var languages = Languages.Concat(playback.Any(x => x.Language == \"\") ? [\"unknown\"] : Array.Empty<string>()).Select(lang => {\n            var count = playback.Where(x => x.Language == (lang == \"unknown\" ? \"\" : lang)).Sum(x => x.Plays);\n            return new LanguageCount(lang, count, totalPlays == 0 ? 0 : Math.Round(count * 100d / totalPlays, 2)); }).OrderByDescending(l => l.Plays).ThenBy(l => l.Language).ToArray();\n        var points = !custom && period == \"today\" ? Enumerable.Range(0, now.ToOffset(Offset).Hour + 1).Select(hour => new VisitorPoint($\"{hour:00}:00\",\n            started is null || new DateTimeOffset(today.ToDateTime(new TimeOnly(hour, 0)), Offset).AddHours(1) <= started ? null : hourly.GetValueOrDefault(hour))).ToArray()\n            : Enumerable.Range(0, days).Select(i => { var date = first.AddDays(i); return new VisitorPoint(date.ToString(\"yyyy-MM-dd\"),\n                started is null || date < LocalDate(started.Value) ? null : daily.GetValueOrDefault(date)); }).ToArray();",
+      "endLine": 184
+    },
+    "REPORT-INVENTORY": {
+      "id": "REPORT-INVENTORY",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsService.cs",
+      "symbol": "ReportAsync · Trạng thái POI",
+      "line": 176,
+      "description": "Đếm trạng thái hiện tại cho các POI chưa lưu trữ.",
+      "excerpt": "        var placeCounts = new PlaceSnapshot(active.Length, active.Count(p => p.LifecycleStatus == PoiLifecycleStatus.Active && p.IsVisible),\n            active.Count(p => p.LifecycleStatus == PoiLifecycleStatus.Active && !p.IsVisible), active.Count(p => p.LifecycleStatus == PoiLifecycleStatus.Draft));\n        var languages = Languages.Concat(playback.Any(x => x.Language == \"\") ? [\"unknown\"] : Array.Empty<string>()).Select(lang => {\n            var count = playback.Where(x => x.Language == (lang == \"unknown\" ? \"\" : lang)).Sum(x => x.Plays);\n            return new LanguageCount(lang, count, totalPlays == 0 ? 0 : Math.Round(count * 100d / totalPlays, 2)); }).OrderByDescending(l => l.Plays).ThenBy(l => l.Language).ToArray();\n        var points = !custom && period == \"today\" ? Enumerable.Range(0, now.ToOffset(Offset).Hour + 1).Select(hour => new VisitorPoint($\"{hour:00}:00\",\n            started is null || new DateTimeOffset(today.ToDateTime(new TimeOnly(hour, 0)), Offset).AddHours(1) <= started ? null : hourly.GetValueOrDefault(hour))).ToArray()\n            : Enumerable.Range(0, days).Select(i => { var date = first.AddDays(i); return new VisitorPoint(date.ToString(\"yyyy-MM-dd\"),\n                started is null || date < LocalDate(started.Value) ? null : daily.GetValueOrDefault(date)); }).ToArray();\n        return new UsageReport(custom ? \"custom\" : period, poiId, poiId is null ? null : places.Single(p => p.Id == poiId).Name, from, to, now, started,\n            visitors, previousVisitors, totalPlays,\n            online.Where(x => (poiId == null || x.PoiId == poiId) && (!placesOnly || x.PoiId != null)).Select(x => x.VisitorId).Distinct().Count(),\n            online.Where(x => x.PoiId != null && (poiId == null || x.PoiId == poiId)).Select(x => x.VisitorId).Distinct().Count(), placeCounts, points,\n            languages, poiId == null ? places : places.Where(p => p.Id == poiId).ToArray());",
+      "endLine": 189
+    },
+    "ISSUES": {
+      "id": "ISSUES",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsEndpoints.cs",
+      "symbol": "GET /api/admin/analytics/errors",
+      "line": 42,
+      "description": "Trả danh sách và tổng số sự cố theo trạng thái cho dashboard.",
+      "excerpt": "        reports.MapGet(\"/errors\", async (CatalogDbContext db, CancellationToken ct, string status = \"all\", int page = 1) =>\n        {\n            if (status is not (\"all\" or \"new\" or \"doing\" or \"done\") || page < 1) return Results.BadRequest();\n            var grouped = await db.SystemIssues.AsNoTracking().GroupBy(x => x.Status).Select(g => new { Status = g.Key, Count = g.Count() }).ToListAsync(ct);\n            var query = db.SystemIssues.AsNoTracking().Where(x => status == \"all\" || x.Status == status);\n            var items = await query.OrderByDescending(x => x.LastSeen).ThenBy(x => x.Id).Skip((page - 1) * 50).Take(50).ToListAsync(ct);\n            var counts = new { all = grouped.Sum(x => x.Count), @new = grouped.FirstOrDefault(x => x.Status == \"new\")?.Count ?? 0,\n                doing = grouped.FirstOrDefault(x => x.Status == \"doing\")?.Count ?? 0, done = grouped.FirstOrDefault(x => x.Status == \"done\")?.Count ?? 0 };\n            return Results.Ok(new { counts, page, pageSize = 50, total = await query.CountAsync(ct), items = await IssueDtos(db, items, ct) });\n        });\n        // UC8: Return detailed error records, affected customer counts, and resolution history.\n        reports.MapGet(\"/errors/{id:guid}\", async (Guid id, CatalogDbContext db, CancellationToken ct) =>\n        {\n            var issue = await db.SystemIssues.AsNoTracking().SingleOrDefaultAsync(x => x.Id == id, ct);",
+      "endLine": 55
+    },
+    "EXPORT-DIALOG": {
+      "id": "EXPORT-DIALOG",
+      "path": "src/Web/apps/admin/src/features/dashboard/DashboardScreen.tsx",
+      "symbol": "ExportDialog",
+      "line": 162,
+      "description": "Kiểm tra phạm vi ngày, tải số liệu và xử lý lỗi xuất trên giao diện.",
+      "excerpt": "function ExportDialog({ report, scope, onClose }: { report: UsageReport; scope: 'overview' | 'places' | 'place'; onClose: () => void }) {\n  const { t, language } = useI18n()\n  const [from, setFrom] = useState(() => dayInVietnam(report.from)), [to, setTo] = useState(() => dayInVietnam(report.to))\n  const today = dayInVietnam(new Date().toISOString()), minimum = new Date(today + 'T12:00:00Z'), day = minimum.getUTCDate()\n  minimum.setUTCDate(1); minimum.setUTCMonth(minimum.getUTCMonth() - 25)\n  minimum.setUTCDate(Math.min(day, new Date(Date.UTC(minimum.getUTCFullYear(), minimum.getUTCMonth() + 1, 0)).getUTCDate()))\n  const earliest = minimum.toISOString().slice(0, 10)\n  const problem = !from || !to ? 'Choose both dates.' : from > to ? 'Start date must not be after end date.' : to > today ? 'End date must not be in the future.' : from < earliest ? 'Choose dates within the last 25 months.' : null\n  const download = useMutation({ mutationFn: async () => {\n    const data = await analyticsApi.rangeReport(from, to, scope === 'overview' ? 'overview' : 'places', report.poiId ?? undefined)\n    downloadReport(reportSheets(data, scope), 'xlsx', 0, `nearby-stories-${scope}-${from}-${to}-${language}`)\n  }, onSuccess: onClose })\n  return <Dialog open onClose={onClose} title={t('Export data')} actions={<>\n    <ButtonCompactSecondary disabled={download.isPending} onClick={onClose}>{t('Cancel')}</ButtonCompactSecondary>",
+      "endLine": 175
+    },
+    "EXPORT": {
+      "id": "EXPORT",
+      "path": "src/Web/apps/admin/src/features/dashboard/export.ts",
+      "symbol": "reportSheets / xlsx / downloadReport",
+      "line": 8,
+      "description": "Tổ chức số liệu thành các sheet và tạo tệp Excel trong trình duyệt.",
+      "excerpt": "export function reportSheets(report: UsageReport, scope: 'overview' | 'places' | 'place'): ReportSheet[] {\n  const observed = !!report.dataStartedAt && new Date(report.to) > new Date(report.dataStartedAt)\n  const mostViewed = report.places.filter(p => p.visitors > 0).sort((a, b) => b.visitors - a.visitors || a.name.localeCompare(b.name))[0]\n  const topLanguage = report.languages.find(l => l.plays > 0)\n  const summary: Cell[][] = [[t('Scope'), scope === 'overview' ? t('Overview') : scope === 'places' ? t('All places') : report.name],\n    [t('Period'), new Date(report.from), new Date(Math.max(new Date(report.from).getTime(), new Date(report.to).getTime() - 1))], [t('As of'), new Date(report.asOf)], ['UTC+07:00'],\n    [t('Customers'), observed ? report.visitors : null], [t('Online at export time'), report.online], [t('Listens'), observed ? report.plays : null]]\n  if (scope === 'overview') summary.push([t('Total places'), report.placeCounts.total], [t('Active places'), report.placeCounts.live],\n    [t('Hidden places'), report.placeCounts.hidden], [t('Draft places'), report.placeCounts.draft],\n    [t('Most viewed place'), mostViewed?.name ?? null], [t('Most listened language'), topLanguage ? language(topLanguage.language).nativeName : null])\n  if (scope === 'places') summary.push([t('Viewing now'), report.viewing])\n  if (scope === 'places') return [{ name: t('Summary'), rows: summary }, { name: t('Places'), rows: [\n    [t('Place'), t('Visitors'), t('Viewing now'), t('Listens')], ...report.places.map(p => [p.name, observed ? p.visitors : null, p.online, observed ? p.plays : null]),\n  ] }]",
+      "endLine": 21
+    },
+    "DB-CATALOG": {
+      "id": "DB-CATALOG",
+      "path": "src/Catalog/Catalog.Api/Infrastructure/CatalogDbContext.cs",
+      "symbol": "CatalogDbContext.OnModelCreating",
+      "line": 29,
+      "description": "Ánh xạ dữ liệu Catalog, gồm POI, phiên bản, nội dung phục vụ, phân tích sử dụng và sự cố.",
+      "excerpt": "    protected override void OnModelCreating(ModelBuilder model)\n    {\n        ConfigureCategory(model);\n        ConfigureLanguages(model);\n        ConfigurePoi(model);\n        ConfigureNarration(model);\n        ConfigureGeneration(model);\n        ConfigureMessaging(model);\n        ConfigureAnalytics(model);\n\n        // Keep the SQL schema aligned with the supplied ERD without adding a naming-convention package.\n        foreach (var entity in model.Model.GetEntityTypes())\n            foreach (var property in entity.GetProperties())\n                property.SetColumnName(ToSnakeCase(property.Name));",
+      "endLine": 42
+    },
+    "DB-IDENTITY": {
+      "id": "DB-IDENTITY",
+      "path": "src/Identity/Infrastructure/IdentityDbContext.cs",
+      "symbol": "IdentityDbContext.OnModelCreating",
+      "line": 14,
+      "description": "Ánh xạ tài khoản, phân quyền và refresh token.",
+      "excerpt": "    protected override void OnModelCreating(ModelBuilder model)\n    {\n        base.OnModelCreating(model);\n\n        model.Entity<ApplicationUser>(e =>\n        {\n            e.ToTable(\"users\");\n            e.Property(x => x.UserName).HasMaxLength(256);\n            e.Property(x => x.NormalizedUserName).HasMaxLength(256);\n            e.Property(x => x.Email).HasMaxLength(256);\n            e.Property(x => x.NormalizedEmail).HasMaxLength(256);\n            e.Property(x => x.SecurityStamp).HasMaxLength(36);\n            e.Property(x => x.ConcurrencyStamp).HasMaxLength(36);\n            e.Ignore(x => x.PhoneNumber);",
+      "endLine": 27
+    },
+    "DB-LOCALIZATION": {
+      "id": "DB-LOCALIZATION",
+      "path": "src/Localization/Localization.Api/Infrastructure/LocalizationDbContext.cs",
+      "symbol": "LocalizationDbContext.OnModelCreating",
+      "line": 12,
+      "description": "Ánh xạ Translations và GlossaryEntries cùng các ràng buộc duy nhất.",
+      "excerpt": "    protected override void OnModelCreating(ModelBuilder model)\n    {\n        // Bounded lengths because SQL Server cannot index nvarchar(max).\n        model.Entity<Translation>().Property(t => t.Lang).HasMaxLength(8);\n        // US17: Enforce one stored translation per narration, language, and source version.\n        model.Entity<Translation>().HasIndex(t => new { t.NarrationId, t.Lang, t.SourceVersion }).IsUnique();\n        model.Entity<GlossaryEntry>().Property(g => g.Term).HasMaxLength(200);\n        model.Entity<GlossaryEntry>().Property(g => g.Lang).HasMaxLength(8);\n        model.Entity<GlossaryEntry>().HasIndex(g => new { g.Term, g.Lang }).IsUnique();\n    }\n\n    // US12: Load approved landmark-name translations used to preserve proper names across languages.\n    public async Task SeedGlossaryAsync(string path, CancellationToken ct = default)\n    {",
+      "endLine": 25
+    },
+    "DB-SPEECH": {
+      "id": "DB-SPEECH",
+      "path": "src/Speech/Speech.Api/Infrastructure/SpeechDbContext.cs",
+      "symbol": "SpeechDbContext.OnModelCreating",
+      "line": 11,
+      "description": "Ánh xạ SynthesisJobs và AudioFiles, gồm lease và liên kết tệp với job.",
+      "excerpt": "    protected override void OnModelCreating(ModelBuilder model)\n    {\n        // Bounded lengths because SQL Server cannot index nvarchar(max).\n        model.Entity<SynthesisJob>().Property(j => j.Lang).HasMaxLength(8);\n        model.Entity<SynthesisJob>().Property(j => j.Voice).HasMaxLength(64);\n        // Voice records what was selected for this version, while the public audio identity is fixed.\n        model.Entity<SynthesisJob>()\n            .HasIndex(j => new { j.NarrationId, j.SourceVersion, j.Lang }).IsUnique();\n        // The Operator jobs screen polls every 2 s filtered by status and ordered by newest update.\n        // US15: Index synthesis status and update time for the Operator filtered monitoring list.\n        model.Entity<SynthesisJob>().HasIndex(j => new { j.Status, j.UpdatedAt });\n\n        // One-to-one: EF creates the unique index on JobId for it.\n        // US17: Allow only one stored audio file for each synthesis job.",
+      "endLine": 24
+    },
+    "GATEWAY": {
+      "id": "GATEWAY",
+      "path": "src/Gateway/Program.cs",
+      "symbol": "YARP Reverse Proxy",
+      "line": 14,
+      "description": "Đăng ký YARP để nhận và định tuyến các yêu cầu HTTP.",
+      "excerpt": "    .AddReverseProxy()\n    .LoadFromConfig(builder.Configuration.GetSection(\"ReverseProxy\"));\n\nbuilder.Services.AddCors(options =>\n{\n    var allowedOrigins = builder.Configuration.GetSection(\"Cors:AllowedOrigins\").Get<string[]>()\n        ?? [];\n    if (allowedOrigins.Length == 0)\n        throw new InvalidOperationException(\"Cors:AllowedOrigins must contain at least one frontend origin.\");\n\n    options.AddDefaultPolicy(policy => policy\n        .WithOrigins(allowedOrigins)\n        .AllowAnyHeader()\n        .AllowAnyMethod()",
+      "endLine": 27
+    },
+    "DEFAULTS": {
+      "id": "DEFAULTS",
+      "path": "src/BuildingBlocks/ServiceDefaults.cs",
+      "symbol": "ServiceDefaults",
+      "line": 33,
+      "description": "Cấu hình logging, tracing và hạ tầng giao tiếp dùng chung.",
+      "excerpt": "        builder.Host.UseSerilog((ctx, services, cfg) => cfg\n            .ReadFrom.Configuration(ctx.Configuration)\n            .ReadFrom.Services(services)\n            // Framework request/client logs can include query strings. Our completion event uses a route template.\n            .MinimumLevel.Override(\"Microsoft.AspNetCore\", LogEventLevel.Warning)\n            .MinimumLevel.Override(\"System.Net.Http.HttpClient\", LogEventLevel.Warning)\n            .MinimumLevel.Override(\"Microsoft.EntityFrameworkCore.Database.Command\", LogEventLevel.Warning)\n            .Enrich.FromLogContext()\n            .Enrich.WithProperty(\"service\", serviceName)\n            .WriteTo.Console(new ServiceJsonFormatter()), preserveStaticLogger: true);\n\n        var otlpEndpoint = builder.Configuration[\"Otlp:Endpoint\"];\n\n        builder.Services",
+      "endLine": 46
+    },
+    "COMPOSE": {
+      "id": "COMPOSE",
+      "path": "deploy/docker-compose.yml",
+      "symbol": "Docker Compose services",
+      "line": 4,
+      "description": "Cấu hình triển khai các service, SQL Server, RabbitMQ, MinIO và Jaeger.",
+      "excerpt": "",
+      "endLine": 17
+    },
+    "AUTH-ROUTES": {
+      "id": "AUTH-ROUTES",
+      "path": "src/Identity/Auth/AuthEndpoints.cs",
+      "symbol": "MapAuthEndpoints",
+      "line": 21,
+      "description": "Tập hợp các endpoint đăng nhập, làm mới, đăng xuất và đọc hồ sơ phiên.",
+      "excerpt": "        auth.MapPost(\"/login\", LoginAsync);\n        auth.MapPost(\"/refresh\", RefreshAsync);\n        auth.MapPost(\"/logout\", LogoutAsync);\n        app.MapGet(\"/api/auth/me\", (System.Security.Claims.ClaimsPrincipal user) => Results.Ok(new\n        {\n            id = user.FindFirst(\"sub\")?.Value,\n            userName = user.Identity?.Name,\n            roles = user.FindAll(\"role\").Select(c => c.Value).ToArray()\n        })).RequireAuthorization(StaffPolicies.Staff);\n    }\n\n    // UC1/US09: Validate staff credentials and account status before issuing tokens for active roles.\n    private static async Task<IResult> LoginAsync(LoginRequest request, UserManager<ApplicationUser> users,\n        SignInManager<ApplicationUser> signIn, IdentityDbContext db, TokenIssuer issuer, TimeProvider clock,",
+      "endLine": 34
+    },
+    "AUTH-REFRESH": {
+      "id": "AUTH-REFRESH",
+      "path": "src/Identity/Auth/AuthEndpoints.cs",
+      "symbol": "RefreshAsync",
+      "line": 62,
+      "description": "Làm mới phiên sau khi kiểm tra refresh token và vai trò còn hiệu lực.",
+      "excerpt": "    private static async Task<IResult> RefreshAsync(RefreshRequest request, IdentityDbContext db,\n        UserManager<ApplicationUser> users, TokenIssuer issuer, TimeProvider clock, CancellationToken cancellationToken)\n    {\n        if (!ValidRefresh(request.RefreshToken)) return InvalidRefresh();\n        var hash = TokenIssuer.Hash(request.RefreshToken!);\n        var token = await db.RefreshTokens.AsNoTracking().Include(t => t.User)\n            .SingleOrDefaultAsync(t => t.TokenHash == hash, cancellationToken);\n        var now = clock.GetUtcNow();\n        if (token is null || token.ExpiresAt <= now || token.ConsumedAt is not null || token.RevokedAt is not null ||\n            !token.User.IsActive || await users.IsLockedOutAsync(token.User)) return InvalidRefresh();\n        var roles = await ActiveRolesAsync(db, token.UserId, cancellationToken);\n        if (roles.Length == 0) return InvalidRefresh();\n        var issued = issuer.Create(token.User, roles);\n        await using var transaction = await db.Database.BeginTransactionAsync(cancellationToken);",
+      "endLine": 75
+    },
+    "NEARBY-HTTP": {
+      "id": "NEARBY-HTTP",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "GET /api/pois/nearby",
+      "line": 27,
+      "description": "Nhận tọa độ khách và truy vấn danh sách POI công khai theo bán kính.",
+      "excerpt": "        api.MapGet(\"/pois/nearby\", async (\n            double lat, double lng, INearbyPoiQuery query, CancellationToken ct,\n            int radius = DefaultRadiusMetres, string lang = \"vi\") =>\n        {\n            var errors = ValidateNearbyRequest(lat, lng, radius);\n            if (!CatalogWorkflow.Languages.Contains(lang, StringComparer.Ordinal))\n                errors[\"lang\"] = [\"Unsupported language.\"];\n            if (errors.Count > 0) return Results.ValidationProblem(errors);\n            var pois = await query.FindAsync(lat, lng, radius, MaximumResults, lang, ct);\n            return Results.Ok(pois);\n        }).WithName(\"FindNearbyPois\");\n\n        // UC3/US02/US03: Return the selected place narration and audio in the requested language or an available fallback.\n        api.MapGet(\"/pois/{id:guid}/story\", async (Guid id, CatalogDbContext db, CancellationToken ct,",
+      "endLine": 40
+    },
+    "MAP-NAME": {
+      "id": "MAP-NAME",
+      "path": "src/Catalog/Catalog.Api/Endpoints/MapPoiEndpoints.cs",
+      "symbol": "GET /api/pois/search",
+      "line": 81,
+      "description": "Tìm POI công khai theo tên.",
+      "excerpt": "        api.MapGet(\"/pois/search\", async (string? q, CatalogDbContext db, CancellationToken ct, string lang = \"vi\") =>\n        {\n            var name = q?.Trim();\n            if (name is null || name.Length is < 2 or > 100)\n                return Results.ValidationProblem(new Dictionary<string, string[]> { [\"q\"] = [\"Enter 2 to 100 characters.\"] });\n            if (!CatalogWorkflow.Languages.Contains(lang, StringComparer.Ordinal))\n                return Results.ValidationProblem(new Dictionary<string, string[]> { [\"lang\"] = [\"Unsupported language.\"] });\n\n            var items = await PoiDiscovery.ByName(db, PoiDiscovery.PublicPlaces(db), name)\n                .Select(p => new { p.Id, Name = p.Localizations\n                    .OrderBy(l => l.LanguageCode == lang ? 0 : l.LanguageCode == \"vi\" ? 1 : 2)\n                    .ThenBy(l => l.LanguageCode).Select(l => l.Name).FirstOrDefault() ?? \"Unnamed POI\" })\n                .OrderBy(p => p.Name).ThenBy(p => p.Id).Take(20)\n                .Select(p => new PoiNameResult(p.Id, p.Name)).ToListAsync(ct);",
+      "endLine": 94
+    },
+    "STORY-FALLBACK": {
+      "id": "STORY-FALLBACK",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "Chọn ngôn ngữ phục vụ",
+      "line": 61,
+      "description": "Duyệt chuỗi dự phòng đã cấu hình cho đến khi tìm được nội dung có thể phục vụ.",
+      "excerpt": "            while (!contents.ContainsKey(served))\n            {\n                if (!visited.Add(served) || !languages.TryGetValue(served, out var language) || language.FallbackLanguageCode is null)\n                    return Results.NotFound();\n                served = language.FallbackLanguageCode;\n            }\n            var content = contents[served];\n            var request = served == lang ? null : await db.GenerationRequests.AsNoTracking()\n                .SingleOrDefaultAsync(x => x.NarrationId == poi.Narration.Id &&\n                    x.SourceVersion == source.Version && x.LanguageCode == lang, ct);\n            // UC3: Coordinates let the visitor app check the 100 m listening range against the live position.\n            // US07: Include the selected narration image credit in the response alongside its source URL.\n            var photo = poi.Media.OrderBy(x => x.DisplayOrder).ThenBy(x => x.Id).FirstOrDefault();\n            var dto = new PoiStoryDto(",
+      "endLine": 74
+    },
+    "PUBLISH-HTTP": {
+      "id": "PUBLISH-HTTP",
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "symbol": "POST /api/admin/pois/{id}/publish",
+      "line": 133,
+      "description": "Kiểm tra quyền biên tập và trả URL theo dõi tiến độ khi Catalog chấp nhận xuất bản.",
+      "excerpt": "        admin.MapPost(\"/pois/{id:guid}/publish\", async (\n            Guid id, PublishRequest? request, HttpContext context, CatalogWorkflow workflow, CancellationToken ct) =>\n        {\n            if (!Guid.TryParse(context.User.FindFirst(\"sub\")?.Value, out var publisherId) || publisherId == Guid.Empty)\n                return Results.Forbid();\n            var result = await workflow.PublishAsync(id, publisherId, request?.PublisherName, ct);\n            return result.Status switch\n            {\n                202 => Results.Accepted($\"/api/admin/pois/{id}/versions/{result.Version}/progress\",\n                    new { narrationId = result.NarrationId, version = result.Version }),\n                404 => Results.NotFound(),\n                400 => Results.BadRequest(new { title = result.Error }),\n                _ => Results.Conflict(new { title = result.Error })\n            };",
+      "endLine": 146
+    },
+    "PUBLISH-POLL": {
+      "id": "PUBLISH-POLL",
+      "path": "src/Web/apps/admin/src/features/publish/api/useProgress.ts",
+      "symbol": "useProgress",
+      "line": 6,
+      "description": "Admin Web làm mới tiến độ mỗi 2 giây cho đến khi tác vụ hoàn tất.",
+      "excerpt": "export function useProgress(placeId: string, version: number, intervalMs = 2000) {\n  return useQuery({\n    queryKey: queryKeys.places.progress(placeId, version),\n    queryFn: ({ signal }) => adminApi.getPublishProgress(placeId, version, signal),\n    refetchInterval: q => (q.state.data?.finishedAt ? false : intervalMs),\n    refetchIntervalInBackground: false,\n  })\n}",
+      "endLine": 13
+    },
+    "PROJECTION-TEXT": {
+      "id": "PROJECTION-TEXT",
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "symbol": "CatalogEventProjection.TranslationReadyAsync",
+      "line": 12,
+      "description": "Ghi văn bản dịch và kiểm tra kết quả trùng.",
+      "excerpt": "    public async Task TranslationReadyAsync(TranslationReady message, Guid messageId, CancellationToken ct)\n    {\n        await using var tx = await db.Database.BeginTransactionAsync(ct);\n        if (await AlreadyProcessed(messageId, nameof(TranslationReady), ct)) return;\n        if (!await SourceExists(message.NarrationId, message.PoiId, message.SourceVersion, ct)) return;\n\n        var content = await GetOrCreate(message.NarrationId, message.SourceVersion, message.Lang, ct);\n        content.Title = message.Title;\n        content.Body = message.Body;\n        content.TextReadyAt ??= DateTimeOffset.UtcNow;\n        content.ProjectionUpdatedAt = DateTimeOffset.UtcNow;\n        content.LastEventId = messageId;\n        var request = await FindRequest(message.NarrationId, message.SourceVersion, message.Lang, ct);\n        // A text result delivered after the audio fault must not hide the synthesis failure.",
+      "endLine": 25
+    },
+    "PROJECTION-AUDIO": {
+      "id": "PROJECTION-AUDIO",
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "symbol": "CatalogEventProjection.AudioReadyAsync",
+      "line": 45,
+      "description": "Ghi thông tin âm thanh ở Catalog và kiểm tra điều kiện kích hoạt.",
+      "excerpt": "    public async Task AudioReadyAsync(AudioReady message, Guid messageId, CancellationToken ct)\n    {\n        await using var tx = await db.Database.BeginTransactionAsync(ct);\n        if (await AlreadyProcessed(messageId, nameof(AudioReady), ct)) return;\n        if (!await SourceExists(message.NarrationId, message.PoiId, message.SourceVersion, ct)) return;\n\n        var content = await GetOrCreate(message.NarrationId, message.SourceVersion, message.Lang, ct);\n        content.AudioObjectKey = message.ObjectKey;\n        content.AudioDurationMs = message.DurationMs;\n        content.TranscriptJson = AudioTranscript.Parse(message.TranscriptJson, message.NarrationId,\n            message.SourceVersion, message.Lang, message.DurationMs)?.ToJson();\n        content.AudioReadyAt ??= DateTimeOffset.UtcNow;\n        content.ProjectionUpdatedAt = DateTimeOffset.UtcNow;\n        content.LastEventId = messageId;",
+      "endLine": 58
+    },
+    "PROJECTION-TRANSLATION-FAULT": {
+      "id": "PROJECTION-TRANSLATION-FAULT",
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "symbol": "CatalogEventProjection.TranslationFailedAsync",
+      "line": 78,
+      "description": "Cập nhật lỗi dịch và trạng thái của yêu cầu ngôn ngữ.",
+      "excerpt": "    public async Task TranslationFailedAsync(Fault<ContentPublished> fault, Guid messageId, CancellationToken ct)\n    {\n        await using var tx = await db.Database.BeginTransactionAsync(ct);\n        if (await AlreadyProcessed(messageId, \"TranslationFailed\", ct)) return;\n        var m = fault.Message;\n        if (!await SourceExists(m.NarrationId, m.PoiId, m.SourceVersion, ct)) return;\n        var langs = m.TargetLang is null ? CatalogWorkflow.Languages : [m.TargetLang];\n        var requests = await db.GenerationRequests.Where(x => x.NarrationId == m.NarrationId &&\n            x.SourceVersion == m.SourceVersion && langs.Contains(x.LanguageCode)).ToListAsync(ct);\n        var ready = await db.CatalogDeliveryContents.AsNoTracking().Where(x => x.NarrationId == m.NarrationId &&\n            x.SourceVersion == m.SourceVersion && x.TextReadyAt != null).Select(x => x.LanguageCode).ToListAsync(ct);\n        foreach (var request in requests.Where(x => !ready.Contains(x.LanguageCode) && x.Status != GenerationRequestStatus.AudioReady))\n        {\n            Fail(request, \"translation\", fault.Exceptions.FirstOrDefault()?.ExceptionType);",
+      "endLine": 91
+    },
+    "PROJECTION-AUDIO-FAULT": {
+      "id": "PROJECTION-AUDIO-FAULT",
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "symbol": "CatalogEventProjection.AudioFailedAsync",
+      "line": 102,
+      "description": "Cập nhật lỗi tổng hợp và ghi sự cố.",
+      "excerpt": "    public async Task AudioFailedAsync(Fault<TranslationReady> fault, Guid messageId, CancellationToken ct)\n    {\n        await using var tx = await db.Database.BeginTransactionAsync(ct);\n        if (await AlreadyProcessed(messageId, \"AudioFailed\", ct)) return;\n        var m = fault.Message;\n        if (!await SourceExists(m.NarrationId, m.PoiId, m.SourceVersion, ct)) return;\n        var content = await db.CatalogDeliveryContents.AsNoTracking().SingleOrDefaultAsync(x =>\n            x.NarrationId == m.NarrationId && x.SourceVersion == m.SourceVersion && x.LanguageCode == m.Lang, ct);\n        var request = await FindRequest(m.NarrationId, m.SourceVersion, m.Lang, ct);\n        if (request is not null && content?.AudioReadyAt is null)\n        {\n            Fail(request, \"synthesis\", fault.Exceptions.FirstOrDefault()?.ExceptionType);\n            if (m.Lang == \"vi\")\n                await MarkSourceFailed(m.NarrationId, m.SourceVersion, ct);",
+      "endLine": 115
+    },
+    "TRANSLATION-REUSE": {
+      "id": "TRANSLATION-REUSE",
+      "path": "src/Localization/Localization.Api/Consumers/ContentPublishedConsumer.cs",
+      "symbol": "Đọc kết quả dịch đã lưu",
+      "line": 37,
+      "description": "Tìm các bản dịch có sẵn của phiên bản để dùng lại.",
+      "excerpt": "        var stored = await db.Translations\n            .Where(t => t.NarrationId == m.NarrationId && t.SourceVersion == m.SourceVersion)\n            .ToDictionaryAsync(t => t.Lang, ct);\n        var skipped = langs.Count(stored.ContainsKey);\n\n        var guard = new TermGuard(await db.GlossaryEntries.AsNoTracking().ToListAsync(ct));\n        var failures = new List<ExceptionDispatchInfo>();\n\n        foreach (var lang in langs)\n        {\n            using var languageScope = LogContext.PushProperty(\"Lang\", lang);\n            try\n            {\n                // Stored languages are announced again so a replayed event still reaches Speech,",
+      "endLine": 50
+    },
+    "TERMS-VALIDATE": {
+      "id": "TERMS-VALIDATE",
+      "path": "src/Localization/Localization.Api/Consumers/ContentPublishedConsumer.cs",
+      "symbol": "Kiểm tra và khôi phục thuật ngữ",
+      "line": 104,
+      "description": "Kiểm tra đủ ký hiệu rồi khôi phục thuật ngữ theo ngôn ngữ đích.",
+      "excerpt": "        if (!TermGuard.IsValid(result.Title, title.Tokens) || !TermGuard.IsValid(result.Body, body.Tokens))\n            throw new InvalidOperationException($\"Translation to '{lang}' dropped a glossary token.\");\n\n        return NewTranslation(m, lang,\n            guard.Restore(result.Title, title.Tokens, lang),\n            guard.Restore(result.Body, body.Tokens, lang),\n            translator.Model, translator.PromptVersion);\n    }\n\n    private static Translation NewTranslation(\n        ContentPublished m, string lang, string title, string body, string model, string promptVersion) => new()\n    {\n        NarrationId = m.NarrationId,\n        PoiId = m.PoiId,",
+      "endLine": 117
+    },
+    "TRANSLATION-READY": {
+      "id": "TRANSLATION-READY",
+      "path": "src/Localization/Localization.Api/Consumers/ContentPublishedConsumer.cs",
+      "symbol": "Publish TranslationReady",
+      "line": 56,
+      "description": "Phát kết quả theo từng ngôn ngữ cho Catalog và Speech.",
+      "excerpt": "                await context.Publish(new TranslationReady(\n                    m.NarrationId, m.PoiId, m.SourceVersion, lang, translation.Title, translation.Body), ct);\n            }\n            // US18: Collect the failing language error and continue processing the other requested languages.\n            catch (Exception e) when (!ct.IsCancellationRequested)\n            {\n                // One failing language must not block the others; the message still fails after the loop.\n                // Clearing drops the unsaved row so it is not retried by the next language's save.\n                db.ChangeTracker.Clear();\n                logger.LogWarning(e, \"Language failed: narration={NarrationId} v={SourceVersion} lang={Lang}\",\n                    m.NarrationId, m.SourceVersion, lang);\n                failures.Add(ExceptionDispatchInfo.Capture(e));\n            }\n        }",
+      "endLine": 69
+    },
+    "TRANSLATION-FAULT": {
+      "id": "TRANSLATION-FAULT",
+      "path": "src/Localization/Localization.Api/Consumers/ContentPublishedConsumer.cs",
+      "symbol": "Báo lỗi sau khi xử lý các ngôn ngữ",
+      "line": 75,
+      "description": "Trả lỗi xử lý về hàng đợi sau khi phát các kết quả thành công.",
+      "excerpt": "        if (failures.Count == 1)\n            failures[0].Throw();\n        if (failures.Count > 1)\n            throw new AggregateException(failures.Select(f => f.SourceException));\n    }\n\n    // UC4/UC6/US05/US11/US18: Save each successful language independently so another language failure does not discard it.\n    private async Task<Translation> Store(ContentPublished m, string lang, TermGuard guard, CancellationToken ct)\n    {\n        var translation = lang == \"vi\"\n            ? NewTranslation(m, lang, m.Title, m.Body, \"passthrough\", \"none\")\n            : await Translate(m, lang, guard, ct);\n\n        db.Translations.Add(translation);",
+      "endLine": 88
+    },
+    "AUDIO-REUSE": {
+      "id": "AUDIO-REUSE",
+      "path": "src/Speech/Speech.Api/Consumers/TranslationReadyConsumer.cs",
+      "symbol": "Dùng lại công việc đã thành công",
+      "line": 37,
+      "description": "Lấy bản ghi âm thanh đã lưu và phát lại thông báo sẵn sàng.",
+      "excerpt": "            if (job.Status == SynthesisStatus.Succeeded)\n            {\n                var stored = await jobs.GetAudioAsync(job.Id, ct);\n                await Publish(context, stored);\n                Log(\"skipped\", m, stored);\n                return;\n            }\n            if (waitedForOwner && job.Status == SynthesisStatus.Failed) return;\n            if (await jobs.TryClaimAsync(job.Id, token, ct)) break;\n\n            // Keep a redelivery available after a crashed worker's lease expires.\n            job = await jobs.GetAsync(job.Id, ct);\n            if (job.Status != SynthesisStatus.Processing) continue;\n            waitedForOwner = true;",
+      "endLine": 50
+    },
+    "JOB-COMPLETE": {
+      "id": "JOB-COMPLETE",
+      "path": "src/Speech/Speech.Api/Infrastructure/SynthesisJobStore.cs",
+      "symbol": "SynthesisJobStore.TryCompleteAsync",
+      "line": 64,
+      "description": "Ghi thông tin tệp và hoàn tất công việc dưới quyền xử lý hiện tại.",
+      "excerpt": "    public async Task<bool> TryCompleteAsync(AudioFile file, Guid token, CancellationToken ct)\n    {\n        var now = DateTimeOffset.UtcNow;\n        var owned = OwnedJob(file.JobId, token, now);\n        if (db.Database.IsRelational())\n        {\n            await using var tx = await db.Database.BeginTransactionAsync(ct);\n            var updated = await owned.ExecuteUpdateAsync(set => set\n                .SetProperty(j => j.Status, SynthesisStatus.Succeeded)\n                .SetProperty(j => j.UpdatedAt, now)\n                .SetProperty(j => j.LastError, (string?)null)\n                .SetProperty(j => j.LeaseToken, (Guid?)null)\n                .SetProperty(j => j.LeaseExpiresAt, (DateTimeOffset?)null), ct);\n            if (updated != 1) return false;",
+      "endLine": 77
+    },
+    "JOB-FAIL": {
+      "id": "JOB-FAIL",
+      "path": "src/Speech/Speech.Api/Infrastructure/SynthesisJobStore.cs",
+      "symbol": "SynthesisJobStore.MarkFailedAsync",
+      "line": 92,
+      "description": "Ghi lỗi và giải phóng quyền xử lý của lần chạy đã thất bại.",
+      "excerpt": "    public async Task MarkFailedAsync(Guid id, Guid token, string error)\n    {\n        db.ChangeTracker.Clear();\n        var now = DateTimeOffset.UtcNow;\n        var owned = OwnedJob(id, token, now);\n        if (db.Database.IsRelational())\n        {\n            await owned.ExecuteUpdateAsync(set => set\n                .SetProperty(j => j.Status, SynthesisStatus.Failed)\n                .SetProperty(j => j.UpdatedAt, now)\n                .SetProperty(j => j.LastError, error)\n                .SetProperty(j => j.LeaseToken, (Guid?)null)\n                .SetProperty(j => j.LeaseExpiresAt, (DateTimeOffset?)null));\n            return;",
+      "endLine": 105
+    },
+    "REPORT-ASSEMBLE": {
+      "id": "REPORT-ASSEMBLE",
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsService.cs",
+      "symbol": "ReportAsync · UsageReport",
+      "line": 185,
+      "description": "Ghép số liệu, mốc thời gian, trạng thái và phạm vi thành phản hồi báo cáo.",
+      "excerpt": "        return new UsageReport(custom ? \"custom\" : period, poiId, poiId is null ? null : places.Single(p => p.Id == poiId).Name, from, to, now, started,\n            visitors, previousVisitors, totalPlays,\n            online.Where(x => (poiId == null || x.PoiId == poiId) && (!placesOnly || x.PoiId != null)).Select(x => x.VisitorId).Distinct().Count(),\n            online.Where(x => x.PoiId != null && (poiId == null || x.PoiId == poiId)).Select(x => x.VisitorId).Distinct().Count(), placeCounts, points,\n            languages, poiId == null ? places : places.Where(p => p.Id == poiId).ToArray());\n    }\n\n    // UC8: Aggregate distinct visitor counts per day across the requested calendar year.\n    public async Task<object> CalendarAsync(int year, CancellationToken ct)\n    {\n        var today = LocalDate(time.GetUtcNow()); if (year < 2020 || year > today.Year) throw new ArgumentException(\"Invalid year.\");\n        var start = new DateOnly(year, 1, 1); var end = start.AddYears(1);\n        var started = await db.AnalyticsState.AsNoTracking().Select(x => (DateTimeOffset?)x.StartedAt).FirstOrDefaultAsync(ct);\n        var retainedFrom = LocalDate(time.GetUtcNow().AddMonths(-25));",
+      "endLine": 198
+    },
+    "MESSAGING": {
+      "id": "MESSAGING",
+      "path": "src/BuildingBlocks/ServiceDefaults.cs",
+      "symbol": "MassTransit · RabbitMQ",
+      "line": 77,
+      "description": "Đăng ký xử lý sự kiện và kết nối tới RabbitMQ.",
+      "excerpt": "        builder.Services.AddMassTransit(x =>\n        {\n            x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter(serviceName, false));\n            configure?.Invoke(x);\n\n            x.UsingRabbitMq((ctx, cfg) =>\n            {\n                cfg.Host(new Uri(rabbitMq));\n                // Covers transient blips only; after the last attempt the message goes to <queue>_error.\n                // External calls already went through Polly; retrying the message would multiply paid calls.\n                // US17: Avoid retrying exhausted external calls at the message layer and multiplying paid provider requests.\n                cfg.UseMessageRetry(r =>\n                {\n                    r.Ignore<Exception>(IsExternalCallFailure);",
+      "endLine": 90
+    },
+    "TECH-REACT": {
+      "id": "TECH-REACT",
+      "path": "src/Web/apps/pwa/package.json",
+      "symbol": "React · dependencies",
+      "line": 19,
+      "description": "Khai báo React cho PWA.",
+      "excerpt": "",
+      "endLine": 28
+    },
+    "TECH-ROUTER": {
+      "id": "TECH-ROUTER",
+      "path": "src/Web/apps/admin/package.json",
+      "symbol": "React Router · dependencies",
+      "line": 20,
+      "description": "Khai báo React Router cho Admin Web.",
+      "excerpt": "",
+      "endLine": 26
+    },
+    "TECH-I18N": {
+      "id": "TECH-I18N",
+      "path": "src/Web/apps/pwa/package.json",
+      "symbol": "i18next và Zustand · dependencies",
+      "line": 21,
+      "description": "Khai báo đa ngôn ngữ và quản lý trạng thái ở frontend.",
+      "excerpt": "",
+      "endLine": 28
+    },
+    "TECH-MAP": {
+      "id": "TECH-MAP",
+      "path": "docs/visitor-map.md",
+      "symbol": "Visitor map",
+      "line": 1,
+      "description": "Mô tả MapLibre và OpenFreeMap.",
+      "excerpt": "# Visitor map\n\nNearby Stories uses MapLibre GL JS with OpenFreeMap's Liberty vector basemap, derived from OpenStreetMap data. No Google Maps API or map API key is needed. The browser fetches the style, vector tiles, fonts and sprites from OpenFreeMap; it no longer requests the standard `tile.openstreetmap.org` raster endpoint. OpenFreeMap's public instance has no SLA or personalized support guarantee.\n\n## Visitor flow\n\n1. Choose a language on first launch, then press Allow location. GPS is not started before that action. HTTPS is required outside localhost.\n2. After a location fix, Nearby lists places within 100 m. Open Map to explore.\n3. The map shows a labelled real/simulated position, a 100 m circle and the **100 nearest** published narration markers around the visitor (within 50 km), wherever the camera is. Markers outside the circle are outlined and announced as \"More than 100 m away\". Tap a marker for its preview. Distances are straight-line distances from the visitor, not the map center or walking distances.\n4. **Listening is limited to 100 m.** Play narration appears only when the visitor is within 100 m of the place; otherwise the preview and the story page show \"Come within 100 m to listen\" and the story can still be read. This applies to every way of reaching a story, including name search, and with no location at all. A track that is already loaded keeps playing and stays controllable when the visitor walks out of range; the limit only blocks starting a new one.\n5. Play narration stays on the map. Selecting another marker does not change the playing track. View story opens the existing story page; Back returns to the remembered map view and selection. Audio stays mounted across navigation.\n6. Pan/zoom never reloads places. The list is loaded around the visitor's position: after 100 m of movement an **Update places** button appears, and after 500 m the nearest places reload automatically. Changing the demo spot recenters and reloads. When more than 100 places are in range, the map says it is showing the 100 nearest.\n\nDenied GPS stays on the permission guidance screen. A lost signal after a fix retains the last position with a warning; playback continues. Inaccurate fixes display a warning; the 100 m listening check uses the reported position as-is, without widening for accuracy. The check runs in the visitor app only: the story and audio endpoints do not receive the visitor's location, so it is a product rule, not an access control. Language fallback/generation is managed at the application root, so an active track's request continues when browsing other pins or returning to the map. Merely previewing a pin on the map does not start language generation.",
+      "endLine": 14
+    },
+    "TECH-FONT": {
+      "id": "TECH-FONT",
+      "path": "src/Web/packages/ui/src/base.css",
+      "symbol": "Be Vietnam Pro · @font-face",
+      "line": 4,
+      "description": "Nạp phông Be Vietnam Pro từ tệp trong dự án.",
+      "excerpt": "@font-face { font-family: \"Be Vietnam Pro\"; font-style: normal; font-weight: 400; font-display: swap; src: url(\"./assets/fonts/BeVietnamPro-Regular.woff2\") format(\"woff2\"); }\n@font-face { font-family: \"Be Vietnam Pro\"; font-style: normal; font-weight: 600; font-display: swap; src: url(\"./assets/fonts/BeVietnamPro-SemiBold.woff2\") format(\"woff2\"); }\n@font-face { font-family: \"Be Vietnam Pro\"; font-style: normal; font-weight: 700; font-display: swap; src: url(\"./assets/fonts/BeVietnamPro-Bold.woff2\") format(\"woff2\"); }\n\nhtml { box-sizing: border-box; }\n*, *::before, *::after { box-sizing: inherit; }\n\nbody {\n  margin: 0;\n  background: var(--canvas-paper);\n  color: var(--body);\n  font-family: var(--font-sans);\n  font-size: var(--text-body-size);\n  line-height: var(--text-body-line);",
+      "endLine": 17
+    },
+    "TECH-DOTNET": {
+      "id": "TECH-DOTNET",
+      "path": "Directory.Build.props",
+      "symbol": "TargetFramework",
+      "line": 4,
+      "description": "Chỉ định phiên bản .NET dùng cho backend.",
+      "excerpt": "    <TargetFramework>net9.0</TargetFramework>\n    <Nullable>enable</Nullable>\n    <ImplicitUsings>enable</ImplicitUsings>\n    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>\n    <InvariantGlobalization>false</InvariantGlobalization>\n  </PropertyGroup>\n</Project>",
+      "endLine": 10
+    },
+    "TECH-SQL": {
+      "id": "TECH-SQL",
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Queries/DapperNearbyPoiQuery.cs",
+      "symbol": "Dapper · QueryAsync",
+      "line": 84,
+      "description": "Chạy truy vấn không gian bằng Dapper.",
+      "excerpt": "            .QueryAsync<NearbyPoi>(command);\n\n        return results.AsList();\n    }\n}",
+      "endLine": 88
+    },
+    "TECH-RESILIENCE": {
+      "id": "TECH-RESILIENCE",
+      "path": "src/Speech/Speech.Api/Providers/GoogleTtsProvider.cs",
+      "symbol": "TtsResilience.AddTtsResilience",
+      "line": 25,
+      "description": "Cấu hình thử lại, circuit breaker và timeout cho tổng hợp giọng nói.",
+      "excerpt": "    public static IServiceCollection AddTtsResilience(this IServiceCollection services, IConfiguration config)\n    {\n        // Only statuses that can succeed on a second try. Auth and bad-request errors neither retry\n        // nor open the circuit: they say nothing about Google's health.\n        var transient = new PredicateBuilder().Handle<RpcException>(e => e.StatusCode is\n            StatusCode.Unavailable or StatusCode.DeadlineExceeded or StatusCode.ResourceExhausted or StatusCode.Internal);\n\n        var retry = new RetryStrategyOptions\n        {\n            MaxRetryAttempts = 3,\n            BackoffType = DelayBackoffType.Exponential,\n            ShouldHandle = transient,\n        };\n        var breaker = new CircuitBreakerStrategyOptions",
+      "endLine": 38
+    },
+    "TECH-OBS": {
+      "id": "TECH-OBS",
+      "path": "docs/observability.md",
+      "symbol": "Connected traces",
+      "line": 125,
+      "description": "Tài liệu về tracing xuyên các dịch vụ.",
+      "excerpt": "## Part 2: connected traces and processing time\n\nCatalog now stores the current request's W3C `traceparent` and `tracestate` with\neach outbox event, inside the same transaction as the publish/retry changes.\nOnly trace context is captured: arbitrary HTTP headers and baggage are not\nstored. A retry request captures its own new parent, while a later dispatch\nattempt of the same row continues using that row's original parent.\n\n`AddOutboxTraceContext` adds nullable `trace_parent` (`varchar(55)`) and\n`trace_state` (`varchar(512)`) columns. Catalog already runs migrations during\nstartup, so restarting a rebuilt Catalog applies this addition. Existing rows\nremain valid and start a new trace if no usable context exists. The migration\ndoes not replace the outbox table or modify existing event payloads.\n",
+      "endLine": 138
+    },
+    "TECH-CI": {
+      "id": "TECH-CI",
+      "path": "docs/ci-cd.md",
+      "symbol": "Workflow selection",
+      "line": 10,
+      "description": "Tài liệu về chọn pipeline theo phần code thay đổi.",
+      "excerpt": "## Workflow selection\n\nFive backend workflows validate pull requests targeting `main` and matching\npushes to `main`. Push and PR path filters are identical within each workflow.\nAn ordinary push to a feature branch does not run these workflows until a PR\nexists. The frontend retains its separate `web` workflow.\n\n| Changed path | Backend workflows |\n|---|---|\n| `src/Gateway/**`, `tests/Gateway.Tests/**` | Gateway |\n| `src/Identity/**`, `tests/Identity.Tests/**` | Identity |\n| `src/Catalog/**`, `tests/Catalog.Tests/**` | Catalog |\n| `src/Localization/**`, `tests/Localization.Tests/**` | Localization |\n| `src/Speech/**`, `tests/Speech.Tests/**` | Speech |",
+      "endLine": 23
+    },
+    "TECH-TEST": {
+      "id": "TECH-TEST",
+      "path": "src/Web/vitest.config.ts",
+      "symbol": "Vitest defineConfig",
+      "line": 4,
+      "description": "Cấu hình kiểm thử workspace frontend.",
+      "excerpt": "export default defineConfig({\n  test: {\n    // Bound concurrent jsdom environments on development machines and small CI runners.\n    maxWorkers: 2,\n    projects: ['packages/*', 'apps/*'],\n  },\n})",
+      "endLine": 10
+    },
+    "DOMAIN-PointOfInterest": {
+      "id": "DOMAIN-PointOfInterest",
+      "path": "src/Catalog/Catalog.Core/Entities/PointOfInterest.cs",
+      "symbol": "PointOfInterest",
+      "line": 6,
+      "description": "Khai báo lớp miền PointOfInterest trong Catalog.",
+      "excerpt": "public sealed class PointOfInterest\n{\n    public bool IsVisible { get; set; } = true;\n    public DateTimeOffset? VisibilityChangedAt { get; set; }\n    public Guid? VisibilityChangedBy { get; set; }\n    public Guid Id { get; set; }\n    public long CategoryId { get; set; }\n    public Point Location { get; set; } = null!;\n    public PoiLifecycleStatus LifecycleStatus { get; set; } = PoiLifecycleStatus.Draft;\n    public DateTimeOffset? ActivatedAt { get; set; }\n    public DateTimeOffset? DeletedAt { get; set; }\n    public Guid? CreatedByUserId { get; set; }\n    public string? CreatedByName { get; set; }\n    public Guid? UpdatedByUserId { get; set; }",
+      "endLine": 19
+    },
+    "DOMAIN-Narration": {
+      "id": "DOMAIN-Narration",
+      "path": "src/Catalog/Catalog.Core/Entities/Narration.cs",
+      "symbol": "Narration",
+      "line": 4,
+      "description": "Khai báo lớp miền Narration trong Catalog.",
+      "excerpt": "public sealed class Narration\n{\n    public Guid Id { get; set; }\n    public Guid PoiId { get; set; }\n    public Guid? ActiveSourceId { get; set; }\n    public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;\n    public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;\n    public byte[] RowVersion { get; set; } = [];\n\n    public PointOfInterest Poi { get; set; } = null!;\n    public NarrationSource? ActiveSource { get; set; }\n    public ICollection<NarrationSource> Sources { get; set; } = [];\n}",
+      "endLine": 16
+    },
+    "DOMAIN-NarrationSource": {
+      "id": "DOMAIN-NarrationSource",
+      "path": "src/Catalog/Catalog.Core/Entities/NarrationSource.cs",
+      "symbol": "NarrationSource",
+      "line": 4,
+      "description": "Khai báo lớp miền NarrationSource trong Catalog.",
+      "excerpt": "public sealed class NarrationSource\n{\n    public Guid Id { get; set; }\n    public Guid NarrationId { get; set; }\n    public int Version { get; set; }\n    public string Title { get; set; } = string.Empty;\n    public string Body { get; set; } = string.Empty;\n    public NarrationSourceStatus LifecycleStatus { get; set; } = NarrationSourceStatus.Draft;\n    public DateTimeOffset? PublishedAt { get; set; }\n    public Guid? PublishedByUserId { get; set; }\n    public string? PublishedByName { get; set; }\n    public DateTimeOffset? ServingAt { get; set; }\n    public DateTimeOffset? ArchivedAt { get; set; }\n    public Guid? CreatedByUserId { get; set; }",
+      "endLine": 17
+    },
+    "DOMAIN-GenerationRequest": {
+      "id": "DOMAIN-GenerationRequest",
+      "path": "src/Catalog/Catalog.Core/Entities/GenerationRequest.cs",
+      "symbol": "GenerationRequest",
+      "line": 4,
+      "description": "Khai báo lớp miền GenerationRequest trong Catalog.",
+      "excerpt": "public sealed class GenerationRequest\n{\n    public Guid Id { get; set; }\n    public Guid NarrationId { get; set; }\n    public int SourceVersion { get; set; }\n    public string LanguageCode { get; set; } = string.Empty;\n    public GenerationRequestType RequestType { get; set; }\n    public GenerationRequestStatus Status { get; set; } = GenerationRequestStatus.Pending;\n    public string IdempotencyKey { get; set; } = string.Empty;\n    public Guid CorrelationId { get; set; }\n    public int AttemptCount { get; set; }\n    public string? FailureStage { get; set; }\n    public string? FailureCode { get; set; }\n    public DateTimeOffset RequestedAt { get; set; } = DateTimeOffset.UtcNow;",
+      "endLine": 17
+    },
+    "DOMAIN-CatalogDeliveryContent": {
+      "id": "DOMAIN-CatalogDeliveryContent",
+      "path": "src/Catalog/Catalog.Core/Entities/CatalogDeliveryContent.cs",
+      "symbol": "CatalogDeliveryContent",
+      "line": 4,
+      "description": "Khai báo lớp miền CatalogDeliveryContent trong Catalog.",
+      "excerpt": "public sealed class CatalogDeliveryContent\n{\n    public Guid NarrationId { get; set; }\n    public int SourceVersion { get; set; }\n    public string LanguageCode { get; set; } = string.Empty;\n    public string? Title { get; set; }\n    public string? Body { get; set; }\n    public string? AudioObjectKey { get; set; }\n    public int? AudioDurationMs { get; set; }\n    public string? TranscriptJson { get; set; }\n    public DateTimeOffset? TextReadyAt { get; set; }\n    public DateTimeOffset? AudioReadyAt { get; set; }\n    public DateTimeOffset ProjectionUpdatedAt { get; set; } = DateTimeOffset.UtcNow;\n    public Guid? LastEventId { get; set; }",
+      "endLine": 17
+    },
+    "DOMAIN-SupportedLanguage": {
+      "id": "DOMAIN-SupportedLanguage",
+      "path": "src/Catalog/Catalog.Core/Entities/SupportedLanguage.cs",
+      "symbol": "SupportedLanguage",
+      "line": 3,
+      "description": "Khai báo lớp miền SupportedLanguage trong Catalog.",
+      "excerpt": "public sealed class SupportedLanguage\n{\n    public string Code { get; set; } = string.Empty;\n    public string DisplayName { get; set; } = string.Empty;\n    public string? FallbackLanguageCode { get; set; }\n    public short DisplayOrder { get; set; }\n    public bool IsActive { get; set; } = true;\n\n    public SupportedLanguage? FallbackLanguage { get; set; }\n}",
+      "endLine": 12
+    }
+  },
+  "byUseCase": {
+    "UC1": [
+      "SM",
+      "AF",
+      "AL"
+    ],
+    "UC2": [
+      "LG",
+      "NR",
+      "NS",
+      "MR",
+      "NEARBY",
+      "MAP-NEAREST",
+      "MAP"
+    ],
+    "UC3": [
+      "SC",
+      "STORY",
+      "STORY-ROUTE",
+      "LISTEN-RANGE",
+      "AE",
+      "AUDIO-HTTP"
+    ],
+    "UC4": [
+      "LR",
+      "PM",
+      "LANG-REQUEST",
+      "REQUEST-STATUS",
+      "REQUEUE"
+    ],
+    "UC5": [
+      "PS",
+      "PE",
+      "AP",
+      "DRAFT",
+      "GEOCODING"
+    ],
+    "UC6": [
+      "DRAFT",
+      "PUBLISH-HTTP",
+      "CW",
+      "OUTBOX",
+      "LOCALIZATION",
+      "SPEECH",
+      "ACTIVATE",
+      "PROGRESS",
+      "PUBLISH-POLL"
+    ],
+    "UC7": [
+      "JS",
+      "JOBS-HTTP",
+      "RETRY-HTTP",
+      "REQUEUE"
+    ],
+    "UC8": [
+      "DS",
+      "REPORTS-HTTP",
+      "REPORT",
+      "USAGE-INGEST"
+    ],
+    "UC9": [
+      "EXPORT-DIALOG",
+      "REPORTS-HTTP",
+      "REPORT",
+      "EXPORT"
+    ]
+  }
+}

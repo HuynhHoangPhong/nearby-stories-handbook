@@ -1,0 +1,627 @@
+{
+  "fbf425462cbab0e1ec5e8a70d1f190f7af4f8696": {
+    "goal": "Đưa quy tắc khám phá từ xa và nghe tại chỗ vào bản dùng chung của nhóm.",
+    "changes": [
+      {
+        "label": "Tích hợp bản đồ",
+        "action": "Nhập tuyến lấy địa điểm gần khách trên phạm vi rộng và cập nhật luồng chọn điểm.",
+        "outcome": "Khách có thể xem trước các địa điểm công khai ngoài bán kính nghe."
+      },
+      {
+        "label": "Tích hợp khoảng cách nghe",
+        "action": "Nhập kiểm tra 100 m ở PWA và hành vi giữ bài đã bắt đầu.",
+        "outcome": "Quy tắc bắt đầu nghe xuất hiện cùng trải nghiệm đọc và nghe tiếp đã được kiểm tra."
+      }
+    ]
+  },
+  "9c36747b000ba1b5deeed072879500422d0ae078": {
+    "goal": "Cho khách xem trước địa điểm từ xa và khuyến khích nghe câu chuyện khi đến gần địa điểm.",
+    "changes": [
+      {
+        "label": "Điểm trên bản đồ",
+        "action": "Catalog thêm truy vấn các địa điểm công khai gần khách theo phạm vi rộng hơn danh sách lân cận.",
+        "outcome": "Khách có thể khám phá thêm vị trí ngoài bán kính nghe."
+      },
+      {
+        "label": "Khoảng cách nghe",
+        "action": "PWA dùng tọa độ POI và vị trí khách để kiểm tra giới hạn 100 m khi bắt đầu bài mới.",
+        "outcome": "Khách biết khi nào cần đến gần hơn để phát audio."
+      },
+      {
+        "label": "Đọc và nghe tiếp",
+        "action": "Cho mở văn bản từ xa và giữ quyền điều khiển bài đã tải vào trình phát khi rời phạm vi.",
+        "outcome": "Khách có thể đọc trước hoặc nghe trọn bài đã bắt đầu."
+      }
+    ]
+  },
+  "92b5ef6770d29e01d4b7eca6b815e273a7bfed3c": {
+    "goal": "Cho nhóm có sẵn một địa điểm tôn giáo để biên tập và phân loại trong Catalog.",
+    "changes": [
+      {
+        "label": "Địa điểm mẫu",
+        "action": "Thêm Chùa Xá Lợi và các tham chiếu vào bộ dữ liệu TP.HCM.",
+        "outcome": "Catalog có bản nháp để biên tập viên kiểm tra trước khi xuất bản."
+      },
+      {
+        "label": "Danh mục Chùa",
+        "action": "Thêm nhãn danh mục trong cấu hình ngôn ngữ và bản dịch của Admin.",
+        "outcome": "Người biên tập đọc được loại địa điểm trong giao diện quản lý."
+      },
+      {
+        "label": "Nguồn tạo dữ liệu",
+        "action": "Bổ sung địa điểm vào danh sách đầu vào của công cụ thu thập.",
+        "outcome": "Nhóm có thông tin dùng lại khi làm mới bộ dữ liệu mẫu."
+      }
+    ]
+  },
+  "676d87c29df6d9173236542750577f2f5ff2107b": {
+    "goal": "Đưa đối chiếu UC8, UC9 và các vị trí liên quan vào nhánh tài liệu dùng chung.",
+    "changes": [
+      {
+        "label": "Đối chiếu yêu cầu",
+        "action": "Nhập thay đổi của tài liệu mã nguồn và các chú thích trong Catalog, PWA, Admin Web.",
+        "outcome": "Nhóm có thể lần từ hai use case báo cáo tới các bước thu thập và hiển thị."
+      },
+      {
+        "label": "Đối chiếu xuất Excel",
+        "action": "Đưa vị trí lấy số liệu và dựng tệp vào lịch sử main.",
+        "outcome": "Người đọc có điểm bắt đầu khi cần sửa thao tác tải báo cáo."
+      }
+    ]
+  },
+  "ffceece7caca9fb935fa9f11068a6571de49a329": {
+    "goal": "Giúp nhóm lần từ yêu cầu thống kê và xuất Excel đến đúng phần triển khai.",
+    "changes": [
+      {
+        "label": "Theo dõi thống kê",
+        "action": "Đánh dấu chỗ nhận sự kiện, tính báo cáo và hiển thị dashboard.",
+        "outcome": "Người đọc có thể theo dõi dữ liệu từ PWA đến trang quản trị."
+      },
+      {
+        "label": "Xuất báo cáo",
+        "action": "Đánh dấu phần chọn kỳ, lấy số liệu và tạo tệp Excel.",
+        "outcome": "Nhóm có thể tìm nơi xử lý UC9 khi sửa tiêu chí báo cáo."
+      },
+      {
+        "label": "Bảng đối chiếu",
+        "action": "Cập nhật tài liệu và chú thích liên quan cho các tuyến biên tập, vị trí và API.",
+        "outcome": "Sơ đồ, use case và vị trí code có đường dẫn đối chiếu rõ hơn."
+      }
+    ]
+  },
+  "30b3808895669a0bd39253c8ac4b324b1712902c": {
+    "goal": "Đưa cách chuẩn bị môi trường an toàn hơn và hình mô tả nghiệp vụ về main.",
+    "changes": [
+      {
+        "label": "Thiết lập Docker",
+        "action": "Nhập cấu hình gắn tệp, kiểm tra đường dẫn và hướng dẫn Identity local.",
+        "outcome": "Nhóm có thể phát hiện sai cấu hình khi dựng môi trường."
+      },
+      {
+        "label": "Sơ đồ tuần tự",
+        "action": "Sáp nhập nguồn sơ đồ cùng ảnh xuất cho các luồng chính.",
+        "outcome": "Người đọc có cả hình xem nhanh và nguồn để cập nhật."
+      }
+    ]
+  },
+  "f3d48eb6c25be02d52337a0e236b6703540a6d03": {
+    "goal": "Giúp nhóm phát hiện lỗi cấu hình tệp gắn vào container sớm và có sơ đồ để đọc các luồng chính.",
+    "changes": [
+      {
+        "label": "Gắn tệp vào container",
+        "action": "Điều chỉnh bind mount và kiểm tra đường dẫn tệp đã cấu hình.",
+        "outcome": "Đường dẫn sai tạo ra lỗi cấu hình rõ để nhóm sửa trước khi khởi động container."
+      },
+      {
+        "label": "Chuẩn bị tài khoản phát triển",
+        "action": "Cập nhật script và hướng dẫn chuẩn bị Identity cùng cấu hình chạy local.",
+        "outcome": "Thành viên mới có thể dựng môi trường thử theo cùng chỉ dẫn."
+      },
+      {
+        "label": "Sơ đồ tuần tự",
+        "action": "Thêm nguồn và ảnh xuất cho các luồng xác thực, tìm địa điểm, xuất bản và xử lý audio.",
+        "outcome": "Nhóm có thể xem hình và sửa lại sơ đồ khi quy trình thay đổi."
+      }
+    ]
+  },
+  "95389be39c42bba17bc698383a1e62c5b651238e": {
+    "goal": "Đưa mã truy vết yêu cầu sản phẩm vào repo chính để nhóm dùng chung.",
+    "changes": [
+      {
+        "label": "Đánh dấu vị trí triển khai",
+        "action": "Nhập chú thích ở các service, giao diện, workflow và script.",
+        "outcome": "Người đọc xác định được tính năng hoặc yêu cầu vận hành gắn với mỗi đoạn code."
+      },
+      {
+        "label": "Tài liệu đối chiếu",
+        "action": "Gộp tài liệu nối use case, user story và đường dẫn mã.",
+        "outcome": "Khi chỉnh yêu cầu, nhóm có thể tìm các phần cần xem lại nhanh hơn."
+      }
+    ]
+  },
+  "d00a0cba06de613ff5a615cf8688b2dbb526983f": {
+    "goal": "Giúp người đọc đi từ một use case hoặc user story đến các tệp cụ thể trong repo.",
+    "changes": [
+      {
+        "label": "Đánh dấu luồng nghiệp vụ",
+        "action": "Thêm chú thích tại các hàm xác thực, quản lý địa điểm, dịch và tổng hợp âm thanh.",
+        "outcome": "Khi đọc code, nhóm biết đoạn đó phục vụ yêu cầu nào."
+      },
+      {
+        "label": "Đánh dấu hạ tầng và giao diện",
+        "action": "Bổ sung tham chiếu ở workflow, truy vết, PWA và Admin Web.",
+        "outcome": "Tài liệu bao quát cả nơi triển khai hành vi lẫn phần vận hành đi kèm."
+      },
+      {
+        "label": "Tạo bảng đối chiếu",
+        "action": "Thêm tài liệu nối mã yêu cầu với chức năng và đường dẫn tệp.",
+        "outcome": "Nhóm có điểm tra cứu chung khi rà soát phạm vi."
+      }
+    ]
+  },
+  "36f4b025d77e6565960af6d96a51c88991ddfc47": {
+    "goal": "Tạo một thay đổi nhỏ trong phạm vi Speech để quan sát workflow phát hành của dịch vụ.",
+    "changes": [
+      {
+        "label": "Thay đổi minh họa",
+        "action": "Sửa dấu câu trong chú thích về cách nạp thông tin xác thực Google.",
+        "outcome": "Commit tạo một thay đổi ở tệp Speech để workflow theo đường dẫn nhận diện được."
+      }
+    ]
+  },
+  "b1f9d65da59643df57d10418b8dd436914918987": {
+    "goal": "Giúp runner Windows đăng nhập được GitHub Container Registry để lấy image khi triển khai.",
+    "changes": [
+      {
+        "label": "Mã hóa đầu vào",
+        "action": "Đặt luồng nhập của console thành UTF-8 không BOM trước khi gửi token cho docker login.",
+        "outcome": "Docker nhận đúng chuỗi token, tránh lỗi xác thực do ký tự đánh dấu bị ghép vào đầu."
+      },
+      {
+        "label": "Kiểm thử workflow",
+        "action": "Thêm kiểm tra cấu hình cho định dạng đầu vào của lệnh đăng nhập.",
+        "outcome": "Nhóm có thể phát hiện khi thay đổi script làm mất cấu hình mã hóa này."
+      }
+    ]
+  },
+  "f60c6ff3c6ba0b35d2449b77ce017557817164a0": {
+    "goal": "Cho Operator biết công việc nào đang chạy hoặc lỗi và tra được chi tiết từng lần xử lý.",
+    "changes": [
+      {
+        "label": "Danh sách và bộ lọc",
+        "action": "Thêm API phân trang theo trạng thái, trả số lượng mỗi trạng thái và xếp việc mới cập nhật lên trước.",
+        "outcome": "Nhân viên vận hành tìm được công việc cần xử lý khi danh sách lớn."
+      },
+      {
+        "label": "Chi tiết công việc",
+        "action": "Trả ngôn ngữ, giọng đọc, số lần thử, lỗi và thông tin audio khi đã có tệp.",
+        "outcome": "Operator có căn cứ để kiểm tra công việc thất bại hoặc hoàn thành."
+      },
+      {
+        "label": "Truy vấn và quyền truy cập",
+        "action": "Thêm chỉ mục theo trạng thái và thời điểm cập nhật, đồng thời kiểm thử quyền Operator.",
+        "outcome": "API hỗ trợ tra cứu theo bộ lọc trên dữ liệu tăng dần và giới hạn quyền vào khu vực vận hành."
+      }
+    ]
+  },
+  "ffe41d37912ccb7be97f7dbffe68965a0d414d37": {
+    "goal": "Đưa khả năng quan sát toàn luồng xuất bản vào main để nhóm có thể chẩn đoán sự cố giữa nhiều dịch vụ.",
+    "changes": [
+      {
+        "label": "Log và truy vết",
+        "action": "Nhập log JSON, ngữ cảnh qua outbox và RabbitMQ, cùng bộ lọc dữ liệu truy vết.",
+        "outcome": "Có thể lần từ yêu cầu HTTP sang các bước xử lý nền."
+      },
+      {
+        "label": "Mức sẵn sàng và demo",
+        "action": "Nhập kiểm tra phụ thuộc, cấu hình Docker demo và bài kiểm tra quan sát.",
+        "outcome": "Nhóm có cách thử luồng chạy và phát hiện dịch vụ đang kẹt ở phụ thuộc nào."
+      }
+    ]
+  },
+  "01c187605e1aee5c93252c79ce28ae8de08a7279": {
+    "goal": "Cho nhóm biết dịch vụ nào chưa kết nối được phụ thuộc và có cách thử trọn luồng xuất bản.",
+    "changes": [
+      {
+        "label": "Kiểm tra phụ thuộc",
+        "action": "Bổ sung kiểm tra mức sẵn sàng cho các kết nối mà dịch vụ cần để xử lý.",
+        "outcome": "Nhóm có thể phân biệt tiến trình đang chạy với dịch vụ đã sẵn sàng nhận việc."
+      },
+      {
+        "label": "Môi trường demo",
+        "action": "Tạo cấu hình Docker riêng cùng dữ liệu nháp và các provider mô phỏng.",
+        "outcome": "Nhóm có thể chạy luồng minh họa mà không phụ thuộc vào lượt gọi thật tới dịch vụ ngoài."
+      },
+      {
+        "label": "Xác minh luồng",
+        "action": "Bổ sung script và bài kiểm tra health để theo dõi từng bước.",
+        "outcome": "Khi demo trục trặc, nhóm có điểm bắt đầu để khoanh vùng vấn đề."
+      }
+    ]
+  },
+  "b0d0451b20da7cafea9fa19e66fba8affe3ae2fd": {
+    "goal": "Giúp nhóm thấy yêu cầu xuất bản đi qua những dịch vụ nào và phần nào mất thời gian.",
+    "changes": [
+      {
+        "label": "Giữ ngữ cảnh truy vết",
+        "action": "Lưu ngữ cảnh truy vết cùng bản ghi outbox và truyền qua thông điệp RabbitMQ.",
+        "outcome": "Việc gửi nền vẫn được nối về yêu cầu xuất bản gốc."
+      },
+      {
+        "label": "Theo dõi xử lý",
+        "action": "Bổ sung các đoạn truy vết khi dịch, tổng hợp và đọc dữ liệu, đồng thời lọc thông tin riêng tư.",
+        "outcome": "Nhóm có thể tra chặng lỗi hoặc chậm theo một trace."
+      },
+      {
+        "label": "Kiểm tra đường đi",
+        "action": "Thêm bài thử outbox và RabbitMQ để kiểm tra quan hệ giữa các đoạn truy vết.",
+        "outcome": "Nhóm có cơ sở xác nhận luồng chạy qua nhiều dịch vụ vẫn được nối liền."
+      }
+    ]
+  },
+  "5b435bdd2df7dc9acf28470d0cd89bf6fbf5b1c0": {
+    "goal": "Cho nhóm lọc và tra lỗi bằng các trường có cấu trúc thống nhất giữa các dịch vụ.",
+    "changes": [
+      {
+        "label": "Định dạng log",
+        "action": "Chuẩn hóa log JSON bằng lớp định dạng và thiết lập dùng chung.",
+        "outcome": "Công cụ thu thập có thể lọc sự kiện theo trường."
+      },
+      {
+        "label": "Ngữ cảnh yêu cầu",
+        "action": "Gắn mã liên hệ, thông tin yêu cầu và thông điệp vào phạm vi ghi log.",
+        "outcome": "Người vận hành có thể nối các dòng log của cùng một lần xử lý."
+      },
+      {
+        "label": "Kiểm tra dữ liệu log",
+        "action": "Thêm bài thử log HTTP, thông điệp và định dạng đầu ra.",
+        "outcome": "Nhóm có thể phát hiện trường cần tra cứu bị mất khi thay cấu hình."
+      }
+    ]
+  },
+  "d4629d66cd27e5552837daf52f27ea52b4a74dbf": {
+    "goal": "Đưa quy trình build, phát hành và cập nhật riêng từng dịch vụ vào nhánh dùng chung.",
+    "changes": [
+      {
+        "label": "Chọn pipeline",
+        "action": "Nhập bộ lọc đường dẫn và cấu hình workflow cho năm backend.",
+        "outcome": "Thay đổi được đưa đến quy trình kiểm tra của đúng phần liên quan."
+      },
+      {
+        "label": "Triển khai và xác minh",
+        "action": "Gộp script phát hành, khôi phục Gateway khi lỗi và kiểm tra cô lập dịch vụ.",
+        "outcome": "Nhóm có quy trình triển khai nhỏ theo từng service."
+      }
+    ]
+  },
+  "5329d26eea13b8083df4767bbc69e7c420a18741": {
+    "goal": "Chỉ chạy kiểm tra và triển khai các dịch vụ bị ảnh hưởng, giảm tác động lên phần còn lại.",
+    "changes": [
+      {
+        "label": "Chọn pipeline",
+        "action": "Khai báo bộ lọc đường dẫn cho Gateway, Identity, Catalog, Localization và Speech.",
+        "outcome": "Một thay đổi có thể kích hoạt đúng workflow liên quan."
+      },
+      {
+        "label": "Triển khai từng dịch vụ",
+        "action": "Dùng script chung để lấy image đã xuất bản và thay đúng service.",
+        "outcome": "Các container ngoài phạm vi thay đổi có thể tiếp tục chạy."
+      },
+      {
+        "label": "Kiểm thử và hướng dẫn",
+        "action": "Thêm kiểm tra workflow, kiểm tra cô lập triển khai và hướng dẫn demo.",
+        "outcome": "Nhóm có thể kiểm chứng thao tác trước khi dùng trên runner."
+      }
+    ]
+  },
+  "1afaecf80e4bdce127a6e4ae58631afdae182fa0": {
+    "goal": "Giảm thao tác thủ công khi phát hành Gateway và có đường lui khi bản mới không đạt kiểm tra.",
+    "changes": [
+      {
+        "label": "Image đã kiểm tra",
+        "action": "Workflow build, kiểm tra rồi xuất bản image Gateway.",
+        "outcome": "Bước triển khai có thể lấy đúng image của lần phát hành."
+      },
+      {
+        "label": "Kiểm tra sau triển khai",
+        "action": "Script theo dõi tình trạng Gateway sau khi thay image và xử lý lần triển khai thất bại.",
+        "outcome": "Nhóm có thể khôi phục hoạt động khi bản mới không chạy như mong đợi."
+      },
+      {
+        "label": "Nền tảng chung",
+        "action": "Bổ sung script, kiểm tra cấu hình và tài liệu để tái sử dụng cho các dịch vụ.",
+        "outcome": "Các pipeline sau có mẫu nhất quán để mở rộng."
+      }
+    ]
+  },
+  "4efad39cdf6951b6ec82d1a92541da4667526fdb": {
+    "goal": "Kết nối phiên đăng nhập từ Admin Web với chính sách truy cập ở Gateway và các dịch vụ đích.",
+    "changes": [
+      {
+        "label": "Đăng nhập và vai trò",
+        "action": "Nhập Identity, chính sách Editor hoặc Operator và luồng làm mới phiên.",
+        "outcome": "Các chức năng quản trị có dữ liệu để nhận diện nhân sự và quyền."
+      },
+      {
+        "label": "Tương thích Catalog",
+        "action": "Gộp phần điều chỉnh xác thực cho Catalog cùng kiểm thử qua Gateway.",
+        "outcome": "Quy trình xuất bản trên main có thể chạy với phiên đăng nhập mới."
+      }
+    ]
+  },
+  "1c79cbd5971841f374a7627fbc0158c8c9bc71f5": {
+    "goal": "Cho nhánh đăng nhập dùng được luồng xuất bản Catalog vừa thay đổi trên main.",
+    "changes": [
+      {
+        "label": "Đồng bộ xuất bản",
+        "action": "Mang các thay đổi API, outbox và dữ liệu phục vụ từ main vào nhánh Identity.",
+        "outcome": "Nhánh xác thực được kiểm tra trên nền Catalog mới."
+      },
+      {
+        "label": "Hòa giải quyền",
+        "action": "Điều chỉnh vị trí kiểm tra quyền và bài thử Catalog sau khi kết hợp hai nhánh.",
+        "outcome": "Các tuyến quản trị và xuất bản dùng cùng điều kiện truy cập."
+      }
+    ]
+  },
+  "090ab2442a3076fa3f90f03dd1bc621d0fc0daa8": {
+    "goal": "Cho nhân sự đăng nhập một lần rồi truy cập đúng chức năng được giao trong Admin Web.",
+    "changes": [
+      {
+        "label": "Đăng nhập và làm mới",
+        "action": "Identity kiểm tra tài khoản, cấp JWT và làm mới phiên bằng refresh token.",
+        "outcome": "Người dùng giữ được phiên hợp lệ khi làm việc trong trang quản trị."
+      },
+      {
+        "label": "Phân quyền API",
+        "action": "Đặt chính sách cho Editor và Operator ở Gateway, Catalog hoặc Speech tùy tuyến.",
+        "outcome": "Các thao tác biên tập và vận hành được giới hạn theo vai trò."
+      },
+      {
+        "label": "Kết nối giao diện",
+        "action": "Admin Web lưu phiên, gắn token khi gọi API và điều hướng theo quyền.",
+        "outcome": "Nhân sự thấy các màn hình phù hợp với tài khoản."
+      },
+      {
+        "label": "Xác minh",
+        "action": "Thêm bài kiểm tra đăng nhập, tài khoản mẫu và quyền khi đi qua Gateway.",
+        "outcome": "Nhóm có thể kiểm tra cả quy tắc ở điểm vào lẫn dịch vụ đích."
+      }
+    ]
+  },
+  "98bddb5cf67e812b8cfc7a21981b63bece1ecb00": {
+    "goal": "Cho các ứng dụng web gọi backend qua cùng một Gateway và kiểm chứng hành vi chuyển tiếp.",
+    "changes": [
+      {
+        "label": "Định tuyến",
+        "action": "Nhập cấu hình tiền tố và địa chỉ đích cho từng dịch vụ.",
+        "outcome": "Giao diện có một địa chỉ vào thống nhất."
+      },
+      {
+        "label": "Kiểm tra ở điểm vào",
+        "action": "Gộp cấu hình CORS, giới hạn tần suất và các bài kiểm tra Gateway.",
+        "outcome": "Nhóm có thể xác nhận proxy chuyển đúng đích và báo đúng khi vượt giới hạn."
+      }
+    ]
+  },
+  "c06786659e4a57d5534fd1f4186f9ff671cdb32b": {
+    "goal": "Cho giao diện gọi các dịch vụ từ cùng một địa chỉ và xác nhận cách Gateway chuyển tiếp.",
+    "changes": [
+      {
+        "label": "Định tuyến theo tiền tố",
+        "action": "Gateway chuyển yêu cầu tới Catalog, Identity, Localization hoặc Speech và xử lý tiền tố khi chuyển tiếp.",
+        "outcome": "Giao diện sử dụng một địa chỉ mà vẫn gọi đúng dịch vụ."
+      },
+      {
+        "label": "Yêu cầu từ trình duyệt",
+        "action": "Cấu hình CORS và tổ chức lại middleware ở điểm vào.",
+        "outcome": "Gateway xử lý nguồn gọi trước khi chuyển đến dịch vụ đích."
+      },
+      {
+        "label": "Kiểm thử proxy",
+        "action": "Thêm kiểm tra định tuyến và CORS, đồng thời bỏ tệp kiểm thử hạn mức cũ trên nhánh.",
+        "outcome": "Bài kiểm tra mới xác nhận các yêu cầu đi đúng đích và giữ nội dung khi chuyển tiếp."
+      }
+    ]
+  },
+  "4b52026f70cf468970e7d07f25e0eaea970fbafe": {
+    "goal": "Cho nhánh Gateway được thử với hai ứng dụng web đã có trên main.",
+    "changes": [
+      {
+        "label": "Nhập ứng dụng web",
+        "action": "Đồng bộ các tệp giao diện khách, quản trị, API và chế độ mock từ main.",
+        "outcome": "Các thay đổi web này có thể dùng khi thử tuyến Gateway trên cùng nhánh."
+      },
+      {
+        "label": "Nhập cấu hình chạy",
+        "action": "Đồng bộ cấu hình Docker, CI frontend và tài liệu hợp đồng.",
+        "outcome": "Nhóm có thể chạy đúng hai ứng dụng sau khi gộp nhánh."
+      }
+    ]
+  },
+  "ecfbe9f926b0cf93e615d5acfd10c09360bc3801": {
+    "goal": "Cho khách và nhân sự thử toàn bộ luồng chính ngay cả khi backend chưa có nội dung sẵn dùng.",
+    "changes": [
+      {
+        "label": "Hành trình của khách",
+        "action": "Tạo luồng xin vị trí, danh sách lân cận, truyện, trình phát và chọn ngôn ngữ.",
+        "outcome": "Khách có thể đi từ tìm địa điểm đến nghe thuyết minh trong một ứng dụng."
+      },
+      {
+        "label": "Hành trình quản trị",
+        "action": "Tạo trang đăng nhập, quản lý địa điểm, tiến độ xuất bản và việc tạo audio.",
+        "outcome": "Biên tập viên và Operator có giao diện phù hợp cho từng công việc."
+      },
+      {
+        "label": "Dữ liệu thử",
+        "action": "Thêm chế độ mock với các tình huống tải, lỗi và xử lý đang diễn ra.",
+        "outcome": "Nhóm có thể thử giao diện và mô phỏng lỗi mà không cần chạy đủ dịch vụ."
+      },
+      {
+        "label": "Build và kiểm thử",
+        "action": "Tách gói API và giao diện dùng chung, chuẩn bị image Docker và workflow frontend.",
+        "outcome": "Hai ứng dụng có thể build và kiểm thử theo cùng cấu hình workspace."
+      }
+    ]
+  },
+  "580d6bdbc6c2e119e3d0188b7f55389700e690e8": {
+    "goal": "Làm cấu hình tuyến và địa chỉ dịch vụ dễ đọc hơn trước khi mở PR.",
+    "changes": [
+      {
+        "label": "Trình bày JSON",
+        "action": "Căn lại các phần Transforms và nhóm địa chỉ dịch vụ, giữ nguyên giá trị.",
+        "outcome": "Người đọc có thể dò tuyến và đích nhanh hơn khi rà soát thay đổi."
+      }
+    ]
+  },
+  "b05ed9425206fd71c8aa4b8313bdf2d5c2021b9d": {
+    "goal": "Cho kiểm tra giới hạn Gateway chạy trên nền Catalog đã cập nhật tìm kiếm đa ngôn ngữ.",
+    "changes": [
+      {
+        "label": "Đồng bộ schema tìm kiếm",
+        "action": "Nhập migration lập chỉ mục tên POI và cập nhật cách chuẩn bị SQL Server từ main.",
+        "outcome": "Nhánh Gateway dùng cùng schema Catalog với nhóm."
+      },
+      {
+        "label": "Đồng bộ tài liệu và tập lệnh đo",
+        "action": "Mang hướng dẫn cùng bài đo tìm kiếm vào nhánh.",
+        "outcome": "Nhóm có thể lặp lại cách kiểm tra Catalog khi thử Gateway."
+      }
+    ]
+  },
+  "bdd698afb8ea4c5934a9d50ac144798226285cf5": {
+    "goal": "Ngăn một máy khách gửi quá nhiều yêu cầu trong thời gian ngắn và báo rõ cách thử lại.",
+    "changes": [
+      {
+        "label": "Hạn mức tại Gateway",
+        "action": "Đăng ký chính sách giới hạn theo IP kết nối và kiểm tra cấu hình ngưỡng.",
+        "outcome": "Yêu cầu vượt hạn mức được xử lý ngay ở điểm vào."
+      },
+      {
+        "label": "Phản hồi khi vượt hạn mức",
+        "action": "Dùng HTTP 429 và gửi thông tin thời gian thử lại khi có.",
+        "outcome": "Giao diện biết cần chờ trước khi gửi tiếp."
+      },
+      {
+        "label": "Kiểm tra và cấu hình",
+        "action": "Thêm cấu hình, hướng dẫn và bài kiểm tra giới hạn tần suất.",
+        "outcome": "Nhóm có cách điều chỉnh ngưỡng và kiểm tra hành vi khi chạy."
+      }
+    ]
+  },
+  "e764299ad77485eeef32d8295ef09e889673d6bf": {
+    "goal": "Giữ các bản dịch đã hoàn tất khi một ngôn ngữ lỗi và cho dịch vụ cơ hội hồi phục sau lỗi tạm thời.",
+    "changes": [
+      {
+        "label": "Xử lý từng ngôn ngữ",
+        "action": "Localization lưu và phát kết quả theo từng ngôn ngữ rồi báo lỗi sau khi đã xử lý các phần còn lại.",
+        "outcome": "Một ngôn ngữ thất bại không làm mất các bản đã hoàn tất."
+      },
+      {
+        "label": "Thử lại dịch vụ bên ngoài",
+        "action": "Bổ sung chính sách Polly, giới hạn thời gian chờ và cách ngắt gọi khi sự cố lặp lại cho Gemini và TTS.",
+        "outcome": "Hệ thống có thể thử lại lỗi tạm thời trong một khoảng chờ có kiểm soát."
+      },
+      {
+        "label": "Kiểm tra tình huống lỗi",
+        "action": "Thêm bài thử provider lỗi, hàng đợi lỗi và kết quả từng ngôn ngữ.",
+        "outcome": "Nhóm có thể xác nhận phần xử lý thành công vẫn đến được dịch vụ kế tiếp."
+      }
+    ]
+  },
+  "394ea48aacb855173556720b8aa0aa034267cdf1": {
+    "goal": "Biến văn bản đã dịch thành tệp nghe và lưu kết quả để dùng lại khi có yêu cầu trùng.",
+    "changes": [
+      {
+        "label": "Nhận việc tạo âm thanh",
+        "action": "Speech nhận TranslationReady và cập nhật trạng thái công việc theo bài, phiên bản và ngôn ngữ.",
+        "outcome": "Hệ thống biết đoạn nào đang tạo, đã xong hoặc gặp lỗi."
+      },
+      {
+        "label": "Tạo và lưu MP3",
+        "action": "Chọn giọng, gọi Google TTS và ghi tệp vào MinIO.",
+        "outcome": "Audio có địa chỉ lưu trữ để dịch vụ phục vụ khách sau đó."
+      },
+      {
+        "label": "Báo kết quả",
+        "action": "Gửi AudioReady với thông tin tệp và thời lượng. Dùng kết quả đã lưu khi nhận lại tác vụ.",
+        "outcome": "Catalog có dữ liệu để phục vụ audio và tránh tạo lại cùng một kết quả."
+      }
+    ]
+  },
+  "229be9f9064d91a2a19d6b7ddae52582bdf098db": {
+    "goal": "Tạo bản thuyết minh nhiều ngôn ngữ trong khi giữ cách viết của tên địa danh đã được biên tập.",
+    "changes": [
+      {
+        "label": "Nhận yêu cầu dịch",
+        "action": "Localization nhận ContentPublished, dùng văn bản nguồn cho tiếng Việt và dịch các ngôn ngữ còn lại.",
+        "outcome": "Mỗi ngôn ngữ có nội dung riêng để chuyển sang tổng hợp âm thanh."
+      },
+      {
+        "label": "Bảo vệ tên địa danh",
+        "action": "TermGuard thay thuật ngữ bằng ký hiệu trước khi gửi Gemini và khôi phục theo bảng thuật ngữ sau dịch.",
+        "outcome": "Các tên riêng được trả về theo cách viết đã cấu hình."
+      },
+      {
+        "label": "Lưu và phát kết quả",
+        "action": "Lưu bản dịch và phát TranslationReady theo từng ngôn ngữ.",
+        "outcome": "Speech có thể nhận văn bản hoàn tất và Catalog có thể theo dõi tiến độ."
+      }
+    ]
+  },
+  "7675fcb7b04f770b841e45d123393fd0a6c7cb37": {
+    "goal": "Cho Catalog, Localization và Speech phối hợp qua hàng đợi để xử lý bản dịch và audio ở nền.",
+    "changes": [
+      {
+        "label": "Định nghĩa sự kiện",
+        "action": "Chuẩn hóa dữ liệu ContentPublished, TranslationReady và AudioReady trong gói .NET và JSON schema.",
+        "outcome": "Bên gửi và bên nhận có cùng cách hiểu về mã bài, phiên bản và nội dung sự kiện."
+      },
+      {
+        "label": "Cấu hình hàng đợi",
+        "action": "Đăng ký MassTransit và RabbitMQ theo dịch vụ, nối các consumer vào quy trình.",
+        "outcome": "Mỗi dịch vụ nhận được đúng loại công việc cần xử lý."
+      },
+      {
+        "label": "Kiểm thử hợp đồng",
+        "action": "Bổ sung bài kiểm tra schema, hàng đợi riêng và đường đi khi thông điệp lỗi.",
+        "outcome": "Nhóm có thể phát hiện sai khác hợp đồng trước khi các dịch vụ chạy cùng nhau."
+      }
+    ]
+  },
+  "d459a623ba56debc544c425635798e2b42307cda": {
+    "goal": "Cho giao diện web gọi đúng dịch vụ Catalog qua một địa chỉ thống nhất lúc phát triển.",
+    "changes": [
+      {
+        "label": "Đường dẫn API",
+        "action": "Đổi địa chỉ gọi API sang tiền tố /catalog.",
+        "outcome": "Gateway nhận diện được dịch vụ đích khi giao diện gửi yêu cầu."
+      },
+      {
+        "label": "Cấu hình phát triển",
+        "action": "Đồng bộ proxy Vite và khóa phụ thuộc.",
+        "outcome": "Nhóm có thể chạy giao diện với cùng cấu hình định tuyến và phiên bản phụ thuộc."
+      }
+    ]
+  },
+  "85d2cd8b786ec09ad6d62b65cb56dd70d5d3e022": {
+    "goal": "Cho các thành viên bắt đầu từ một repo chung với ranh giới rõ giữa giao diện, dịch vụ và hạ tầng.",
+    "changes": [
+      {
+        "label": "Khung dịch vụ",
+        "action": "Tạo Gateway, Identity, Catalog, Localization và Speech cùng solution .NET.",
+        "outcome": "Nhóm có vị trí và cấu hình ban đầu để phát triển từng phần."
+      },
+      {
+        "label": "Hợp đồng và kiến trúc",
+        "action": "Thêm OpenAPI, schema sự kiện và tài liệu quyết định kiến trúc.",
+        "outcome": "Các dịch vụ có thể phát triển dựa trên cùng hợp đồng giao tiếp."
+      },
+      {
+        "label": "Môi trường phát triển",
+        "action": "Chuẩn bị Docker Compose, SQL Server, khung frontend và workflow theo dịch vụ.",
+        "outcome": "Nhóm có cách dựng môi trường và kiểm tra phần mình phụ trách."
+      }
+    ]
+  }
+}

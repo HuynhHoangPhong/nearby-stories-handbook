@@ -1,0 +1,217 @@
+[
+  {
+    "sha": "0a0b7c1db815eb4d7526b9e73167859201d47d3f",
+    "title": "fix(catalog): preserve Vietnamese Wikipedia IDs (#33)",
+    "date": "2026-11-15",
+    "subject": "fix(catalog): preserve Vietnamese Wikipedia IDs",
+    "pullRequest": 33,
+    "summary": "Đổi cột lưu mã tham chiếu sang Unicode để giữ dấu tiếng Việt và khôi phục các mã đã mất dấu trong dữ liệu mẫu.",
+    "related": [
+      {
+        "page": "erd-catalog",
+        "label": "ERD Catalog"
+      }
+    ],
+    "fileCount": 5
+  },
+  {
+    "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e",
+    "title": "refactor: update service database schemas and application flows (#29)",
+    "date": "2026-11-13",
+    "subject": "refactor: update service database schemas and application flows",
+    "pullRequest": 29,
+    "summary": "Cập nhật mô hình dữ liệu của bốn service, ghi nhận người xuất bản và kiểm soát quyền xử lý công việc tổng hợp âm thanh.",
+    "related": [
+      {
+        "page": "dfd-5-publish",
+        "label": "DFD 5.0"
+      },
+      {
+        "page": "erd-speech",
+        "label": "ERD Speech"
+      }
+    ],
+    "fileCount": 93
+  },
+  {
+    "sha": "ab6717190f8ba23f2d76fd918b8177d4bb7acbaa",
+    "title": "Feature/admin place map picker (#25)",
+    "date": "2026-10-25",
+    "subject": "Feature/admin place map picker",
+    "pullRequest": 25,
+    "summary": "Cho biên tập viên tìm địa danh qua Photon và chọn tọa độ POI trên bản đồ.",
+    "related": [
+      {
+        "page": "uc5",
+        "label": "UC5 · Quản lý POI"
+      }
+    ],
+    "fileCount": 35
+  },
+  {
+    "sha": "f7917e26c6f9f878f9a62a0e4397df1b5d4d48c9",
+    "title": "chore(ci): harden dotnet jobs and update runner actions (#24)",
+    "date": "2026-10-25",
+    "subject": "chore(ci): harden dotnet jobs and update runner actions",
+    "pullRequest": 24,
+    "summary": "Cập nhật GitHub Actions và bổ sung bước dừng tiến trình build .NET để giảm lỗi khi runner dọn dẹp.",
+    "related": [
+      {
+        "page": "deployment",
+        "label": "Deployment diagram"
+      }
+    ],
+    "fileCount": 7
+  },
+  {
+    "sha": "b32631e2b197abaa821a3c6c4e4486d032814760",
+    "title": "feat(admin): add analytics dashboard and enhance place management (#23)",
+    "date": "2026-10-25",
+    "subject": "feat(admin): add analytics dashboard and enhance place management",
+    "pullRequest": 23,
+    "summary": "Thêm dashboard thống kê truy cập và lượt nghe, xuất Excel, theo dõi sự cố và quản lý hiển thị POI.",
+    "related": [
+      {
+        "page": "uc8",
+        "label": "UC8 · Xem thống kê"
+      },
+      {
+        "page": "uc9",
+        "label": "UC9 · Xuất báo cáo"
+      }
+    ],
+    "fileCount": 110
+  },
+  {
+    "sha": "b952bf08d6fdfd47a303889d119cbce776ee76eb",
+    "title": "feat(player): add close controls and synced narration transcript (#19)",
+    "date": "2026-10-17",
+    "subject": "feat(player): add close controls and synced narration transcript",
+    "pullRequest": 19,
+    "summary": "Thêm nút đóng trình phát và đồng bộ lời thuyết minh theo thời điểm phát âm thanh.",
+    "related": [
+      {
+        "page": "uc3",
+        "label": "UC3 · Nghe thuyết minh"
+      }
+    ],
+    "fileCount": 59
+  },
+  {
+    "sha": "eb4e1b0edc315001768920f95a9f5d2ba3f18fed",
+    "title": "feat(map): integrate OpenFreeMap and in-map narration (#18)",
+    "date": "2026-10-17",
+    "subject": "feat(map): integrate OpenFreeMap and in-map narration",
+    "pullRequest": 18,
+    "summary": "Tích hợp OpenFreeMap để khách xem trước địa điểm và phát thuyết minh ngay trên bản đồ.",
+    "related": [
+      {
+        "page": "uc2",
+        "label": "UC2 · Khám phá địa điểm"
+      }
+    ],
+    "fileCount": 55
+  },
+  {
+    "sha": "e9e2ff5d5b1e9179f88fb2cb7c5a2fd76bbcf6ff",
+    "title": "fix(catalog): support audio fallback and admin POI management (#17)",
+    "date": "2026-10-17",
+    "subject": "fix(catalog): support audio fallback and admin POI management",
+    "pullRequest": 17,
+    "summary": "Bổ sung quản lý POI và dự phòng ngôn ngữ. Phiên bản mới có thể phục vụ khi văn bản và âm thanh tiếng Việt sẵn sàng.",
+    "related": [
+      {
+        "page": "uc6",
+        "label": "UC6 · Xuất bản"
+      },
+      {
+        "page": "dfd-3-serve",
+        "label": "DFD 3.0"
+      }
+    ],
+    "fileCount": 16
+  },
+  {
+    "sha": "40e1170cdb9fd3dbca254c7f2138bb781118e7aa",
+    "title": "feat(catalog): add publishing API and transactional outbox (#13)",
+    "date": "2026-10-11",
+    "subject": "feat(catalog): add publishing API and transactional outbox",
+    "pullRequest": 13,
+    "summary": "Thêm API xuất bản để Catalog lưu yêu cầu và sự kiện trong cùng giao dịch, rồi gửi sự kiện qua RabbitMQ.",
+    "related": [
+      {
+        "page": "uc6",
+        "label": "UC6 · Xuất bản"
+      },
+      {
+        "page": "dfd-5-publish",
+        "label": "DFD 5.0 · Xuất bản và theo dõi"
+      }
+    ],
+    "fileCount": 28
+  },
+  {
+    "sha": "b784cc01a7fa237cada9d30676dd43de640ae076",
+    "title": "feat(catalog): seed real Ho Chi Minh City POIs (#11)",
+    "date": "2026-10-09",
+    "subject": "feat(catalog): seed real Ho Chi Minh City POIs",
+    "pullRequest": 11,
+    "summary": "Thêm dữ liệu mẫu cho 16 địa điểm thật ở TP.HCM, gồm tọa độ, bản nháp thuyết minh và nguồn tham khảo.",
+    "related": [
+      {
+        "page": "erd-catalog",
+        "label": "ERD Catalog"
+      }
+    ],
+    "fileCount": 17
+  },
+  {
+    "sha": "7aac3eb64881fb39e9e62c9efbde0c5f7eb39df9",
+    "title": "feat(catalog): add multilingual full-text search (#7)",
+    "date": "2026-10-06",
+    "subject": "feat(catalog): add multilingual full-text search",
+    "pullRequest": 7,
+    "summary": "Thêm tìm kiếm toàn văn tên POI bằng năm ngôn ngữ, hỗ trợ tìm tiếng Việt khi nhập không dấu.",
+    "related": [
+      {
+        "page": "dfd-level-1",
+        "label": "DFD Level 1 · Tiến trình 2.0"
+      }
+    ],
+    "fileCount": 8
+  },
+  {
+    "sha": "69622257e7139ca037942f6e6958591f16ed937e",
+    "title": "feat(catalog): add spatial nearby POI query (#6)",
+    "date": "2026-10-04",
+    "subject": "feat(catalog): add spatial nearby POI query",
+    "pullRequest": 6,
+    "summary": "Thêm truy vấn tìm POI lân cận và sắp xếp theo khoảng cách.",
+    "related": [
+      {
+        "page": "uc2",
+        "label": "UC2 · Khám phá địa điểm"
+      }
+    ],
+    "fileCount": 14
+  },
+  {
+    "sha": "e241d7054727e7570da745b31d1caec1bf2d2765",
+    "title": "feat(database): add service schemas and migrations (#5)",
+    "date": "2026-10-04",
+    "subject": "feat(database): add service schemas and migrations",
+    "pullRequest": 5,
+    "summary": "Thiết lập bốn cơ sở dữ liệu logic theo service và các migration nền tảng.",
+    "related": [
+      {
+        "page": "erd-catalog",
+        "label": "ERD Catalog"
+      },
+      {
+        "page": "erd-identity",
+        "label": "ERD Identity"
+      }
+    ],
+    "fileCount": 38
+  }
+]

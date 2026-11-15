@@ -1,0 +1,2453 @@
+{
+  "0a0b7c1db815eb4d7526b9e73167859201d47d3f": [
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/CatalogDbContext.cs",
+      "status": "M",
+      "description": "Bỏ cấu hình lưu theo bảng mã cũ cho ExternalId. EF Core từ đó ánh xạ mã tham chiếu sang Unicode để giữ dấu khi ghi mới."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261115062215_PreserveUnicodeExternalIds.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration PreserveUnicodeExternalIds để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261115062215_PreserveUnicodeExternalIds.cs",
+      "status": "A",
+      "description": "Đổi external_id sang nvarchar(200), sửa các mã Wikipedia tiếng Việt đã hỏng dựa trên URL nguồn và tạo lại chỉ mục duy nhất theo nhà cung cấp và mã."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/CatalogDbContextModelSnapshot.cs",
+      "status": "M",
+      "description": "Cập nhật mô hình hiện tại của EF Core với cột external_id kiểu nvarchar(200) để migration kế tiếp so sánh đúng schema."
+    },
+    {
+      "path": "tests/Catalog.Tests/ExternalReferenceMigrationTests.cs",
+      "status": "A",
+      "description": "Tạo dữ liệu cũ có mã mất dấu rồi chạy migration trên SQL Server. Kiểm tra mã được khôi phục và lần nhập dữ liệu mẫu tiếp theo không tạo POI trùng."
+    }
+  ],
+  "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e": [
+    {
+      "path": "contracts/openapi/catalog.yaml",
+      "status": "M",
+      "description": "Cập nhật hợp đồng Catalog cho tìm POI theo tên, quản lý địa điểm và tiến độ xuất bản theo mô hình dữ liệu mới."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsEndpoints.cs",
+      "status": "M",
+      "description": "Điều chỉnh API thống kê và sự cố để nhận dữ liệu lượt dùng theo hợp đồng mới."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsRetention.cs",
+      "status": "M",
+      "description": "Bỏ bước dọn liên kết khách với sự cố vì mô hình mới đã loại bảng IssueVisitors. Lịch sử sự cố vẫn được dọn theo thời hạn."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsService.cs",
+      "status": "M",
+      "description": "Đổi cách ghi và gom sự cố khi lỗi tái diễn. Báo cáo lỗi phát âm thanh được xử lý mà không cần gắn định danh khách hoặc tab."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "status": "M",
+      "description": "Ghi trạng thái thất bại của phiên bản nguồn khi chuỗi dịch hoặc tạo âm thanh gặp lỗi. Giữ lỗi đúng phiên bản để kết quả đến muộn không che mất lỗi."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/CatalogWorkflow.cs",
+      "status": "M",
+      "description": "Ghi người xuất bản, ràng buộc yêu cầu với nguồn và xử lý lại ngôn ngữ thất bại theo quy trình kích hoạt."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/PoiDiscovery.cs",
+      "status": "A",
+      "description": "Tách điều kiện POI công khai và tìm tên không dấu dùng chung cho các API khám phá."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/AdminPoiEndpoints.cs",
+      "status": "M",
+      "description": "Cập nhật API danh sách và bản nháp, gồm tìm POI theo tên và ghi thông tin nhân sự tạo hoặc sửa."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "status": "M",
+      "description": "Điều chỉnh phản hồi thuyết minh, yêu cầu tạo ngôn ngữ và tiến độ xuất bản. Nhận thông tin người xuất bản và trả trạng thái phiên bản lỗi."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/MapPoiEndpoints.cs",
+      "status": "M",
+      "description": "Dùng chung bộ lọc POI đủ điều kiện hiển thị và bổ sung đường dẫn tìm tên để PWA mở trực tiếp câu chuyện."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/CatalogDbContext.cs",
+      "status": "M",
+      "description": "Ánh xạ các quan hệ nguồn, metadata nhân sự và các ràng buộc của mô hình Catalog mới."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261110031528_RecordPublisherAndSimplifyCatalog.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration RecordPublisherAndSimplifyCatalog để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261110031528_RecordPublisherAndSimplifyCatalog.cs",
+      "status": "A",
+      "description": "Áp dụng thay đổi schema Catalog để lưu người xuất bản và lược bỏ các cột không còn thuộc mô hình."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261110034847_LinkCatalogSourcesAndRecordStaff.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration LinkCatalogSourcesAndRecordStaff để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261110034847_LinkCatalogSourcesAndRecordStaff.cs",
+      "status": "A",
+      "description": "Liên kết các bản ghi Catalog với phiên bản nguồn và thêm dữ liệu ghi nhận nhân sự."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261110042000_ReconcileFailedCatalogPublications.cs",
+      "status": "A",
+      "description": "Điều chỉnh dữ liệu xuất bản cũ để trạng thái thất bại phù hợp với yêu cầu tạo nội dung đã được ghi nhận."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/CatalogDbContextModelSnapshot.cs",
+      "status": "M",
+      "description": "Cập nhật mô hình hiện tại cho liên kết tới bản nguồn và các trường ghi nhận nhân sự trong Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/CatalogDeliveryContent.cs",
+      "status": "M",
+      "description": "Liên kết nội dung đã sẵn sàng với phiên bản nguồn để Catalog phục vụ đúng phiên bản."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/GenerationRequest.cs",
+      "status": "M",
+      "description": "Gắn yêu cầu tạo ngôn ngữ với nguồn tương ứng để theo dõi và chạy lại theo phiên bản."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/NarrationSource.cs",
+      "status": "M",
+      "description": "Thêm dữ liệu nhận diện người tạo và người xuất bản cho từng phiên bản thuyết minh."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/PointOfInterest.cs",
+      "status": "M",
+      "description": "Bổ sung tên người thao tác ở mô hình POI để giao diện hiển thị thông tin biên tập."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/ReliableMessaging.cs",
+      "status": "M",
+      "description": "Bỏ CausationId khỏi bản ghi outbox. Giữ CorrelationId để liên kết các thông điệp trong cùng quy trình."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/VisitorAnalytics.cs",
+      "status": "M",
+      "description": "Điều chỉnh các thực thể sự kiện và hiện diện cho hợp đồng phân tích, gồm định danh khách và tab."
+    },
+    {
+      "path": "src/Identity/Auth/AuthEndpoints.cs",
+      "status": "M",
+      "description": "Điều chỉnh xử lý phiên đăng nhập cho mô hình tài khoản và vai trò nhân sự mới."
+    },
+    {
+      "path": "src/Identity/Infrastructure/ApplicationIdentity.cs",
+      "status": "M",
+      "description": "Đơn giản hóa mô hình hồ sơ Identity và giữ cấu trúc vai trò dùng cho tài khoản nhân sự."
+    },
+    {
+      "path": "src/Identity/Infrastructure/IdentityDbContext.cs",
+      "status": "M",
+      "description": "Đồng bộ ánh xạ bảng tài khoản, vai trò và refresh token với schema Identity mới."
+    },
+    {
+      "path": "src/Identity/Infrastructure/Migrations/20261110132250_SimplifyIdentityProfile.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration SimplifyIdentityProfile để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Identity/Infrastructure/Migrations/20261110132250_SimplifyIdentityProfile.cs",
+      "status": "A",
+      "description": "Chuyển schema hồ sơ Identity sang nhóm trường đang được ứng dụng dùng."
+    },
+    {
+      "path": "src/Identity/Infrastructure/Migrations/IdentityDbContextModelSnapshot.cs",
+      "status": "M",
+      "description": "Cập nhật mô hình nền để migration Identity tiếp theo dùng cấu trúc hồ sơ đã giản lược."
+    },
+    {
+      "path": "src/Identity/Infrastructure/RefreshTokenRetention.cs",
+      "status": "A",
+      "description": "Bổ sung việc dọn refresh token đã hết hạn theo lô để dữ liệu phiên cũ không tích tụ."
+    },
+    {
+      "path": "src/Identity/Infrastructure/StaffAccountAdministration.cs",
+      "status": "A",
+      "description": "Thêm nghiệp vụ tạo, vô hiệu hóa và cập nhật vai trò cho từng tài khoản nhân sự."
+    },
+    {
+      "path": "src/Identity/Infrastructure/StaffAccountCommand.cs",
+      "status": "A",
+      "description": "Cung cấp lệnh quản trị tài khoản nhân sự và cách nhận mật khẩu cho thao tác quản trị."
+    },
+    {
+      "path": "src/Identity/Program.cs",
+      "status": "M",
+      "description": "Tích hợp lệnh quản trị nhân sự và dịch vụ dọn token vào điểm khởi động Identity."
+    },
+    {
+      "path": "src/Identity/README.md",
+      "status": "M",
+      "description": "Giải thích cách vận hành tài khoản nhân sự và các lệnh Identity đi kèm."
+    },
+    {
+      "path": "src/Localization/Localization.Api/Infrastructure/LocalizationDbContext.cs",
+      "status": "M",
+      "description": "Chuẩn hóa khóa bảng thuật ngữ khi nhập và giữ giá trị đã biên tập khi nhập lại."
+    },
+    {
+      "path": "src/Localization/Localization.Api/Infrastructure/Migrations/20261110134754_EnforceUniqueGlossaryEntries.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration EnforceUniqueGlossaryEntries để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Localization/Localization.Api/Infrastructure/Migrations/20261110134754_EnforceUniqueGlossaryEntries.cs",
+      "status": "A",
+      "description": "Áp dụng ràng buộc khóa duy nhất cho thuật ngữ để các lần nhập không tạo mục trùng."
+    },
+    {
+      "path": "src/Localization/Localization.Api/Infrastructure/Migrations/LocalizationDbContextModelSnapshot.cs",
+      "status": "M",
+      "description": "Ghi ràng buộc duy nhất của bảng thuật ngữ vào mốc so sánh migration của Localization."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Consumers/TranslationReadyConsumer.cs",
+      "status": "M",
+      "description": "Dùng quyền xử lý có thời hạn khi nhận tác vụ Speech. Tái sử dụng bản âm thanh đã lưu và bảo vệ kết quả trước tác vụ đến muộn."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/Migrations/20261110143214_SingleAudioPerLanguage.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration SingleAudioPerLanguage để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/Migrations/20261110143214_SingleAudioPerLanguage.cs",
+      "status": "A",
+      "description": "Điều chỉnh dữ liệu và ràng buộc để mỗi phiên bản thuyết minh và ngôn ngữ dùng một công việc âm thanh."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/Migrations/SpeechDbContextModelSnapshot.cs",
+      "status": "M",
+      "description": "Ghi mô hình sau thay đổi, gồm khóa công việc theo phiên bản và ngôn ngữ cùng dữ liệu lease."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/SpeechDbContext.cs",
+      "status": "M",
+      "description": "Ánh xạ lease và ràng buộc công việc phát âm thanh theo bài, phiên bản và ngôn ngữ."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/SynthesisJobStore.cs",
+      "status": "A",
+      "description": "Thêm thao tác lấy, nhận, hoàn tất và ghi lỗi công việc. Kiểm tra quyền xử lý trước khi ghi âm thanh."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Program.cs",
+      "status": "M",
+      "description": "Điều chỉnh điểm khởi động và đọc âm thanh theo mô hình công việc Speech mới."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Providers/TtsProviderSelector.cs",
+      "status": "M",
+      "description": "Lấy provider qua bộ chứa dịch vụ khi cần tổng hợp thay vì giữ một instance trong bộ chọn."
+    },
+    {
+      "path": "src/Speech/Speech.Core/Entities/SynthesisJob.cs",
+      "status": "M",
+      "description": "Lưu mã và thời hạn lease để gắn một lần xử lý với worker đang sở hữu công việc."
+    },
+    {
+      "path": "src/Web/API-CONTRACT.md",
+      "status": "M",
+      "description": "Cập nhật tài liệu hợp đồng giữa PWA, Admin Web và API sau thay đổi dữ liệu và nghiệp vụ."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/flows.test.tsx",
+      "status": "M",
+      "description": "Kiểm tra biên tập viên tìm được POI theo tên tiếng Việt khi nhập không dấu."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/dashboard/IssuesScreen.tsx",
+      "status": "M",
+      "description": "Đồng bộ màn hình danh sách và chi tiết sự cố với dữ liệu thống kê mới."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/jobs/components/JobsScreen.tsx",
+      "status": "M",
+      "description": "Điều chỉnh màn hình công việc cho trạng thái xử lý và thao tác chạy lại trong quy trình mới."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/api/placesApi.ts",
+      "status": "M",
+      "description": "Cập nhật truy vấn danh sách và yêu cầu xuất bản để gửi đúng thông tin theo API mới."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/PlaceEditorScreen.tsx",
+      "status": "M",
+      "description": "Đồng bộ màn hình biên tập với tên nhân sự và dữ liệu POI, bản nháp mà API trả về."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/PlacesScreen.module.css",
+      "status": "M",
+      "description": "Bố trí lại giao diện danh sách và bộ lọc khi bổ sung tìm POI theo tên."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/PlacesScreen.tsx",
+      "status": "M",
+      "description": "Thêm luồng tìm theo tên và dữ liệu quản trị mới trên danh sách POI."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/publish/components/PublishProgressScreen.tsx",
+      "status": "M",
+      "description": "Hiển thị người xuất bản và tình trạng lỗi của phiên bản trong màn hình tiến độ."
+    },
+    {
+      "path": "src/Web/apps/admin/src/i18n/vi.ts",
+      "status": "M",
+      "description": "Thêm bản dịch cho thông tin quản trị và các trạng thái xuất bản mới."
+    },
+    {
+      "path": "src/Web/apps/admin/src/mocks/db.ts",
+      "status": "M",
+      "description": "Đồng bộ dữ liệu giả lập cho tìm kiếm không dấu, hiển thị POI và trạng thái xuất bản."
+    },
+    {
+      "path": "src/Web/apps/admin/src/mocks/handlers/jobs.ts",
+      "status": "M",
+      "description": "Đồng bộ API giả lập của công việc với hành vi chạy lại trong ứng dụng."
+    },
+    {
+      "path": "src/Web/apps/admin/src/mocks/handlers/places.ts",
+      "status": "M",
+      "description": "Mô phỏng tìm POI khu vực quản trị, cập nhật địa điểm và ghi người xuất bản."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/analytics/usage.test.ts",
+      "status": "M",
+      "description": "Kiểm tra báo lỗi phát âm thanh không gửi định danh khách hoặc tab."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/analytics/usage.ts",
+      "status": "M",
+      "description": "Điều chỉnh cách gửi lỗi phát âm thanh để báo sự cố mà không kèm định danh khách hoặc tab."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/NarrationController.tsx",
+      "status": "M",
+      "description": "Giữ phiên thuyết minh dự phòng và xử lý trạng thái thất bại khi theo dõi yêu cầu ngôn ngữ còn thiếu."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/flows.test.tsx",
+      "status": "M",
+      "description": "Kiểm tra PWA tiếp tục phục vụ nội dung dự phòng khi công việc tạo ngôn ngữ báo lỗi."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/mapFlows.test.tsx",
+      "status": "M",
+      "description": "Kiểm tra khách tìm được và mở thuyết minh theo tên trước khi cấp quyền vị trí."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/MapRoute.module.css",
+      "status": "M",
+      "description": "Thêm bố cục khu tìm kiếm theo tên và kết quả POI trong màn hình bản đồ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/MapRoute.tsx",
+      "status": "M",
+      "description": "Thêm tìm theo tên ngay trước khi khách cấp vị trí. Cho khách mở trang thuyết minh từ kết quả."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/PlaceRoute.tsx",
+      "status": "M",
+      "description": "Điều chỉnh đường dẫn mở câu chuyện khi liên kết đến từ tìm kiếm theo tên và trạng thái vị trí khác nhau."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/placeContext.ts",
+      "status": "M",
+      "description": "Bổ sung dữ liệu điều hướng cần truyền khi mở một POI từ bản đồ hoặc kết quả tìm kiếm."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/story/api/useLanguageRequest.ts",
+      "status": "M",
+      "description": "Nhận trạng thái lỗi của công việc tạo ngôn ngữ để PWA dừng chờ và giữ nội dung đang phục vụ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/en.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Anh cho tìm theo tên và trạng thái xử lý trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/ja.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Nhật cho tìm theo tên và trạng thái xử lý trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/ko.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Hàn cho tìm theo tên và trạng thái xử lý trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/vi.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Việt cho tìm theo tên và trạng thái xử lý trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/zh.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Trung cho tìm theo tên và trạng thái xử lý trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/mocks/handlers/nearby.ts",
+      "status": "M",
+      "description": "Thêm tìm theo tên không dấu vào API lân cận giả lập để kiểm thử màn hình tìm kiếm."
+    },
+    {
+      "path": "src/Web/packages/api/src/analytics.ts",
+      "status": "M",
+      "description": "Đồng bộ kiểu dữ liệu sự cố với thay đổi trong API phân tích."
+    },
+    {
+      "path": "src/Web/packages/api/src/endpoints.ts",
+      "status": "M",
+      "description": "Cập nhật các lệnh gọi API của khách và nhân sự cho tìm kiếm, xuất bản và theo dõi trạng thái."
+    },
+    {
+      "path": "src/Web/packages/api/src/types.ts",
+      "status": "M",
+      "description": "Cập nhật DTO yêu cầu tạo ngôn ngữ, danh sách POI và tiến độ để hai giao diện đọc cùng hợp đồng."
+    },
+    {
+      "path": "tests/Catalog.Tests/AdminPoiFlowTests.cs",
+      "status": "M",
+      "description": "Kiểm tra tìm POI, quyền chạy lại và khả năng phục hồi sau lỗi âm thanh tiếng Việt, kể cả khi kết quả văn bản đến muộn."
+    },
+    {
+      "path": "tests/Catalog.Tests/AnalyticsTests.cs",
+      "status": "M",
+      "description": "Kiểm tra các lần thử lỗi được gom mà không liên kết danh tính khách và sự cố mở lại khi lỗi tái diễn."
+    },
+    {
+      "path": "tests/Catalog.Tests/EndpointAuthorizationTests.cs",
+      "status": "M",
+      "description": "Đồng bộ kiểm thử phân quyền API Catalog với tuyến và chính sách nhân sự mới."
+    },
+    {
+      "path": "tests/Identity.Tests/AuthTests.cs",
+      "status": "M",
+      "description": "Kiểm tra dọn token theo nhiều lô và các thao tác tạo, đổi vai trò, vô hiệu hóa tài khoản. Kiểm tra hoàn tác nếu gán vai trò thất bại."
+    },
+    {
+      "path": "tests/Localization.Tests/ConsumerTests.cs",
+      "status": "M",
+      "description": "Kiểm tra consumer có thể phát lại bản dịch đã lưu nếu gửi sự kiện lỗi sau khi lưu thành công."
+    },
+    {
+      "path": "tests/Localization.Tests/GlossarySeedTests.cs",
+      "status": "A",
+      "description": "Kiểm tra phát hiện khóa trùng, chuẩn hóa thuật ngữ, giữ nội dung đã biên tập và nhập đồng thời trên SQL Server."
+    },
+    {
+      "path": "tests/Localization.Tests/LocalizationHarness.cs",
+      "status": "M",
+      "description": "Điều chỉnh môi trường kiểm thử Localization cho luồng lưu và phát lại kết quả dịch."
+    },
+    {
+      "path": "tests/Observability.Tests/OutboxTracingTests.cs",
+      "status": "M",
+      "description": "Cập nhật dữ liệu thiết lập ca kiểm thử để tiếp tục xác minh truy vết sự kiện qua outbox."
+    },
+    {
+      "path": "tests/Observability.Tests/RabbitMqTraceTests.cs",
+      "status": "M",
+      "description": "Đồng bộ ca kiểm tra dấu vết RabbitMQ với luồng phát sự kiện và dữ liệu xuất bản mới."
+    },
+    {
+      "path": "tests/Speech.Tests/ConsumerTests.cs",
+      "status": "M",
+      "description": "Điều chỉnh bài kiểm tra tác vụ Speech cho cơ chế tái sử dụng âm thanh theo bài, phiên bản và ngôn ngữ."
+    },
+    {
+      "path": "tests/Speech.Tests/SpeechHarness.cs",
+      "status": "M",
+      "description": "Thêm thao tác chọn giọng và đọc dữ liệu SQL cho các ca kiểm thử worker, lease và nội dung đầu ra."
+    },
+    {
+      "path": "tests/Speech.Tests/SpeechLeaseTests.cs",
+      "status": "A",
+      "description": "Kiểm tra hai worker xử lý chồng lấn chỉ giữ một kết quả và kết quả đến trễ không thay thế tệp của worker đang sở hữu lease."
+    },
+    {
+      "path": "tests/Speech.Tests/TranscriptMigrationTests.cs",
+      "status": "M",
+      "description": "Cập nhật kiểm thử nâng cấp dữ liệu transcript theo schema và chỉ mục mới của Speech."
+    },
+    {
+      "path": "tools/Test-ObservabilityDemo.ps1",
+      "status": "M",
+      "description": "Đồng bộ kịch bản kiểm tra truy vết với luồng xuất bản và xử lý thông điệp mới."
+    }
+  ],
+  "ab6717190f8ba23f2d76fd918b8177d4bb7acbaa": [
+    {
+      "path": "contracts/openapi/catalog.yaml",
+      "status": "M",
+      "description": "Ghi hợp đồng tìm địa danh và tọa độ trả về để Admin Web dùng đúng API."
+    },
+    {
+      "path": "deploy/.env.example",
+      "status": "M",
+      "description": "Khai báo địa chỉ và User-Agent mẫu cho Photon để quản trị viên có thể cấu hình điểm tra cứu địa danh."
+    },
+    {
+      "path": "deploy/docker-compose.yml",
+      "status": "M",
+      "description": "Truyền cấu hình tra cứu địa điểm vào các thành phần chạy bằng Docker."
+    },
+    {
+      "path": "docs/admin-place-map-picker.md",
+      "status": "A",
+      "description": "Hướng dẫn sử dụng bộ chọn bản đồ, cấu hình Photon và kiểm tra lỗi."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/LocationSearch.cs",
+      "status": "A",
+      "description": "Gọi Photon, chuẩn hóa truy vấn và lưu kết quả tạm. Giới hạn yêu cầu để giao diện có phản hồi phù hợp khi dịch vụ bận."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "status": "M",
+      "description": "Gắn bộ API tra cứu vị trí vào các tuyến Catalog dành cho trang quản trị."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/LocationSearchEndpoints.cs",
+      "status": "A",
+      "description": "Thêm endpoint tìm địa danh dành cho biên tập viên. Kiểm tra truy vấn và trả các tọa độ gợi ý."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Program.cs",
+      "status": "M",
+      "description": "Đăng ký lớp tìm địa danh và HTTP client để Catalog gọi Photon qua cấu hình."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/appsettings.json",
+      "status": "M",
+      "description": "Khai báo cấu hình tìm vị trí mặc định để Catalog có điểm gọi Photon."
+    },
+    {
+      "path": "src/Web/API-CONTRACT.md",
+      "status": "M",
+      "description": "Giải thích dữ liệu tìm vị trí và luồng chọn tọa độ giữa giao diện và Catalog."
+    },
+    {
+      "path": "src/Web/apps/admin/package.json",
+      "status": "M",
+      "description": "Thêm phụ thuộc bản đồ cho ứng dụng quản trị."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/flows.test.tsx",
+      "status": "M",
+      "description": "Điều chỉnh kịch bản kiểm thử biên tập POI trong Admin khi biểu mẫu dùng bộ chọn bản đồ."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/theme.css",
+      "status": "M",
+      "description": "Thêm biến quy định chiều cao bản đồ và chiều cao tối đa vùng kết quả để bộ chọn vừa trong trang biên tập."
+    },
+    {
+      "path": "src/Web/apps/admin/src/config/env.ts",
+      "status": "M",
+      "description": "Đọc cấu hình bản đồ của Admin Web từ môi trường triển khai."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/LocationMap.tsx",
+      "status": "A",
+      "description": "Hiển thị bản đồ tương tác, cập nhật vị trí ghim khi chọn hoặc kéo và đồng bộ vị trí đã lưu."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/LocationPicker.module.css",
+      "status": "A",
+      "description": "Định kiểu khung bản đồ, ô tìm địa danh, gợi ý kết quả và trạng thái bộ chọn."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/LocationPicker.test.tsx",
+      "status": "A",
+      "description": "Kiểm tra chỉ tìm khi gửi truy vấn, lưu tọa độ đã chọn và đồng bộ nhấp, kéo ghim hoặc nhập tay. Giữ nhập tay khi dịch vụ lỗi."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/LocationPicker.tsx",
+      "status": "A",
+      "description": "Nối kết quả Photon với lựa chọn trên bản đồ và nhập tọa độ thủ công."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/PlaceEditorScreen.tsx",
+      "status": "M",
+      "description": "Gắn bộ chọn vị trí vào trang sửa POI và lưu tọa độ qua API hiện có."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/model/coordinates.test.ts",
+      "status": "A",
+      "description": "Kiểm tra tọa độ hợp lệ, bảo toàn số 0, kinh độ quay vòng và định dạng số rất nhỏ."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/model/coordinates.ts",
+      "status": "A",
+      "description": "Phân tích và kiểm tra cặp tọa độ dùng cho biểu mẫu. Giữ được số 0 và chuẩn hóa kinh độ của bản đồ quay vòng."
+    },
+    {
+      "path": "src/Web/apps/admin/src/i18n/vi.ts",
+      "status": "M",
+      "description": "Thêm nhãn tiếng Việt cho tra cứu địa danh, chọn tọa độ và lỗi bản đồ trong Admin."
+    },
+    {
+      "path": "src/Web/apps/admin/src/test/mapMock.ts",
+      "status": "A",
+      "description": "Tạo mô phỏng MapLibre để kiểm thử bộ chọn mà không cần tải dịch vụ bản đồ."
+    },
+    {
+      "path": "src/Web/apps/admin/src/test/setup.ts",
+      "status": "M",
+      "description": "Đưa mô phỏng bản đồ vào môi trường kiểm thử Admin."
+    },
+    {
+      "path": "src/Web/apps/admin/src/vite-env.d.ts",
+      "status": "M",
+      "description": "Khai báo kiểu biến môi trường của bản đồ để kiểm tra cấu hình Admin khi build."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/MapRoute.tsx",
+      "status": "M",
+      "description": "Đồng bộ POI đang chọn với dữ liệu mới sau khi biên tập viên thay tọa độ hoặc hiển thị."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/map/model/mapState.test.ts",
+      "status": "M",
+      "description": "Kiểm tra sử dụng tên, tọa độ mới của POI đã chọn và xử lý lựa chọn biến mất khi kết quả gửi về đầy đủ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/map/model/mapState.ts",
+      "status": "M",
+      "description": "Làm mới metadata và điểm đánh dấu đã chọn. Xóa lựa chọn không còn phù hợp với kết quả đầy đủ của vùng."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/nearby/api/useNearby.ts",
+      "status": "M",
+      "description": "Điều chỉnh làm mới truy vấn lân cận để tọa độ đã sửa được phản ánh trên phía khách."
+    },
+    {
+      "path": "src/Web/package-lock.json",
+      "status": "M",
+      "description": "Chốt các phiên bản phụ thuộc bản đồ mới để cài đặt và kiểm thử đồng nhất."
+    },
+    {
+      "path": "src/Web/packages/api/src/endpoints.ts",
+      "status": "M",
+      "description": "Thêm hàm gọi API tra cứu địa danh từ trang quản trị."
+    },
+    {
+      "path": "src/Web/packages/api/src/types.ts",
+      "status": "M",
+      "description": "Thêm kiểu gợi ý vị trí để giao diện nhận đúng tên và tọa độ."
+    },
+    {
+      "path": "src/Web/vitest.config.ts",
+      "status": "M",
+      "description": "Điều chỉnh cấu hình Vitest để các bài kiểm tra bản đồ chạy ổn định trên runner giới hạn tài nguyên."
+    },
+    {
+      "path": "tests/Catalog.Tests/AdminPoiFlowTests.cs",
+      "status": "M",
+      "description": "Kiểm tra quyền tìm địa danh, từ chối truy vấn sai và việc tọa độ đã chỉnh được phản ánh ở bản đồ công khai mà không cần xuất bản lại."
+    },
+    {
+      "path": "tests/Catalog.Tests/LocationSearchTests.cs",
+      "status": "A",
+      "description": "Kiểm tra mã hóa truy vấn, lọc kết quả sai, bộ nhớ đệm theo ngôn ngữ và hành vi khi Photon lỗi hoặc giới hạn truy cập."
+    }
+  ],
+  "f7917e26c6f9f878f9a62a0e4397df1b5d4d48c9": [
+    {
+      "path": ".github/workflows/catalog.yml",
+      "status": "M",
+      "description": "Cập nhật action và bước dọn build server .NET của workflow catalog để tránh tiến trình biên dịch còn chạy sau job."
+    },
+    {
+      "path": ".github/workflows/gateway.yml",
+      "status": "M",
+      "description": "Cập nhật action và bước dọn build server .NET của workflow gateway để tránh tiến trình biên dịch còn chạy sau job."
+    },
+    {
+      "path": ".github/workflows/identity.yml",
+      "status": "M",
+      "description": "Cập nhật action và bước dọn build server .NET của workflow identity để tránh tiến trình biên dịch còn chạy sau job."
+    },
+    {
+      "path": ".github/workflows/localization.yml",
+      "status": "M",
+      "description": "Cập nhật action và bước dọn build server .NET của workflow localization để tránh tiến trình biên dịch còn chạy sau job."
+    },
+    {
+      "path": ".github/workflows/speech.yml",
+      "status": "M",
+      "description": "Cập nhật action và bước dọn build server .NET của workflow speech để tránh tiến trình biên dịch còn chạy sau job."
+    },
+    {
+      "path": ".github/workflows/web.yml",
+      "status": "M",
+      "description": "Cập nhật các action dùng trong workflow frontend để bước checkout và thiết lập môi trường dùng phiên bản runner tương thích."
+    },
+    {
+      "path": "docs/ci-cd.md",
+      "status": "M",
+      "description": "Ghi điều kiện kích hoạt runner Windows và cách vận hành workflow phát hành dịch vụ."
+    }
+  ],
+  "b32631e2b197abaa821a3c6c4e4486d032814760": [
+    {
+      "path": "docs/dashboard-adjustments-2026-10-24.md",
+      "status": "A",
+      "description": "Ghi các thay đổi đã chốt cho dashboard, bộ lọc, xuất báo cáo và trang quản lý POI."
+    },
+    {
+      "path": "docs/dashboard-implementation.md",
+      "status": "A",
+      "description": "Tài liệu hóa phạm vi, kiến trúc, dữ liệu và cách kiểm tra dashboard đã triển khai."
+    },
+    {
+      "path": "docs/dashboard-plan.md",
+      "status": "A",
+      "description": "Mô tả các màn hình, chỉ số và kế hoạch triển khai dashboard trước khi tích hợp."
+    },
+    {
+      "path": "docs/dashboard/admin-feature-parity.md",
+      "status": "A",
+      "description": "Đối chiếu các thao tác giữa thiết kế và giao diện quản trị đã triển khai."
+    },
+    {
+      "path": "docs/dashboard/archived-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh danh sách đã lưu trữ ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/conflict-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh xung đột khi chỉnh sửa ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/editor-revision-3.png",
+      "status": "A",
+      "description": "Lưu ảnh trang biên tập ở bản thiết kế 3 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/editor-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh trang biên tập ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/implementation-management-vi.png",
+      "status": "A",
+      "description": "Lưu ảnh trang quản lý đã triển khai bằng tiếng Việt để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/implementation-overview-en.png",
+      "status": "A",
+      "description": "Lưu ảnh dashboard đã triển khai bằng tiếng Anh để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/implementation-overview-vi.png",
+      "status": "A",
+      "description": "Lưu ảnh dashboard đã triển khai bằng tiếng Việt để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/jobs-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh danh sách tổng hợp âm thanh ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/load-error-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh trạng thái lỗi tải dữ liệu ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/management-revision-2.png",
+      "status": "A",
+      "description": "Lưu ảnh trang quản lý POI ở bản thiết kế 2 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/management-revision-3.png",
+      "status": "A",
+      "description": "Lưu ảnh trang quản lý POI ở bản thiết kế 3 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/management-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh trang quản lý POI ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/overview-approved.png",
+      "status": "A",
+      "description": "Lưu ảnh dashboard tổng quan đã duyệt để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/overview-revision-2.png",
+      "status": "A",
+      "description": "Lưu ảnh dashboard tổng quan ở bản thiết kế 2 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/overview-revision-3.png",
+      "status": "A",
+      "description": "Lưu ảnh dashboard tổng quan ở bản thiết kế 3 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/overview-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh dashboard tổng quan ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/publish-failure-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh trạng thái xuất bản thất bại ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/publish-revision-3.png",
+      "status": "A",
+      "description": "Lưu ảnh màn hình xuất bản ở bản thiết kế 3 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/sign-in-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh màn hình đăng nhập ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/translation-failure-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh trạng thái dịch thất bại ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "docs/dashboard/ui-approved.html",
+      "status": "A",
+      "description": "Lưu mẫu giao diện dashboard đã duyệt ở dạng HTML để nhóm mở và đối chiếu thiết kế."
+    },
+    {
+      "path": "docs/dashboard/ui-revision-2.html",
+      "status": "A",
+      "description": "Lưu mẫu giao diện dashboard bản 2 ở dạng HTML để nhóm mở và đối chiếu thiết kế."
+    },
+    {
+      "path": "docs/dashboard/ui-revision-3.html",
+      "status": "A",
+      "description": "Lưu mẫu giao diện dashboard bản 3 ở dạng HTML để nhóm mở và đối chiếu thiết kế."
+    },
+    {
+      "path": "docs/dashboard/ui-revision-4.html",
+      "status": "A",
+      "description": "Lưu mẫu giao diện dashboard bản 4 ở dạng HTML để nhóm mở và đối chiếu thiết kế."
+    },
+    {
+      "path": "docs/dashboard/validation-revision-4.png",
+      "status": "A",
+      "description": "Lưu ảnh trạng thái dữ liệu chưa hợp lệ ở bản thiết kế 4 để nhóm đối chiếu giao diện và trạng thái hiển thị."
+    },
+    {
+      "path": "src/BuildingBlocks/StaffAuthentication.cs",
+      "status": "M",
+      "description": "Điều chỉnh chính sách truy cập dành cho nhân sự để bảo vệ báo cáo và các thao tác quản trị."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsEndpoints.cs",
+      "status": "A",
+      "description": "Thêm API ghi sự kiện khách, thống kê, danh sách sự cố và thao tác quản lý trạng thái sự cố."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsRetention.cs",
+      "status": "A",
+      "description": "Dọn các bản ghi phân tích cũ để lưu trữ số liệu trong giới hạn vận hành."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Analytics/AnalyticsService.cs",
+      "status": "A",
+      "description": "Gom lượt truy cập, sự hiện diện và lượt nghe để tạo báo cáo. Ghi nhận sự cố phát sinh theo POI."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "status": "M",
+      "description": "Ghi nhận sự cố Catalog khi quy trình dịch hoặc tạo âm thanh báo lỗi."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/AdminPoiEndpoints.cs",
+      "status": "M",
+      "description": "Tách chỉnh hiển thị khỏi lưu trữ và khôi phục POI để biên tập viên quản lý đúng trạng thái."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "status": "M",
+      "description": "Kết nối API thống kê với Catalog và điều chỉnh các tuyến đọc, xuất bản theo yêu cầu quản trị."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/MapPoiEndpoints.cs",
+      "status": "M",
+      "description": "Áp dụng cờ hiển thị lên bản đồ để khách chỉ thấy các POI được công khai."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/CatalogDbContext.cs",
+      "status": "M",
+      "description": "Thêm bảng và ràng buộc cho sự kiện khách, hiện diện, lượt nghe và sự cố."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261020034719_AddManagerAnalytics.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration AddManagerAnalytics để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261020034719_AddManagerAnalytics.cs",
+      "status": "A",
+      "description": "Tạo schema phục vụ dashboard quản trị, lưu lượt sử dụng và thông tin sự cố."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261020123130_HardenAnalyticsPresence.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration HardenAnalyticsPresence để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261020123130_HardenAnalyticsPresence.cs",
+      "status": "A",
+      "description": "Cập nhật dữ liệu và ràng buộc hiện diện để tính khách trực tuyến đáng tin cậy hơn."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261020124948_IndexVisitorLanguageLookup.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration IndexVisitorLanguageLookup để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261020124948_IndexVisitorLanguageLookup.cs",
+      "status": "A",
+      "description": "Thêm chỉ mục cho truy vấn theo khách và ngôn ngữ khi tổng hợp thống kê."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261024151303_AddActualListeningMetrics.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration AddActualListeningMetrics để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261024151303_AddActualListeningMetrics.cs",
+      "status": "A",
+      "description": "Thêm cấu trúc lưu chỉ số dựa trên lượt phát thật để báo cáo phản ánh cách khách nghe."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/CatalogDbContextModelSnapshot.cs",
+      "status": "M",
+      "description": "Đồng bộ snapshot EF Core với schema mới cho dữ liệu hiện diện, thống kê nghe và sự cố."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Queries/DapperNearbyPoiQuery.cs",
+      "status": "M",
+      "description": "Áp dụng điều kiện hiển thị POI trong truy vấn không gian để loại điểm đang ẩn."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Program.cs",
+      "status": "M",
+      "description": "Đăng ký phần thống kê và tác vụ quản lý dữ liệu để Catalog chạy được dashboard."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/PointOfInterest.cs",
+      "status": "M",
+      "description": "Tách trạng thái hiển thị POI khỏi vòng đời để Admin ẩn hoặc hiện POI đang phục vụ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/VisitorAnalytics.cs",
+      "status": "A",
+      "description": "Định nghĩa thực thể lưu lượt truy cập, hiện diện, lượt nghe và sự cố cho Catalog."
+    },
+    {
+      "path": "src/Gateway/Program.cs",
+      "status": "M",
+      "description": "Tách giới hạn tần suất của luồng thống kê khỏi các yêu cầu nội dung để sự kiện sử dụng có hạn mức riêng."
+    },
+    {
+      "path": "src/Gateway/appsettings.json",
+      "status": "M",
+      "description": "Thêm tuyến PATCH trạng thái sự cố với quyền Operator và chuyển yêu cầu tới Catalog."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Endpoints/SpeechAdminEndpoints.cs",
+      "status": "M",
+      "description": "Mở rộng dữ liệu tra công việc tổng hợp để Admin liên kết lỗi với chính công việc cần xem."
+    },
+    {
+      "path": "src/Web/apps/admin/dev-proxy.ts",
+      "status": "M",
+      "description": "Chuyển tiếp các API quản trị và thống kê trong môi trường phát triển."
+    },
+    {
+      "path": "src/Web/apps/admin/nginx.conf.template",
+      "status": "M",
+      "description": "Cấu hình chuyển tiếp đường dẫn quản trị khi Admin Web được phục vụ qua Nginx."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/AdminLayout.module.css",
+      "status": "M",
+      "description": "Định kiểu thanh bên, menu, khung quản trị và giao diện sáng/tối."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/AdminLayout.tsx",
+      "status": "M",
+      "description": "Bổ sung mục dashboard, điều hướng quản lý và thao tác đổi giao diện trong khung Admin."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/App.test.tsx",
+      "status": "M",
+      "description": "Kiểm tra thanh bên nhớ lựa chọn thu gọn, đổi giao diện qua điều hướng và truy cập tùy chọn khi thanh bên thu gọn."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/App.tsx",
+      "status": "M",
+      "description": "Nối trạng thái ngôn ngữ và lớp giao diện vào ứng dụng quản trị đã có dashboard."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/flows.test.tsx",
+      "status": "M",
+      "description": "Kiểm tra ẩn hoặc hiện độc lập với lưu trữ và trạng thái POI khi khôi phục, cùng các thay đổi của danh sách quản trị."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/router.tsx",
+      "status": "M",
+      "description": "Đăng ký các tuyến báo cáo, sự cố và nghiệp vụ quản lý trong Admin Web."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/routes.tsx",
+      "status": "M",
+      "description": "Kết nối màn hình báo cáo và quản lý với tham số tuyến và bộ lọc."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/theme.css",
+      "status": "A",
+      "description": "Khai báo các biến giao diện sáng/tối để các màn hình quản trị dùng cùng màu."
+    },
+    {
+      "path": "src/Web/apps/admin/src/app/theme.ts",
+      "status": "A",
+      "description": "Quản lý lựa chọn giao diện Admin để khôi phục thiết lập khi người dùng quay lại."
+    },
+    {
+      "path": "src/Web/apps/admin/src/components/relativeTime.ts",
+      "status": "M",
+      "description": "Định dạng thời gian tương đối cho dữ liệu bảng và trạng thái bằng ngôn ngữ đang chọn."
+    },
+    {
+      "path": "src/Web/apps/admin/src/components/toast/ToastProvider.tsx",
+      "status": "M",
+      "description": "Đồng bộ thông báo thao tác với cách trình bày và ngôn ngữ của Admin."
+    },
+    {
+      "path": "src/Web/apps/admin/src/config/languages.ts",
+      "status": "M",
+      "description": "Cập nhật cấu hình các lựa chọn ngôn ngữ dùng trong trang quản trị."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/auth/components/SignInScreen.tsx",
+      "status": "M",
+      "description": "Đồng bộ màn hình đăng nhập với hỗ trợ song ngữ và giao diện quản trị mới."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/dashboard/DashboardScreen.module.css",
+      "status": "A",
+      "description": "Bố trí chỉ số, biểu đồ, bộ lọc ngày và khu điều khiển xuất báo cáo."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/dashboard/DashboardScreen.tsx",
+      "status": "A",
+      "description": "Hiển thị thống kê toàn hệ thống và từng POI, bộ lọc thời gian, biểu đồ và hộp thoại xuất báo cáo."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/dashboard/IssuesScreen.tsx",
+      "status": "A",
+      "description": "Hiển thị danh sách, chi tiết và trạng thái sự cố để nhân sự theo dõi xử lý."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/dashboard/dashboard.test.tsx",
+      "status": "A",
+      "description": "Kiểm tra đổi ngôn ngữ, biểu đồ, thống kê theo POI và xuất số liệu mới theo kỳ hoặc ngày tùy chọn."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/dashboard/export.ts",
+      "status": "A",
+      "description": "Chuyển dữ liệu thống kê thành các sheet và tạo tệp Excel tải xuống ngay trong trình duyệt."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/jobs/api/jobsApi.ts",
+      "status": "M",
+      "description": "Đồng bộ cách lấy và lọc công việc tổng hợp với nhu cầu xử lý sự cố."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/jobs/components/JobsScreen.module.css",
+      "status": "M",
+      "description": "Định kiểu danh sách, bộ lọc và thông tin chi tiết công việc trong khung Admin mới."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/jobs/components/JobsScreen.tsx",
+      "status": "M",
+      "description": "Điều chỉnh danh sách và chi tiết công việc để nhân sự theo dõi lỗi và chạy lại."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/api/placesApi.ts",
+      "status": "M",
+      "description": "Nối các thao tác ẩn, hiện, lưu trữ và khôi phục POI với API quản trị."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/PlaceEditorScreen.tsx",
+      "status": "M",
+      "description": "Đồng bộ màn hình biên tập với các thao tác và trạng thái mới của địa điểm."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/PlacesScreen.module.css",
+      "status": "M",
+      "description": "Bố trí danh sách quản lý, trạng thái POI và các nút thao tác."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/PlacesScreen.tsx",
+      "status": "M",
+      "description": "Hiển thị nhóm POI theo trạng thái và các thao tác ẩn, hiện, lưu trữ hoặc khôi phục."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/model/placeForm.ts",
+      "status": "M",
+      "description": "Điều chỉnh dữ liệu và kiểm tra biểu mẫu cho luồng quản lý địa điểm mới."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/publish/components/PublishProgressScreen.tsx",
+      "status": "M",
+      "description": "Đồng bộ màn hình tiến độ với ngôn ngữ và trải nghiệm quản trị mới."
+    },
+    {
+      "path": "src/Web/apps/admin/src/i18n/LanguagePicker.tsx",
+      "status": "A",
+      "description": "Thêm bộ chọn ngôn ngữ cho người dùng trang quản trị."
+    },
+    {
+      "path": "src/Web/apps/admin/src/i18n/index.ts",
+      "status": "A",
+      "description": "Khởi tạo tài nguyên, lựa chọn ngôn ngữ và hàm dịch dùng chung cho Admin."
+    },
+    {
+      "path": "src/Web/apps/admin/src/i18n/vi.ts",
+      "status": "A",
+      "description": "Thêm bản dịch tiếng Việt cho dashboard, báo cáo, sự cố và các màn hình quản lý."
+    },
+    {
+      "path": "src/Web/apps/admin/src/main.tsx",
+      "status": "M",
+      "description": "Nạp giao diện và hỗ trợ ngôn ngữ khi khởi động Admin Web."
+    },
+    {
+      "path": "src/Web/apps/admin/src/mocks/db.ts",
+      "status": "M",
+      "description": "Mở rộng dữ liệu giả lập để có trạng thái POI và công việc phục vụ thử giao diện quản trị."
+    },
+    {
+      "path": "src/Web/apps/admin/src/mocks/handlers/jobs.ts",
+      "status": "M",
+      "description": "Đồng bộ dữ liệu và phản hồi giả lập cho danh sách công việc tổng hợp."
+    },
+    {
+      "path": "src/Web/apps/admin/src/mocks/handlers/places.ts",
+      "status": "M",
+      "description": "Mô phỏng thao tác quản lý và trạng thái hiển thị của POI."
+    },
+    {
+      "path": "src/Web/apps/admin/src/test/setup.ts",
+      "status": "M",
+      "description": "Điều chỉnh môi trường kiểm thử Admin để chạy các luồng mới."
+    },
+    {
+      "path": "src/Web/apps/pwa/dev-proxy.ts",
+      "status": "M",
+      "description": "Chuyển tiếp yêu cầu gửi lượt sử dụng từ PWA đến Catalog khi phát triển."
+    },
+    {
+      "path": "src/Web/apps/pwa/nginx.conf.template",
+      "status": "M",
+      "description": "Cho phép PWA gửi các sự kiện thống kê về hệ thống qua Nginx."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/analytics/VisitorAnalytics.tsx",
+      "status": "A",
+      "description": "Gắn các sự kiện truy cập, xem địa điểm và hiện diện vào vòng đời ứng dụng khách."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/analytics/usage.test.ts",
+      "status": "A",
+      "description": "Kiểm tra chế độ demo không được tính, chỉ đếm một lượt khi tạm dừng rồi phát lại và ghi ngôn ngữ thật của audio."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/analytics/usage.ts",
+      "status": "A",
+      "description": "Gom và gửi sự kiện từ PWA, gồm thời điểm phát âm thanh thực tế để đếm lượt nghe."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/VisitorLayout.tsx",
+      "status": "M",
+      "description": "Gắn thành phần thu thập thống kê vào khung chung để các màn hình của khách dùng cùng cơ chế."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/config/env.ts",
+      "status": "M",
+      "description": "Đọc thiết lập bật thống kê từ môi trường PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/components/AudioEngine.tsx",
+      "status": "M",
+      "description": "Nối sự kiện phát thành công của trình phát với chỉ số lượt nghe."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/story/api/storyQuery.ts",
+      "status": "M",
+      "description": "Kết nối việc tải nội dung thuyết minh với cách ghi nhận sự cố từ phía khách."
+    },
+    {
+      "path": "src/Web/eslint.config.js",
+      "status": "M",
+      "description": "Cập nhật cấu hình kiểm tra mã frontend để các mô-đun quản trị và thống kê mới cùng nằm trong quy trình lint."
+    },
+    {
+      "path": "src/Web/packages/api/src/analytics.ts",
+      "status": "A",
+      "description": "Thêm các hàm gọi API và kiểu dữ liệu thống kê, sự cố dùng chung giữa các ứng dụng web."
+    },
+    {
+      "path": "src/Web/packages/api/src/endpoints.ts",
+      "status": "M",
+      "description": "Cập nhật các hàm gọi API quản lý địa điểm và công việc cho dashboard."
+    },
+    {
+      "path": "src/Web/packages/api/src/index.ts",
+      "status": "M",
+      "description": "Xuất mô-đun thống kê qua gói API dùng chung để ứng dụng có thể import."
+    },
+    {
+      "path": "src/Web/packages/api/src/types.ts",
+      "status": "M",
+      "description": "Bổ sung kiểu trạng thái POI và các trường cần trên giao diện quản trị."
+    },
+    {
+      "path": "src/Web/packages/ui/src/icon/Icon.tsx",
+      "status": "M",
+      "description": "Bổ sung biểu tượng cho menu, dashboard và các thao tác quản trị."
+    },
+    {
+      "path": "src/Web/packages/ui/src/tokens.css",
+      "status": "M",
+      "description": "Thêm hoặc chỉnh biến giao diện để các thành phần dùng chung hỗ trợ thiết kế quản trị mới."
+    },
+    {
+      "path": "tests/Catalog.Tests/AdminPoiFlowTests.cs",
+      "status": "M",
+      "description": "Kiểm tra POI ẩn không xuất hiện công khai, giới hạn quyền sửa sự cố và kiểm tra quyền, phiên bản dữ liệu khi khôi phục."
+    },
+    {
+      "path": "tests/Catalog.Tests/AnalyticsTests.cs",
+      "status": "A",
+      "description": "Kiểm tra số khách và lượt nghe không bị nhân đôi qua tab hoặc lần thử lại, cùng ranh giới ngày theo giờ Việt Nam."
+    },
+    {
+      "path": "tests/Speech.Tests/SynthesisJobEndpointTests.cs",
+      "status": "M",
+      "description": "Kiểm tra mở danh sách công việc từ trang tiến độ theo đúng POI, ngôn ngữ và phiên bản."
+    }
+  ],
+  "b952bf08d6fdfd47a303889d119cbce776ee76eb": [
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Giới thiệu transcript đồng bộ và dẫn tới tài liệu về cách phát lời thuyết minh."
+    },
+    {
+      "path": "contracts/events/audio-ready.json",
+      "status": "M",
+      "description": "Mở rộng schema sự kiện AudioReady để chuyển các mốc transcript từ Speech về Catalog."
+    },
+    {
+      "path": "contracts/openapi/catalog.yaml",
+      "status": "M",
+      "description": "Tài liệu hóa transcript và các mốc kèm âm thanh trong phản hồi của Catalog."
+    },
+    {
+      "path": "docs/player-transcript.md",
+      "status": "A",
+      "description": "Giải thích cách sinh mốc phát, lưu transcript và hiển thị lời thuyết minh trên PWA."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "status": "M",
+      "description": "Tiếp nhận transcript qua AudioReady và cập nhật dữ liệu phát thuyết minh của Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "status": "M",
+      "description": "Đưa transcript vào phản hồi truyện để PWA có mốc đồng bộ lời với audio."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261017090310_AddAudioTranscript.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration AddAudioTranscript để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261017090310_AddAudioTranscript.cs",
+      "status": "A",
+      "description": "Thêm nơi lưu transcript vào dữ liệu sẵn sàng phục vụ ở Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/CatalogDbContextModelSnapshot.cs",
+      "status": "M",
+      "description": "Ghi cột transcript của nội dung phục vụ vào snapshot EF Core để migration sau thấy đúng schema."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/CatalogDeliveryContent.cs",
+      "status": "M",
+      "description": "Bổ sung dữ liệu transcript vào mô hình nội dung Catalog để lưu và trả về cùng audio."
+    },
+    {
+      "path": "src/Contracts.Messaging/AudioReady.cs",
+      "status": "M",
+      "description": "Mở rộng bản tin .NET với transcript, cho phép hai service truyền mốc thời gian cùng thông tin MP3."
+    },
+    {
+      "path": "src/Contracts.Messaging/AudioTranscript.cs",
+      "status": "A",
+      "description": "Định nghĩa dữ liệu transcript và cue thời gian dùng chung trong các thông điệp."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Consumers/TranslationReadyConsumer.cs",
+      "status": "M",
+      "description": "Lấy kết quả tổng hợp có mốc thời gian, lưu transcript và gửi cho Catalog cùng kết quả âm thanh."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/Migrations/20261017090240_AddAudioTranscript.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration AddAudioTranscript để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/Migrations/20261017090240_AddAudioTranscript.cs",
+      "status": "A",
+      "description": "Thêm nơi lưu transcript vào bản ghi tệp âm thanh của Speech."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/Migrations/SpeechDbContextModelSnapshot.cs",
+      "status": "M",
+      "description": "Ghi cột transcript của bản ghi âm thanh vào snapshot EF Core để migration sau thấy đúng schema."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Infrastructure/SpeechDbContextFactory.cs",
+      "status": "A",
+      "description": "Bổ sung cách EF Core tạo DbContext của Speech ở thời điểm tạo hoặc chạy migration."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Program.cs",
+      "status": "M",
+      "description": "Điều chỉnh cấu hình khởi động Speech để chạy mô hình tổng hợp và lưu transcript."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Providers/GoogleTtsProvider.cs",
+      "status": "M",
+      "description": "Gửi văn bản đánh dấu và đọc timepoint từ Cloud TTS để khớp lời với vị trí phát."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Providers/TimedSpeechScript.cs",
+      "status": "A",
+      "description": "Tạo kịch bản có dấu mốc giúp dịch vụ TTS trả thời điểm tương ứng với từng câu."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Speech.Api.csproj",
+      "status": "M",
+      "description": "Cập nhật dự án Speech để hỗ trợ scaffold migration và thành phần tổng hợp mới."
+    },
+    {
+      "path": "src/Speech/Speech.Core/Abstractions/ITtsProvider.cs",
+      "status": "M",
+      "description": "Mở rộng hợp đồng tổng hợp để provider có thể trả các mốc cùng dữ liệu âm thanh."
+    },
+    {
+      "path": "src/Speech/Speech.Core/Abstractions/SynthesizedSpeech.cs",
+      "status": "A",
+      "description": "Định nghĩa kết quả tổng hợp gồm MP3, thời lượng và danh sách mốc của lời thuyết minh."
+    },
+    {
+      "path": "src/Speech/Speech.Core/Entities/AudioFile.cs",
+      "status": "M",
+      "description": "Lưu transcript cùng bản ghi tệp để gửi lại khi dùng lại audio."
+    },
+    {
+      "path": "src/Web/API-CONTRACT.md",
+      "status": "M",
+      "description": "Mô tả trường transcript trong hợp đồng frontend và cách ứng dụng dùng các mốc thời gian."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/VisitorLayout.tsx",
+      "status": "M",
+      "description": "Kết nối trình phát thu gọn với thao tác đóng và luồng mở màn hình nghe."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/mapFlows.test.tsx",
+      "status": "M",
+      "description": "Đồng bộ kiểm thử phát thuyết minh từ bản đồ với các điều khiển trình phát mới."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/playerFlows.test.tsx",
+      "status": "A",
+      "description": "Kiểm tra đóng trình phát thu gọn hoặc đầy đủ, giữ vị trí khi thu gọn và ngăn tự phát lại khi đã đóng."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/PlaceRoute.tsx",
+      "status": "M",
+      "description": "Chuyển dữ liệu audio và transcript từ câu chuyện tới màn hình phát."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/PlayerRoute.tsx",
+      "status": "M",
+      "description": "Truyền transcript và thao tác đóng vào màn hình trình phát."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/placeContext.ts",
+      "status": "M",
+      "description": "Bổ sung dữ liệu cần đưa qua ngữ cảnh địa điểm khi mở trình phát."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/components/AudioEngine.tsx",
+      "status": "M",
+      "description": "Đồng bộ thời gian và trạng thái phát mà màn hình transcript cần để tô đúng câu."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/components/MiniPlayerDock.tsx",
+      "status": "M",
+      "description": "Thêm thao tác đóng trình phát thu gọn và đồng bộ nút điều khiển."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/components/PlayerScreen.tsx",
+      "status": "M",
+      "description": "Hiển thị lời thuyết minh đồng bộ và các điều khiển mới trong màn hình nghe đầy đủ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/components/Transcript.module.css",
+      "status": "A",
+      "description": "Định kiểu lời thuyết minh, dòng đang phát và vùng cuộn transcript."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/components/Transcript.test.tsx",
+      "status": "A",
+      "description": "Kiểm tra lời chạy theo vị trí phát, đúng ngôn ngữ đã nghe và cách tiếp tục tự cuộn sau khi cuộn tay."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/components/Transcript.tsx",
+      "status": "A",
+      "description": "Hiển thị từng đoạn lời và tô đoạn tương ứng với vị trí audio hiện tại."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/model/playerMachine.test.ts",
+      "status": "M",
+      "description": "Kiểm tra trạng thái khi hết bài, thao tác đóng, giới hạn tua và bỏ qua sự kiện đến sau khi trình phát đã đóng."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/model/playerMachine.ts",
+      "status": "M",
+      "description": "Quản lý trạng thái và thao tác đóng trình phát để màn hình và audio cùng cập nhật."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/model/track.ts",
+      "status": "M",
+      "description": "Đưa transcript vào bản nhạc đang phát để các màn hình dùng cùng dữ liệu."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/player/model/transcript.ts",
+      "status": "A",
+      "description": "Xử lý danh sách mốc và xác định đoạn lời tương ứng với thời gian phát."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/en.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Anh cho nút đóng trình phát và lời thuyết minh trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/ja.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Nhật cho nút đóng trình phát và lời thuyết minh trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/ko.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Hàn cho nút đóng trình phát và lời thuyết minh trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/vi.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Việt cho nút đóng trình phát và lời thuyết minh trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/zh.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Trung cho nút đóng trình phát và lời thuyết minh trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/mocks/DevScenarioPanel.tsx",
+      "status": "M",
+      "description": "Bổ sung điều khiển mô phỏng giao diện để thử luồng transcript."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/mocks/handlers/story.ts",
+      "status": "M",
+      "description": "Cập nhật phản hồi thuyết minh giả lập để kiểm tra trường transcript."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/mocks/scenarios.ts",
+      "status": "M",
+      "description": "Thêm hoặc điều chỉnh kịch bản dữ liệu thử cho trình phát và lời thuyết minh."
+    },
+    {
+      "path": "src/Web/packages/api/src/types.ts",
+      "status": "M",
+      "description": "Bổ sung kiểu transcript và mốc thời gian cho dữ liệu truyện nhận từ Catalog."
+    },
+    {
+      "path": "src/Web/packages/ui/src/dev/ScenarioPanel.module.css",
+      "status": "M",
+      "description": "Bố trí khu điều khiển kịch bản phát triển khi thêm lựa chọn thử trình phát."
+    },
+    {
+      "path": "src/Web/packages/ui/src/dev/ScenarioPanel.tsx",
+      "status": "M",
+      "description": "Đồng bộ thành phần chọn kịch bản chung cho các tình huống trình phát."
+    },
+    {
+      "path": "src/Web/packages/ui/src/pwa/Listening.module.css",
+      "status": "M",
+      "description": "Định kiểu giao diện nghe với điều khiển mới và nội dung transcript."
+    },
+    {
+      "path": "src/Web/packages/ui/src/pwa/Listening.tsx",
+      "status": "M",
+      "description": "Cập nhật thành phần giao diện nghe dùng chung để bố trí điều khiển phát và lời thuyết minh."
+    },
+    {
+      "path": "tests/Catalog.Tests/AdminPoiFlowTests.cs",
+      "status": "M",
+      "description": "Kiểm tra phản hồi câu chuyện chỉ chứa mốc phù hợp với bản ghi âm thực sự được trả về."
+    },
+    {
+      "path": "tests/Messaging.Tests/SchemaSyncTests.cs",
+      "status": "M",
+      "description": "Đồng bộ kiểm thử hợp đồng sự kiện với trường transcript của AudioReady."
+    },
+    {
+      "path": "tests/Speech.Tests/GoogleTtsTests.cs",
+      "status": "M",
+      "description": "Kiểm tra đầu ra audio từ Google TTS có các mốc thời gian của câu."
+    },
+    {
+      "path": "tests/Speech.Tests/TimedSpeechTests.cs",
+      "status": "A",
+      "description": "Kiểm tra sinh dấu mốc, giữ nội dung nói, xử lý mốc lỗi và khả năng phát lại kết quả đã lưu mà không tổng hợp lại."
+    },
+    {
+      "path": "tests/Speech.Tests/TranscriptMigrationTests.cs",
+      "status": "A",
+      "description": "Kiểm tra nâng cấp giữ lại audio cũ và có thể lưu, đọc lại transcript mới."
+    }
+  ],
+  "eb4e1b0edc315001768920f95a9f5d2ba3f18fed": [
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Bổ sung giới thiệu về bản đồ khách và dẫn tới hướng dẫn tích hợp OpenFreeMap."
+    },
+    {
+      "path": "contracts/openapi/catalog.yaml",
+      "status": "M",
+      "description": "Mô tả API dữ liệu bản đồ và các trường POI dùng để hiển thị điểm đánh dấu."
+    },
+    {
+      "path": "docs/visitor-map.md",
+      "status": "A",
+      "description": "Tài liệu hóa bản đồ, quyền vị trí, nguồn dữ liệu và cách thử luồng nghe trên bản đồ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "status": "M",
+      "description": "Nối endpoint bản đồ vào Catalog và điều chỉnh dữ liệu trả về cho hành trình khách."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/MapPoiEndpoints.cs",
+      "status": "A",
+      "description": "Thêm endpoint đọc POI công khai theo vùng tọa độ để PWA vẽ điểm đánh dấu."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Queries/DapperNearbyPoiQuery.cs",
+      "status": "M",
+      "description": "Mở rộng dữ liệu POI lân cận phục vụ hiển thị vị trí trên giao diện khách."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Abstractions/INearbyPoiQuery.cs",
+      "status": "M",
+      "description": "Điều chỉnh hợp đồng kết quả truy vấn lân cận cho các trường dữ liệu dùng trong bản đồ."
+    },
+    {
+      "path": "src/Web/API-CONTRACT.md",
+      "status": "M",
+      "description": "Mô tả cách đọc dữ liệu bản đồ và trao đổi dữ liệu truyện giữa PWA với Catalog."
+    },
+    {
+      "path": "src/Web/apps/pwa/Dockerfile",
+      "status": "M",
+      "description": "Chuyển cấu hình bản đồ qua bước build PWA để có thể chọn kiểu hiển thị khi triển khai."
+    },
+    {
+      "path": "src/Web/apps/pwa/package.json",
+      "status": "M",
+      "description": "Thêm phụ thuộc MapLibre để ứng dụng khách vẽ và điều khiển bản đồ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/LocationGate.module.css",
+      "status": "A",
+      "description": "Định kiểu màn hình xin quyền vị trí, trạng thái tải và lựa chọn mô phỏng."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/LocationGate.tsx",
+      "status": "A",
+      "description": "Tách giao diện xử lý quyền và vị trí để dùng chung trước khi hiển thị lân cận hoặc bản đồ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/NarrationController.tsx",
+      "status": "A",
+      "description": "Đưa việc chuẩn bị nội dung và điều khiển thuyết minh lên khung chung để audio tiếp tục qua các màn hình."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/VisitorLayout.tsx",
+      "status": "M",
+      "description": "Gắn bộ điều phối và trình phát trong khung PWA dùng chung khi khách điều hướng."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/flows.test.tsx",
+      "status": "M",
+      "description": "Điều chỉnh bài kiểm tra hành trình khách cho trạng thái vị trí và trình phát được chia sẻ giữa các tuyến."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/mapFlows.test.tsx",
+      "status": "A",
+      "description": "Kiểm tra chỉ theo dõi GPS sau khi được phép, nghe ngay trên bản đồ và khôi phục điểm đã chọn khi quay lại."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/narration.ts",
+      "status": "A",
+      "description": "Chia sẻ dữ liệu và hành vi tải thuyết minh cho các màn hình lân cận, bản đồ và truyện."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/queryClient.ts",
+      "status": "M",
+      "description": "Điều chỉnh bộ nhớ đệm truy vấn để các màn hình bản đồ và truyện có thể chia sẻ dữ liệu."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/router.tsx",
+      "status": "M",
+      "description": "Đăng ký tuyến bản đồ trong điều hướng ứng dụng khách."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/MapRoute.module.css",
+      "status": "A",
+      "description": "Bố trí bản đồ, bảng xem trước điểm đã chọn và nút mở hoặc phát thuyết minh."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/MapRoute.tsx",
+      "status": "A",
+      "description": "Chọn vùng bản đồ, tải POI và hiển thị xem trước. Cho phép phát ngay tại bản đồ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/NearbyRoute.tsx",
+      "status": "M",
+      "description": "Dùng chung trạng thái vị trí và nối danh sách lân cận với hành trình bản đồ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/PlaceRoute.tsx",
+      "status": "M",
+      "description": "Nhận thông tin điều hướng từ bản đồ và mở trang thuyết minh của POI đã chọn."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/PlayerRoute.tsx",
+      "status": "M",
+      "description": "Đồng bộ trình phát riêng với trạng thái nghe được dùng chung khi quay lại bản đồ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/StoryRoute.tsx",
+      "status": "M",
+      "description": "Kết nối màn hình đọc truyện với dữ liệu và trình phát dùng chung."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/placeContext.ts",
+      "status": "M",
+      "description": "Lưu ngữ cảnh điều hướng từ bản đồ hay danh sách để mở và quay lại đúng trang."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/visitorLocation.ts",
+      "status": "A",
+      "description": "Chia sẻ trạng thái vị trí thật hoặc mô phỏng giữa các tuyến của ứng dụng khách."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/config/env.ts",
+      "status": "M",
+      "description": "Đọc cấu hình kiểu bản đồ và chế độ mô phỏng khi PWA khởi động."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/location/hooks/useGeolocation.ts",
+      "status": "M",
+      "description": "Điều chỉnh theo dõi vị trí khi người dùng cấp quyền hoặc tín hiệu thay đổi."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/location/hooks/useVisitorPosition.ts",
+      "status": "M",
+      "description": "Kết hợp vị trí thiết bị và vị trí mô phỏng để danh sách và bản đồ dùng cùng điểm gốc."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/map/components/StoryMap.module.css",
+      "status": "A",
+      "description": "Định kiểu khung MapLibre, điểm đánh dấu và phần điều khiển."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/map/components/StoryMap.test.tsx",
+      "status": "A",
+      "description": "Kiểm tra chọn POI khi kiểu bản đồ chưa tải, tạo lại điểm đánh dấu khi thử lại và vẫn lấy danh sách nếu WebGL không khởi tạo."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/map/components/StoryMap.tsx",
+      "status": "A",
+      "description": "Khởi tạo MapLibre và đồng bộ camera, vị trí khách, POI được chọn và trạng thái nghe."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/map/index.ts",
+      "status": "A",
+      "description": "Xuất thành phần và mô hình bản đồ để tuyến PWA có thể sử dụng."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/map/model/mapState.test.ts",
+      "status": "A",
+      "description": "Kiểm tra khoảng cách từ vị trí khách và chuẩn hóa khung bản đồ qua đường đổi ngày."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/map/model/mapState.ts",
+      "status": "A",
+      "description": "Lưu camera, vùng tìm và lựa chọn bản đồ để khôi phục khi khách quay lại."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/nearby/components/NearbyScreen.tsx",
+      "status": "M",
+      "description": "Thêm lối chuyển sang bản đồ từ màn hình khám phá lân cận."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/settings/components/SettingsScreen.tsx",
+      "status": "M",
+      "description": "Đồng bộ cài đặt vị trí và chế độ mô phỏng với luồng bản đồ của khách."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/story/api/storyQuery.ts",
+      "status": "M",
+      "description": "Chia sẻ truy vấn thuyết minh giữa xem trước trên bản đồ và màn hình đọc."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/features/story/api/useLanguageRequest.ts",
+      "status": "M",
+      "description": "Điều chỉnh theo dõi yêu cầu ngôn ngữ khi phát từ nhiều màn hình."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/en.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Anh cho quyền vị trí, bản đồ và chế độ mô phỏng trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/ja.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Nhật cho quyền vị trí, bản đồ và chế độ mô phỏng trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/ko.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Hàn cho quyền vị trí, bản đồ và chế độ mô phỏng trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/vi.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Việt cho quyền vị trí, bản đồ và chế độ mô phỏng trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/i18n/locales/zh.ts",
+      "status": "M",
+      "description": "Cập nhật bản dịch tiếng Trung cho quyền vị trí, bản đồ và chế độ mô phỏng trên PWA."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/mocks/data.ts",
+      "status": "M",
+      "description": "Bổ sung dữ liệu vị trí cho các POI giả lập để diễn tập bản đồ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/mocks/handlers/nearby.ts",
+      "status": "M",
+      "description": "Mô phỏng phản hồi POI bản đồ và danh sách lân cận để dùng khi chạy demo."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/test/renderApp.tsx",
+      "status": "M",
+      "description": "Mở rộng bộ dựng ứng dụng kiểm thử để các luồng bản đồ và vị trí chạy được trong test."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/vite-env.d.ts",
+      "status": "M",
+      "description": "Khai báo kiểu của các thiết lập bản đồ khi build frontend."
+    },
+    {
+      "path": "src/Web/eslint.config.js",
+      "status": "M",
+      "description": "Điều chỉnh kiểm tra mã cho những tệp bản đồ và môi trường kiểm thử mới."
+    },
+    {
+      "path": "src/Web/package-lock.json",
+      "status": "M",
+      "description": "Ghi phiên bản đã khóa của MapLibre và các thư viện liên quan để cài đặt tái lập được."
+    },
+    {
+      "path": "src/Web/packages/api/src/endpoints.ts",
+      "status": "M",
+      "description": "Thêm hàm gọi dữ liệu POI bản đồ từ Catalog vào thư viện API."
+    },
+    {
+      "path": "src/Web/packages/api/src/types.ts",
+      "status": "M",
+      "description": "Định nghĩa kiểu phản hồi bản đồ và thông tin tọa độ cho giao diện khách."
+    },
+    {
+      "path": "src/Web/packages/ui/src/tokens.css",
+      "status": "M",
+      "description": "Đồng bộ các biến giao diện dùng để trình bày bản đồ và nội dung xem trước."
+    },
+    {
+      "path": "tests/Catalog.Tests/AdminPoiFlowTests.cs",
+      "status": "M",
+      "description": "Kiểm tra API bản đồ trả POI công khai đúng vùng, từ chối phạm vi sai và báo khi cần cắt bớt kết quả."
+    }
+  ],
+  "e9e2ff5d5b1e9179f88fb2cb7c5a2fd76bbcf6ff": [
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Cập nhật hướng dẫn thử luồng đăng nhập, chỉnh POI và phục vụ ngôn ngữ dự phòng."
+    },
+    {
+      "path": "contracts/openapi/catalog.yaml",
+      "status": "M",
+      "description": "Đổi hợp đồng Catalog để tài liệu hóa các thao tác POI và phản hồi thuyết minh dùng dự phòng."
+    },
+    {
+      "path": "docs/catalog-admin-local-test.md",
+      "status": "A",
+      "description": "Ghi các bước kiểm tra quản trị, xung đột chỉnh sửa, xuất bản và chạy lại một ngôn ngữ."
+    },
+    {
+      "path": "docs/catalog-api-outbox.md",
+      "status": "M",
+      "description": "Cập nhật mô tả điều kiện kích hoạt phiên bản và hành vi dự phòng theo kết quả xử lý hiện có."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/CatalogWorkflow.cs",
+      "status": "M",
+      "description": "Cho phép bản mới phục vụ khi văn bản và audio tiếng Việt sẵn sàng, đồng thời quản lý yêu cầu chạy lại của từng ngôn ngữ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/AdminPoiEndpoints.cs",
+      "status": "A",
+      "description": "Thêm các endpoint quản lý POI và bản nháp của biên tập viên, gồm lưu và khôi phục."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "status": "M",
+      "description": "Điều chỉnh chọn ngôn ngữ dự phòng và kết nối các đường dẫn quản trị, xuất bản, thử lại."
+    },
+    {
+      "path": "src/Identity/README.md",
+      "status": "M",
+      "description": "Mô tả cách dùng tài khoản nhân sự trong luồng thử nghiệm quản trị và xử lý công việc."
+    },
+    {
+      "path": "src/Web/API-CONTRACT.md",
+      "status": "M",
+      "description": "Đồng bộ hợp đồng frontend cho quản lý địa điểm, tài khoản nhân sự và ngôn ngữ dự phòng."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/places/components/PlaceEditorScreen.tsx",
+      "status": "M",
+      "description": "Tích hợp lưu dữ liệu POI và bản nháp vào luồng chỉnh sửa của biên tập viên."
+    },
+    {
+      "path": "src/Web/apps/admin/src/features/publish/components/PublishProgressScreen.tsx",
+      "status": "M",
+      "description": "Hiển thị tiến trình bản dịch và âm thanh để kiểm tra thời điểm phiên bản bắt đầu phục vụ."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/flows.test.tsx",
+      "status": "M",
+      "description": "Kiểm tra PWA tự yêu cầu tạo lại khi truyện dự phòng báo công việc ngôn ngữ yêu cầu đã thất bại."
+    },
+    {
+      "path": "src/Web/apps/pwa/src/app/routes/PlaceRoute.tsx",
+      "status": "M",
+      "description": "Mở thuyết minh với bản dự phòng sẵn sàng và phối hợp chuẩn bị ngôn ngữ yêu cầu."
+    },
+    {
+      "path": "tests/Catalog.Tests/ActivationGateTests.cs",
+      "status": "M",
+      "description": "Kiểm tra POI mới chưa hiển thị khi thiếu văn bản hoặc audio tiếng Việt."
+    },
+    {
+      "path": "tests/Catalog.Tests/AdminPoiFlowTests.cs",
+      "status": "A",
+      "description": "Kiểm tra biên tập POI, xuất bản, lưu trữ mà vẫn giữ phiên bản và phục vụ tiếng Anh hoặc tiếng Việt khi thiếu tiếng Hàn."
+    },
+    {
+      "path": "tools/TestAdminLocal.ps1",
+      "status": "A",
+      "description": "Tự động kiểm tra quyền nhân sự và các tuyến quản trị cơ bản trong môi trường chạy cục bộ."
+    }
+  ],
+  "40e1170cdb9fd3dbca254c7f2138bb781118e7aa": [
+    {
+      "path": ".github/workflows/catalog.yml",
+      "status": "M",
+      "description": "Mở rộng phạm vi CI Catalog cho API, hợp đồng hoặc kiểm thử liên quan đến xuất bản."
+    },
+    {
+      "path": "NearbyStories.sln",
+      "status": "M",
+      "description": "Đưa bài kiểm thử Catalog vào solution để chạy cùng hệ thống."
+    },
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Ghi cách chạy và kiểm thử Catalog khi đã có API xuất bản và outbox."
+    },
+    {
+      "path": "contracts/openapi/catalog.yaml",
+      "status": "M",
+      "description": "Tài liệu hóa POST xuất bản, xem tiến độ, lấy nội dung phục vụ và trạng thái yêu cầu ngôn ngữ."
+    },
+    {
+      "path": "deploy/.env.example",
+      "status": "M",
+      "description": "Bổ sung thiết lập mẫu cho service và hạ tầng dùng trong luồng xuất bản."
+    },
+    {
+      "path": "deploy/docker-compose.yml",
+      "status": "M",
+      "description": "Kết nối cấu hình các service và hạ tầng cần để xuất bản, gửi thông điệp và đọc âm thanh."
+    },
+    {
+      "path": "docs/catalog-api-outbox.md",
+      "status": "A",
+      "description": "Mô tả API xuất bản, các bước bền vững của outbox, ghi kết quả và cách chạy thử."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/CatalogEventProjection.cs",
+      "status": "A",
+      "description": "Ghi kết quả dịch và tổng hợp vào Catalog, đánh dấu lỗi và chống xử lý lại cùng thông điệp."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Application/CatalogWorkflow.cs",
+      "status": "A",
+      "description": "Đưa bản nháp vào xử lý, tạo yêu cầu theo ngôn ngữ và viết sự kiện outbox trong cùng giao dịch."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Catalog.Api.csproj",
+      "status": "M",
+      "description": "Bổ sung phụ thuộc và tham chiếu để Catalog dùng hợp đồng thông điệp và hạ tầng xuất bản."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Consumers/AudioFaultConsumer.cs",
+      "status": "A",
+      "description": "Nhận thông điệp tổng hợp âm thanh thất bại và chuyển cho Catalog cập nhật trạng thái."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Consumers/AudioReadyConsumer.cs",
+      "status": "M",
+      "description": "Nhận thông báo âm thanh sẵn sàng để Catalog có thông tin MP3 phục vụ khách."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Consumers/TranslationFaultConsumer.cs",
+      "status": "A",
+      "description": "Nhận lỗi của quy trình dịch và chuyển trạng thái ngôn ngữ tương ứng sang lỗi."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Consumers/TranslationReadyConsumer.cs",
+      "status": "A",
+      "description": "Nhận văn bản đã dịch và chuyển cho Catalog cập nhật nội dung có thể phục vụ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "status": "M",
+      "description": "Thêm các tuyến xuất bản, theo dõi tiến độ, truyện và yêu cầu chuẩn bị ngôn ngữ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Messaging/CatalogOutboxDispatcher.cs",
+      "status": "A",
+      "description": "Tìm thông điệp chờ, gửi tới RabbitMQ và đánh dấu đã gửi sau khi broker xác nhận."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Queries/DapperNearbyPoiQuery.cs",
+      "status": "M",
+      "description": "Đồng bộ truy vấn lân cận với các trường dữ liệu cần để khách mở nội dung phục vụ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Program.cs",
+      "status": "M",
+      "description": "Đăng ký API, xác thực, consumer và tiến trình phát outbox trong Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/appsettings.json",
+      "status": "M",
+      "description": "Định cấu hình Catalog cho dịch vụ phụ thuộc và xử lý thông điệp."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Abstractions/INearbyPoiQuery.cs",
+      "status": "M",
+      "description": "Điều chỉnh kiểu truy vấn lân cận dùng cùng API phục vụ POI."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Program.cs",
+      "status": "M",
+      "description": "Bổ sung điểm đọc MP3 có hỗ trợ yêu cầu theo byte để trình phát dùng audio nhận từ Speech."
+    },
+    {
+      "path": "src/Speech/Speech.Api/Providers/MinioAudioStorage.cs",
+      "status": "M",
+      "description": "Bổ sung cách đọc MP3 từ kho MinIO phục vụ endpoint âm thanh."
+    },
+    {
+      "path": "src/Web/API-CONTRACT.md",
+      "status": "M",
+      "description": "Giải thích các API Catalog, quyền gọi và cách lấy nội dung đã xuất bản cho frontend."
+    },
+    {
+      "path": "src/Web/apps/admin/dev-proxy.ts",
+      "status": "M",
+      "description": "Chuyển tiếp yêu cầu quản trị tới API thật trong lúc phát triển frontend."
+    },
+    {
+      "path": "src/Web/apps/admin/nginx.conf.template",
+      "status": "M",
+      "description": "Định tuyến các API xuất bản và quản trị qua nginx của Admin Web."
+    },
+    {
+      "path": "src/Web/packages/api/src/types.ts",
+      "status": "M",
+      "description": "Bổ sung kiểu phản hồi thuyết minh, tiến độ và trạng thái yêu cầu trong thư viện API chung."
+    },
+    {
+      "path": "tests/Catalog.Tests/ActivationGateTests.cs",
+      "status": "A",
+      "description": "Kiểm tra điều kiện kích hoạt ban đầu của luồng xuất bản. Bản cũ tiếp tục phục vụ khi bản mới chưa sẵn sàng và sự kiện cũ không thể đổi ngược phiên bản."
+    },
+    {
+      "path": "tests/Catalog.Tests/Catalog.Tests.csproj",
+      "status": "A",
+      "description": "Thiết lập dự án kiểm thử Catalog để kiểm tra điều kiện xuất bản và kích hoạt."
+    }
+  ],
+  "b784cc01a7fa237cada9d30676dd43de640ae076": [
+    {
+      "path": ".dockerignore",
+      "status": "A",
+      "description": "Loại tệp phát sinh cục bộ khỏi ngữ cảnh Docker để build gọn và dùng bộ dữ liệu đã chuẩn bị."
+    },
+    {
+      "path": ".gitignore",
+      "status": "M",
+      "description": "Loại dữ liệu thô tải về và thư mục làm việc của công cụ thu thập khỏi Git."
+    },
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Giới thiệu 16 POI thật ở TP.HCM và chỉ cách nạp bộ dữ liệu mẫu."
+    },
+    {
+      "path": "deploy/docker-compose.yml",
+      "status": "M",
+      "description": "Bật chế độ nhập dữ liệu mẫu cho dịch vụ Catalog trong môi trường Docker."
+    },
+    {
+      "path": "deploy/sqlserver/benchmarks/real-osm-spatial-index-benchmark.sql",
+      "status": "A",
+      "description": "Dùng tọa độ OSM để so sánh quét bảng với truy vấn dùng chỉ mục không gian."
+    },
+    {
+      "path": "docs/benchmarks/spatial-index.md",
+      "status": "M",
+      "description": "Bổ sung cách đo truy vấn với tọa độ thật và cách đọc kết quả."
+    },
+    {
+      "path": "docs/catalog-real-poi-seed.md",
+      "status": "A",
+      "description": "Ghi nội dung dữ liệu mẫu, nguồn thông tin, ghi công ảnh và cách kiểm tra sau nhập."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Catalog.Api.csproj",
+      "status": "M",
+      "description": "Nhúng snapshot POI vào bản build để Catalog có thể nhập khi khởi động."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Seeding/CatalogSeedImporter.cs",
+      "status": "A",
+      "description": "Đọc snapshot, tạo POI và dữ liệu liên quan, bỏ qua địa điểm đã nhập để bảo toàn chỉnh sửa."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Seeding/ho-chi-minh-pois.json",
+      "status": "A",
+      "description": "Lưu dữ liệu đã tuyển chọn của 16 POI, gồm tọa độ, thuyết minh nháp, nguồn và ghi công ảnh."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Program.cs",
+      "status": "M",
+      "description": "Chạy trình nhập POI sau migration khi môi trường bật dữ liệu mẫu."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/appsettings.json",
+      "status": "M",
+      "description": "Khai báo cấu hình cho phép bật quá trình nhập POI của Catalog."
+    },
+    {
+      "path": "tools/CatalogSeedFetch/CatalogSeedFetch.csproj",
+      "status": "A",
+      "description": "Cấu hình dự án công cụ thu thập và đóng gói dữ liệu POI độc lập với dịch vụ đang chạy."
+    },
+    {
+      "path": "tools/CatalogSeedFetch/Program.cs",
+      "status": "A",
+      "description": "Thu thập thông tin từ OSM, Wikidata, Wikipedia và Wikimedia Commons để dựng snapshot đã kiểm tra."
+    },
+    {
+      "path": "tools/CatalogSeedFetch/queries/benchmark-coordinates.overpassql",
+      "status": "A",
+      "description": "Chọn các tọa độ OSM cho bộ đo truy vấn địa lý, phục vụ so sánh hiệu năng."
+    },
+    {
+      "path": "tools/CatalogSeedFetch/queries/demo-pois.overpassql",
+      "status": "A",
+      "description": "Truy vấn các đối tượng OSM dự kiến dùng làm địa điểm trong bộ dữ liệu mẫu."
+    },
+    {
+      "path": "tools/CatalogSeedFetch/selection.json",
+      "status": "A",
+      "description": "Lưu danh sách POI đã chọn và nội dung tiếng Việt được biên tập để tạo snapshot."
+    }
+  ],
+  "7aac3eb64881fb39e9e62c9efbde0c5f7eb39df9": [
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Dẫn tới tài liệu kiểm tra tìm kiếm tên POI đa ngôn ngữ và các yêu cầu SQL Server đi kèm."
+    },
+    {
+      "path": "deploy/sqlserver/benchmarks/fulltext-recall-benchmark.sql",
+      "status": "A",
+      "description": "Dùng dữ liệu kiểm thử để đo khả năng tìm thấy tên POI với truy vấn toàn văn."
+    },
+    {
+      "path": "deploy/sqlserver/init/README.md",
+      "status": "M",
+      "description": "Ghi yêu cầu Full-Text Search và bộ tách từ dùng trong SQL Server."
+    },
+    {
+      "path": "deploy/sqlserver/init/initialize-databases.sh",
+      "status": "M",
+      "description": "Điều chỉnh bước chuẩn bị SQL Server để Catalog có môi trường hỗ trợ tìm kiếm toàn văn."
+    },
+    {
+      "path": "docs/benchmarks/fulltext-recall.md",
+      "status": "A",
+      "description": "Giải thích cách lập chỉ mục từng ngôn ngữ, xử lý dấu tiếng Việt và cách lặp lại bài đo."
+    },
+    {
+      "path": "docs/database-schema.md",
+      "status": "M",
+      "description": "Bổ sung vai trò của bảng tìm tên và chỉ mục toàn văn trong schema Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261006152231_AddPoiMultilingualFullText.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration AddPoiMultilingualFullText để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261006152231_AddPoiMultilingualFullText.cs",
+      "status": "A",
+      "description": "Tạo catalog và chỉ mục toàn văn cho năm cột tên POI, dùng bộ tách từ theo từng ngôn ngữ."
+    }
+  ],
+  "69622257e7139ca037942f6e6958591f16ed937e": [
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Giới thiệu API lân cận và cách thử truy vấn theo tọa độ."
+    },
+    {
+      "path": "contracts/openapi/catalog.yaml",
+      "status": "M",
+      "description": "Khai báo tọa độ, bán kính, giới hạn và kết quả trả về của API lân cận."
+    },
+    {
+      "path": "deploy/sqlserver/benchmarks/spatial-index-benchmark.sql",
+      "status": "A",
+      "description": "Tạo dữ liệu đo và so sánh truy vấn khoảng cách khi dùng chỉ mục không gian."
+    },
+    {
+      "path": "deploy/sqlserver/init/README.md",
+      "status": "M",
+      "description": "Ghi bước chuẩn bị cơ sở dữ liệu để chạy thử API lân cận và bài đo SQL."
+    },
+    {
+      "path": "docs/benchmarks/spatial-index.md",
+      "status": "A",
+      "description": "Mô tả dữ liệu đo, cách chạy truy vấn và cách kiểm tra chỉ mục không gian."
+    },
+    {
+      "path": "docs/database-schema.md",
+      "status": "M",
+      "description": "Tài liệu hóa cột địa lý và chỉ mục dùng để tìm POI trong bán kính."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Catalog.Api.csproj",
+      "status": "M",
+      "description": "Thêm phụ thuộc cho Dapper để Catalog chạy truy vấn SQL không gian trực tiếp."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+      "status": "M",
+      "description": "Thêm API nhận tọa độ và tìm các POI công khai trong bán kính yêu cầu."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261004143428_AddPoiSpatialIndex.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration AddPoiSpatialIndex để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261004143428_AddPoiSpatialIndex.cs",
+      "status": "A",
+      "description": "Tạo chỉ mục không gian trên vị trí POI để hỗ trợ lọc theo tọa độ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Queries/DapperNearbyPoiQuery.cs",
+      "status": "A",
+      "description": "Chạy lọc khoảng cách và sắp xếp POI bằng SQL Server geography qua Dapper."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Program.cs",
+      "status": "M",
+      "description": "Đăng ký truy vấn lân cận và tuyến API vào Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Abstractions/INearbyPoiQuery.cs",
+      "status": "A",
+      "description": "Định nghĩa hợp đồng truy vấn theo tọa độ và kiểu kết quả POI lân cận."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Abstractions/IPointOfInterestRepository.cs",
+      "status": "M",
+      "description": "Điều chỉnh hợp đồng kho POI khi truy vấn lân cận được tách thành chức năng riêng."
+    }
+  ],
+  "e241d7054727e7570da745b31d1caec1bf2d2765": [
+    {
+      "path": ".config/dotnet-tools.json",
+      "status": "A",
+      "description": "Ghim phiên bản công cụ EF Core để nhóm tạo và chạy migration nhất quán."
+    },
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Giải thích cơ sở dữ liệu theo service và cách chạy stack mới với SQL Server."
+    },
+    {
+      "path": "deploy/.env.example",
+      "status": "M",
+      "description": "Thêm biến môi trường mẫu cho các kết nối và tài khoản SQL theo service."
+    },
+    {
+      "path": "deploy/docker-compose.yml",
+      "status": "M",
+      "description": "Bố trí SQL Server, khởi tạo dữ liệu và kết nối riêng cho các service."
+    },
+    {
+      "path": "deploy/sqlserver/init/README.md",
+      "status": "M",
+      "description": "Hướng dẫn trình tự khởi tạo SQL Server và cách kiểm tra từng cơ sở dữ liệu."
+    },
+    {
+      "path": "deploy/sqlserver/init/initialize-databases.sh",
+      "status": "A",
+      "description": "Chờ SQL Server sẵn sàng và chạy bước khởi tạo cơ sở dữ liệu cho các service."
+    },
+    {
+      "path": "deploy/sqlserver/init/initialize-databases.sql",
+      "status": "A",
+      "description": "Tạo bốn cơ sở dữ liệu logic và tài khoản truy cập riêng theo service."
+    },
+    {
+      "path": "docs/database-schema.md",
+      "status": "A",
+      "description": "Ghi mô hình sở hữu dữ liệu, các bảng chính và cách quản lý migration."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Catalog.Api.csproj",
+      "status": "M",
+      "description": "Thêm phụ thuộc SQL Server và EF Core để Catalog dùng cơ sở dữ liệu riêng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/CatalogDbContext.cs",
+      "status": "A",
+      "description": "Ánh xạ miền Catalog sang các bảng, khóa và quan hệ do dịch vụ sở hữu."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/CatalogDbContextFactory.cs",
+      "status": "A",
+      "description": "Tạo DbContext cho công cụ EF Core để làm việc với migration Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261004133611_InitialCatalogSchema.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration InitialCatalogSchema để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/20261004133611_InitialCatalogSchema.cs",
+      "status": "A",
+      "description": "Tạo schema nền tảng cho danh mục, POI, thuyết minh, ngôn ngữ và thông điệp của Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Infrastructure/Migrations/CatalogDbContextModelSnapshot.cs",
+      "status": "A",
+      "description": "Tạo snapshot EF Core ban đầu cho Catalog. Các migration tiếp theo dùng mô hình này để so sánh thay đổi schema."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/Program.cs",
+      "status": "M",
+      "description": "Kết nối và áp dụng migration Catalog khi chạy API."
+    },
+    {
+      "path": "src/Catalog/Catalog.Api/appsettings.json",
+      "status": "M",
+      "description": "Khai báo kết nối SQL dùng cho cơ sở dữ liệu Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Catalog.Core.csproj",
+      "status": "M",
+      "description": "Bổ sung thư viện cần thiết cho các thực thể và dữ liệu vị trí của Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/CatalogDeliveryContent.cs",
+      "status": "A",
+      "description": "Định nghĩa nội dung thuyết minh theo ngôn ngữ mà Catalog cung cấp cho khách."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/Category.cs",
+      "status": "A",
+      "description": "Định nghĩa nhóm phân loại để gắn điểm tham quan với danh mục."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/GenerationRequest.cs",
+      "status": "A",
+      "description": "Định nghĩa bản ghi tiến độ xử lý theo bài, phiên bản và ngôn ngữ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/Narration.cs",
+      "status": "A",
+      "description": "Định danh bài thuyết minh và giữ con trỏ đến phiên bản đang phục vụ."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/NarrationSource.cs",
+      "status": "M",
+      "description": "Mô hình hóa văn bản tiếng Việt theo từng phiên bản của bài thuyết minh."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/PoiContent.cs",
+      "status": "A",
+      "description": "Khai báo dữ liệu mô tả POI theo ngôn ngữ và dữ liệu tìm kiếm của Catalog."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/PoiMedia.cs",
+      "status": "A",
+      "description": "Định nghĩa dữ liệu ảnh và nguồn tham chiếu để gắn nội dung bổ trợ với POI."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/PointOfInterest.cs",
+      "status": "M",
+      "description": "Cập nhật thực thể POI với vị trí địa lý, danh mục và quan hệ dữ liệu."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/ReliableMessaging.cs",
+      "status": "A",
+      "description": "Định nghĩa bản ghi outbox và thông điệp đã xử lý để gửi, nhận sự kiện bền vững."
+    },
+    {
+      "path": "src/Catalog/Catalog.Core/Entities/SupportedLanguage.cs",
+      "status": "A",
+      "description": "Định nghĩa ngôn ngữ và cấu hình dự phòng dùng chung trong Catalog."
+    },
+    {
+      "path": "src/Identity/Identity.csproj",
+      "status": "M",
+      "description": "Bổ sung ASP.NET Core Identity và tích hợp EF Core cho dữ liệu tài khoản."
+    },
+    {
+      "path": "src/Identity/Infrastructure/ApplicationIdentity.cs",
+      "status": "A",
+      "description": "Khai báo các thực thể tài khoản, vai trò và token dùng cho xác thực."
+    },
+    {
+      "path": "src/Identity/Infrastructure/IdentityDbContext.cs",
+      "status": "A",
+      "description": "Ánh xạ bảng Identity và refresh token vào cơ sở dữ liệu riêng của dịch vụ."
+    },
+    {
+      "path": "src/Identity/Infrastructure/IdentityDbContextFactory.cs",
+      "status": "A",
+      "description": "Tạo DbContext lúc thiết kế để công cụ EF Core quản lý migration Identity."
+    },
+    {
+      "path": "src/Identity/Infrastructure/Migrations/20261004133624_InitialIdentitySchema.Designer.cs",
+      "status": "A",
+      "description": "Lưu mô hình đích do EF Core sinh cho migration InitialIdentitySchema để gắn phiên bản migration với schema sau khi áp dụng."
+    },
+    {
+      "path": "src/Identity/Infrastructure/Migrations/20261004133624_InitialIdentitySchema.cs",
+      "status": "A",
+      "description": "Tạo các bảng ban đầu cho tài khoản, vai trò và token của Identity."
+    },
+    {
+      "path": "src/Identity/Infrastructure/Migrations/IdentityDbContextModelSnapshot.cs",
+      "status": "A",
+      "description": "Tạo snapshot EF Core ban đầu cho Identity. Các migration tiếp theo dùng mô hình này để so sánh thay đổi schema."
+    },
+    {
+      "path": "src/Identity/Program.cs",
+      "status": "M",
+      "description": "Kết nối cơ sở dữ liệu và tích hợp model Identity khi service khởi động."
+    },
+    {
+      "path": "src/Identity/appsettings.json",
+      "status": "M",
+      "description": "Khai báo cấu hình kết nối riêng của cơ sở dữ liệu Identity."
+    },
+    {
+      "path": "src/Localization/Localization.Api/appsettings.json",
+      "status": "M",
+      "description": "Trỏ Localization đến cơ sở dữ liệu logic dành riêng cho dịch vụ dịch."
+    },
+    {
+      "path": "src/Speech/Speech.Api/appsettings.json",
+      "status": "M",
+      "description": "Trỏ Speech đến cơ sở dữ liệu logic dành riêng cho công việc và âm thanh."
+    }
+  ]
+}

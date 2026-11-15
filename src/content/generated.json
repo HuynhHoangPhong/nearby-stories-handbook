@@ -1,0 +1,2496 @@
+{
+  "source": {
+    "name": "PRD.docx",
+    "sha256": "889d0766911bf4ba3d9f3ddba54e2de57bdba7eb95409923ca797126caa354cb",
+    "useCaseVersion": "Use case v2",
+    "v2BodyIndex": 286,
+    "report": "Nhom2_BaoCao_CNPM.docx",
+    "reportSha256": "e7d3a7906f2d5e89ca8240dadc6982ac00690331bfd129103939c4989500113d",
+    "dfd": "PRD_DFD.docx",
+    "dfdSha256": "341f6de8c2ea2b4a3ca2d7cfde6766367328fb53d25b2807412150bf0db16574"
+  },
+  "stories": [
+    {
+      "id": "US01",
+      "text": "As a visitor, I want visible active places within 100 m sorted by distance or in a map area, so that I can choose where to visit.",
+      "priority": "Must",
+      "references": "UC2, BR 2.1, 2.2",
+      "proposed": false
+    },
+    {
+      "id": "US02",
+      "text": "As a visitor, I want to listen to a place's narration in my chosen language, so that I understand its story without a guide.",
+      "priority": "Must",
+      "references": "UC3",
+      "proposed": false
+    },
+    {
+      "id": "US03",
+      "text": "As a visitor, I want English or Vietnamese fallback when my language is not ready, so that I can still use available narration.",
+      "priority": "Must",
+      "references": "UC3, BR 2.5",
+      "proposed": false
+    },
+    {
+      "id": "US04",
+      "text": "As a visitor, I want to choose one of five languages and have it remembered, so that I do not pick it every time.",
+      "priority": "Must",
+      "references": "BR 2.3",
+      "proposed": false
+    },
+    {
+      "id": "US05",
+      "text": "As a visitor, I want a missing language prepared and a choice to switch while listening, so that I control when playback changes.",
+      "priority": "Should",
+      "references": "UC4, BR 2.6, 2.7",
+      "proposed": false
+    },
+    {
+      "id": "US06",
+      "text": "As a visitor, I want to simulate my location at a demo spot, so that I can try the app without being on site.",
+      "priority": "Should",
+      "references": "Demo mode",
+      "proposed": false
+    },
+    {
+      "id": "US07",
+      "text": "As the project owner, I want image credits shown next to every image, so that we respect the Wikimedia licences.",
+      "priority": "Must",
+      "references": "Image licences",
+      "proposed": false
+    },
+    {
+      "id": "US08",
+      "text": "As a visitor, I want to install the app on my home screen, so that it opens like a native app.",
+      "priority": "Could",
+      "references": "PWA",
+      "proposed": false
+    },
+    {
+      "id": "US09",
+      "text": "As a staff member, I want to sign in and access functions permitted by my roles, so that administrative actions are protected.",
+      "priority": "Must",
+      "references": "UC1, BR 2.12",
+      "proposed": false
+    },
+    {
+      "id": "US10",
+      "text": "As a content editor, I want to add, edit, archive, hide/show and restore places, so that I control the public place list.",
+      "priority": "Must",
+      "references": "UC5, BR 2.2, 2.10, 2.12",
+      "proposed": false
+    },
+    {
+      "id": "US11",
+      "text": "As a content editor, I want to publish a Vietnamese draft and prepare text and audio for all five languages, so that content production is automated.",
+      "priority": "Must",
+      "references": "UC6, BR 2.3, 2.4, 2.8",
+      "proposed": false
+    },
+    {
+      "id": "US12",
+      "text": "As a content editor, I want place names kept correct in every language, so that translation never mangles a landmark's name.",
+      "priority": "Should",
+      "references": "Glossary",
+      "proposed": false
+    },
+    {
+      "id": "US13",
+      "text": "As a content editor, I want to follow the progress of all nine jobs after publishing, so that I know when the new version is live.",
+      "priority": "Could",
+      "references": "UC6",
+      "proposed": false
+    },
+    {
+      "id": "US14",
+      "text": "As a content editor, I want the previous version served until the new Vietnamese text and audio are ready, so that visitors keep receiving usable narration.",
+      "priority": "Should",
+      "references": "UC6, BR 2.9",
+      "proposed": false
+    },
+    {
+      "id": "US15",
+      "text": "As an operator, I want to filter jobs by status, so that I spot failures quickly.",
+      "priority": "Could",
+      "references": "UC7",
+      "proposed": false
+    },
+    {
+      "id": "US16",
+      "text": "As an operator, I want to request another generation attempt for a failed language, so that I can recover it without republishing.",
+      "priority": "Should",
+      "references": "UC7, BR 2.11, 2.12",
+      "proposed": false
+    },
+    {
+      "id": "US17",
+      "text": "As the project owner, I want repeated messages to reuse stored translations and audio, so that completed work is not generated again.",
+      "priority": "Must",
+      "references": "Idempotency",
+      "proposed": false
+    },
+    {
+      "id": "US18",
+      "text": "As the project owner, I want one failing language not to block the others, so that most content still ships.",
+      "priority": "Must",
+      "references": "BR 2.11",
+      "proposed": false
+    },
+    {
+      "id": "US19",
+      "text": "As a developer, I want CI to build and test affected services and apps on pull requests, so that relevant changes are validated before merging.",
+      "priority": "Must",
+      "references": "Course requirement",
+      "proposed": false
+    },
+    {
+      "id": "US20",
+      "text": "As a developer, I want merges to main to build and deploy affected backend services independently, so that unrelated services keep running.",
+      "priority": "Must",
+      "references": "Course requirement",
+      "proposed": false
+    },
+    {
+      "id": "US21",
+      "text": "As a developer, I want to trace one message across all services, so that I can debug the pipeline.",
+      "priority": "Could",
+      "references": "Observability",
+      "proposed": false
+    },
+    {
+      "id": "US22",
+      "text": "As a staff member, I want overall and per-place visitor and listening statistics for a selected period, so that I can assess application usage.",
+      "priority": "Should",
+      "references": "UC8, BR 2.12, 2.13, 2.14, 2.15",
+      "proposed": true
+    },
+    {
+      "id": "US23",
+      "text": "As a staff member, I want to export statistics to Excel for a chosen scope and date range, so that I can save or share the report.",
+      "priority": "Should",
+      "references": "UC9, BR 2.12, 2.14, 2.16",
+      "proposed": true
+    }
+  ],
+  "businessRules": [
+    {
+      "id": "BR 2.1",
+      "number": 1,
+      "text": "The nearby list uses a 100 m radius. Map discovery uses the selected map area."
+    },
+    {
+      "id": "BR 2.2",
+      "number": 2,
+      "text": "Visitors see only active, visible, non-deleted POIs. A new POI becomes active once its Vietnamese text and audio are ready."
+    },
+    {
+      "id": "BR 2.3",
+      "number": 3,
+      "text": "The system supports VI, EN, JA, KO and ZH. Source content is Vietnamese."
+    },
+    {
+      "id": "BR 2.4",
+      "number": 4,
+      "text": "Publishing queues translations and audio for all five languages in the background."
+    },
+    {
+      "id": "BR 2.5",
+      "number": 5,
+      "text": "Narration fallback order is the chosen language, then English, then Vietnamese."
+    },
+    {
+      "id": "BR 2.6",
+      "number": 6,
+      "text": "A narration version and language may have only one generation request in progress."
+    },
+    {
+      "id": "BR 2.7",
+      "number": 7,
+      "text": "Missing-language status is checked every 2 seconds for at most 30 seconds. Active playback is switched only with visitor consent."
+    },
+    {
+      "id": "BR 2.8",
+      "number": 8,
+      "text": "Only a complete saved Draft can be published. A new draft receives the next version number; publishing uses that version."
+    },
+    {
+      "id": "BR 2.9",
+      "number": 9,
+      "text": "The previous version serves until the new version has Vietnamese text and audio. Other languages may temporarily use fallback."
+    },
+    {
+      "id": "BR 2.10",
+      "number": 10,
+      "text": "Delete archives a POI and retains its content. Restoring a POI with a live version makes it Hidden; others return to Draft."
+    },
+    {
+      "id": "BR 2.11",
+      "number": 11,
+      "text": "After applicable retries, a failed language is marked Failed without discarding successful languages. An Operator may request another attempt."
+    },
+    {
+      "id": "BR 2.12",
+      "number": 12,
+      "text": "Only Content Editors maintain POIs and publish narration. Only Operators regenerate jobs. Both roles may view statistics and export reports."
+    },
+    {
+      "id": "BR 2.13",
+      "number": 13,
+      "text": "Visitor totals count each visitor identifier once per selected scope and period."
+    },
+    {
+      "id": "BR 2.14",
+      "number": 14,
+      "text": "Report dates use UTC+7. Online counts and place status are current snapshots at viewing or export time."
+    },
+    {
+      "id": "BR 2.15",
+      "number": 15,
+      "text": "Listening statistics use actual audio playback and its language; pause/resume does not add a listen."
+    },
+    {
+      "id": "BR 2.16",
+      "number": 16,
+      "text": "Export dates include both endpoints, must be ordered, end no later than today, and lie within the last 25 months."
+    }
+  ],
+  "useCases": [
+    {
+      "id": "UC1",
+      "fields": {
+        "Use Case Number": "UC1",
+        "Use Case Name": "Authenticate User",
+        "Actor (s)": "Content Editor, Operator",
+        "Maturity": "Focused",
+        "Summary": "Confirm a staff session or sign in.",
+        "Alternative Paths": "A1. Operator-only account: open Synthesis Jobs and end. / A2. Reuse an existing or renewed valid session and return to the calling use case without signing in again.",
+        "Exception Paths": "E1. Invalid sign-in / temporary lock: show error; retry step 1. / E2. Inactive account / no active staff role: refuse access and end. / E3. Other failures: show a service error; retry step 1.",
+        "Extension Points": "None",
+        "Triggers": "The actor wishes to access Admin Web.",
+        "Assumptions": "Staff accounts were created beforehand.",
+        "Preconditions": "The actor has a staff account.",
+        "Post Conditions": "A valid staff session and permitted access are available.",
+        "Reference: Business Rules": "2.12",
+        "Author(s)": "Nhân",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. The actor enters a username or email and password.",
+        "2. The system validates the credentials. E1, E3",
+        "3. The system checks the account status and active staff roles. E2",
+        "4. The system creates an authenticated session.",
+        "5. The system opens Places with permitted functions. A1 End."
+      ],
+      "image": "uc1-activity",
+      "sourceBodyIndex": 310
+    },
+    {
+      "id": "UC2",
+      "fields": {
+        "Use Case Number": "UC2",
+        "Use Case Name": "Discover Nearby Places",
+        "Actor (s)": "Visitor",
+        "Maturity": "Focused",
+        "Summary": "A visitor discovers nearby places in a list or on the map.",
+        "Alternative Paths": "A1. Open the map and search the selected map area instead. Continue at step 4. / A2. If no place is found, show an empty state. The visitor may explore another map area.",
+        "Exception Paths": "E1. If location is denied or unavailable, show guidance and Retry. Return to step 2. / E2. If loading fails, show an error and Retry. Return to step 3.",
+        "Extension Points": "None",
+        "Triggers": "The visitor wishes to discover places.",
+        "Assumptions": "The device has location services and internet access.",
+        "Preconditions": "None.",
+        "Post Conditions": "Available places or an empty state are displayed.",
+        "Reference: Business Rules": "2.1, 2.2",
+        "Author(s)": "Phong",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. The visitor opens nearby discovery. A1",
+        "2. The system obtains the device location. E1",
+        "3. The system finds visible active POIs within 100 m, sorted by distance. E2",
+        "4. The system displays the places. A2",
+        "5. The visitor views or selects a place. The use case ends."
+      ],
+      "image": "uc2-activity",
+      "sourceBodyIndex": 314
+    },
+    {
+      "id": "UC3",
+      "fields": {
+        "Use Case Number": "UC3",
+        "Use Case Name": "Listen to Narration",
+        "Actor (s)": "Visitor",
+        "Maturity": "Focused",
+        "Summary": "A visitor listens in the chosen language or an available fallback.",
+        "Alternative Paths": "A1. If the chosen language is unavailable, use English when ready; otherwise use Vietnamese. Continue at step 4. / A2. At Fallback version, UC4 extends this use case when is_fallback = true. / A3. Play from a place card starts playback after loading. Continue at step 6.",
+        "Exception Paths": "E1. If retrieval fails, show an error; retry step 3. / E2. If playback fails, show an error; retry Play.",
+        "Extension Points": "Fallback version: at step 4, perform UC4 if is_fallback = true.",
+        "Triggers": "The visitor wishes to hear about a place.",
+        "Assumptions": "The device can play MP3 audio.",
+        "Preconditions": "The selected place is visible and active.",
+        "Post Conditions": "Narration plays in the chosen or fallback language.",
+        "Reference: Business Rules": "2.2, 2.3, 2.5",
+        "Author(s)": "Phong, Nhân",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. The visitor opens a place from the list or map.",
+        "2. The visitor chooses a language.",
+        "3. The system retrieves the narration. A1, A2, E1",
+        "4. The system displays text and playback controls. A2",
+        "5. The visitor selects Play. A3",
+        "6. The system plays the audio. E2 The use case ends."
+      ],
+      "image": "uc3-activity",
+      "sourceBodyIndex": 318
+    },
+    {
+      "id": "UC4",
+      "fields": {
+        "Use Case Number": "UC4",
+        "Use Case Name": "Request Narration in New Language",
+        "Actor (s)": "Visitor, Translation Service, TTS Service",
+        "Maturity": "Focused",
+        "Summary": "The system prepares a missing narration language.",
+        "Alternative Paths": "A1. Reuse an existing request for this narration version and language. Continue at step 4. / A2. During playback, offer Switch. Accepting restarts in the new language; otherwise keep fallback.",
+        "Exception Paths": "E1. Failure or 30 s timeout: keep fallback; offer Retry. / E2. Request failure or rate limit: keep fallback and stop waiting.",
+        "Extension Points": "None",
+        "Triggers": "UC3 returns a fallback version.",
+        "Assumptions": "Translation and TTS services are reachable.",
+        "Preconditions": "UC3 is serving a fallback.",
+        "Post Conditions": "Requested language is ready, or fallback is retained.",
+        "Reference: Business Rules": "2.5, 2.6, 2.7, 2.11",
+        "Author(s)": "Huy, Nhân",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. The visitor reads or listens to the fallback.",
+        "2. The system requests the chosen language. A1, E2",
+        "3. The system generates text and audio in the background.",
+        "4. The system checks the status every 2 seconds. E1",
+        "5. Show the requested language for next Play. A2 The use case ends."
+      ],
+      "image": "uc4-activity",
+      "sourceBodyIndex": 322
+    },
+    {
+      "id": "UC5",
+      "fields": {
+        "Use Case Number": "UC5",
+        "Use Case Name": "Maintain Point of Interest",
+        "Actor (s)": "Content Editor",
+        "Maturity": "Focused",
+        "Summary": "An editor adds, edits, archives, hides, shows or restores places.",
+        "Alternative Paths": "A1. Confirm Delete to archive a place and retain its content. Continue at step 6. / A2. Confirm Hide/Show or Restore. Restore returns Hidden with a live version, otherwise Draft. Continue at step 6. / A3. Cancel a pending action without changes. Return to step 3.",
+        "Exception Paths": "E1. Invalid data: show validation errors; return to step 4. / E2. Save/action failure: show an error. Reload changed records before retrying.",
+        "Extension Points": "None",
+        "Triggers": "The editor wishes to maintain places.",
+        "Assumptions": "Coordinates use WGS 84.",
+        "Preconditions": "The actor has the Content Editor role.",
+        "Post Conditions": "The selected changes are saved; archived or hidden places are not public.",
+        "Reference: Business Rules": "2.2, 2.10, 2.12",
+        "Author(s)": "Phong",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. Perform {Authenticate User}.",
+        "2. The editor opens Places.",
+        "3. The system displays the filtered POI list. A1, A2, A3",
+        "4. The editor enters name, category and coordinates, directly or on the map.",
+        "5. The system validates and saves the POI. E1, E2",
+        "6. The system updates the list. New places remain Draft until activation. The use case ends."
+      ],
+      "image": "uc5-activity",
+      "sourceBodyIndex": 326
+    },
+    {
+      "id": "UC6",
+      "fields": {
+        "Use Case Number": "UC6",
+        "Use Case Name": "Publish Narration Content",
+        "Actor (s)": "Content Editor, Translation Service, TTS Service",
+        "Maturity": "Focused",
+        "Summary": "An editor publishes a draft for background generation.",
+        "Alternative Paths": "A1. Failed languages retain successful results. An Operator may regenerate them; activation follows BR 2.9.",
+        "Exception Paths": "E1. Invalid draft: correct it and return to step 2. / E2. Publish/progress error: show an error; reload or retry.",
+        "Extension Points": "None",
+        "Triggers": "The editor has finished a Vietnamese narration.",
+        "Assumptions": "The Vietnamese content has been reviewed.",
+        "Preconditions": "The actor is a Content Editor with a saved Draft.",
+        "Post Conditions": "The version is queued; activation follows BR 2.9.",
+        "Reference: Business Rules": "2.3, 2.4, 2.8, 2.9, 2.11, 2.12",
+        "Author(s)": "Huy",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. Perform {Authenticate User}.",
+        "2. Save and review the draft.",
+        "3. The editor selects Publish.",
+        "4. The system validates the draft. E1, E2",
+        "5. Queue generation atomically; confirm and show progress every 2 s.",
+        "6. Translate EN/JA/KO/ZH and generate audio for all five languages. A1",
+        "7. Activate when VI text/audio are ready; retain visibility. End."
+      ],
+      "image": "uc6-activity",
+      "sourceBodyIndex": 330
+    },
+    {
+      "id": "UC7",
+      "fields": {
+        "Use Case Number": "UC7",
+        "Use Case Name": "Monitor Synthesis Jobs",
+        "Actor (s)": "Operator",
+        "Maturity": "Focused",
+        "Summary": "An operator monitors synthesis jobs and requests regeneration of failed jobs.",
+        "Alternative Paths": "A1. If no failed job needs handling, the use case ends. / A2. Without regenerating, return to step 4.",
+        "Exception Paths": "E1. Loading failure: show an error; retry step 3. / E2. Regeneration failure: show an error; retry or return to the list.",
+        "Extension Points": "None",
+        "Triggers": "The operator wishes to check jobs or handle a failure.",
+        "Assumptions": "None.",
+        "Preconditions": "The actor has the Operator role.",
+        "Post Conditions": "Accepted regeneration requests are queued for background processing.",
+        "Reference: Business Rules": "2.11, 2.12",
+        "Author(s)": "Nhân",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. Perform {Authenticate User}.",
+        "2. The operator opens Synthesis Jobs.",
+        "3. The system refreshes the job list every 2 seconds. E1",
+        "4. The operator filters jobs or changes page. A1",
+        "5. The operator opens a failed job.",
+        "6. The system displays the error and attempt details.",
+        "7. The operator selects Regenerate. A2",
+        "8. The system queues another attempt and refreshes the list. E2 Return to step 3."
+      ],
+      "image": "uc7-activity",
+      "sourceBodyIndex": 334
+    },
+    {
+      "id": "UC8",
+      "fields": {
+        "Use Case Number": "UC8",
+        "Use Case Name": "View Usage Statistics",
+        "Actor (s)": "Content Editor, Operator",
+        "Maturity": "Focused",
+        "Summary": "Staff view overall or per-place visitor and listening statistics.",
+        "Alternative Paths": "A1. The actor selects a place. The system displays its statistics. Return to step 4. / A2. If no data is available, the system shows an empty state or no-data marker. Return to step 4.",
+        "Exception Paths": "E1. If loading fails, the system shows an error and offers retry. Retry returns to step 3; otherwise the use case ends.",
+        "Extension Points": "Report displayed: UC9 extends UC8 when Export data is selected.",
+        "Triggers": "The actor wishes to assess application or place usage.",
+        "Assumptions": "The device has an internet connection.",
+        "Preconditions": "The actor has the Content Editor or Operator role.",
+        "Post Conditions": "The selected statistics are displayed.",
+        "Reference: Business Rules": "2.13, 2.14, 2.15",
+        "Author(s)": "",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. Perform {Authenticate User}.",
+        "2. The actor opens Overview or Place Statistics.",
+        "3. The system displays the last 7 days, including today. A2, E1",
+        "4. The actor selects Today, 7 days or 30 days, or inspects the report. A1",
+        "5. The system shows the requested metrics, charts or calendar details.",
+        "6. The actor finishes viewing. The use case ends."
+      ],
+      "image": "uc8-activity",
+      "sourceBodyIndex": 338
+    },
+    {
+      "id": "UC9",
+      "fields": {
+        "Use Case Number": "UC9",
+        "Use Case Name": "Export Usage Report",
+        "Actor (s)": "Content Editor, Operator",
+        "Maturity": "Focused",
+        "Summary": "Staff export usage statistics to Excel for storage or sharing.",
+        "Alternative Paths": "A1. Export from a place list or detail uses that scope. Continue at step 3. / A2. Before exporting, the actor cancels. The use case ends.",
+        "Exception Paths": "E1. Invalid dates disable export. Correct the dates at step 4. / E2. If export fails, the system shows an error. Retry at step 6 or cancel.",
+        "Extension Points": "None",
+        "Triggers": "The actor wishes to save or share usage statistics.",
+        "Assumptions": "The browser allows file downloads.",
+        "Preconditions": "Staff role and a loaded statistics view are required.",
+        "Post Conditions": "An Excel report for the selected scope and dates is downloaded.",
+        "Reference: Business Rules": "2.14, 2.16",
+        "Author(s)": "",
+        "Date": "26/10/2026",
+        "Activity Diagram": "Next Page"
+      },
+      "flow": [
+        "1. Perform {Authenticate User}.",
+        "2. The actor opens Export data from Overview. A1",
+        "3. The system displays the scope and date fields. A2",
+        "4. The actor selects the start and end dates.",
+        "5. The system validates the date range. E1",
+        "6. The actor selects Export Excel. A2",
+        "7. The system downloads the Excel report. E2 The use case ends."
+      ],
+      "image": "uc9-activity",
+      "sourceBodyIndex": 342
+    }
+  ],
+  "databases": [
+    {
+      "id": "catalog",
+      "name": "Catalog",
+      "summary": "Catalog quản lý danh mục, điểm quan tâm (POI), bài thuyết minh và nội dung phục vụ theo ngôn ngữ. Cơ sở dữ liệu này còn lưu yêu cầu tạo nội dung, dữ liệu phân tích lượt truy cập và thông tin xử lý sự cố.",
+      "tables": [
+        {
+          "name": "categories",
+          "purpose": "Danh mục dùng để phân loại điểm quan tâm (POI).",
+          "fields": [
+            {
+              "name": "id",
+              "type": "bigint",
+              "meaning": "Mã định danh danh mục.",
+              "note": "PK."
+            },
+            {
+              "name": "code",
+              "type": "varchar(50)",
+              "meaning": "Mã nghiệp vụ của danh mục.",
+              "note": "AK1."
+            },
+            {
+              "name": "name_vi",
+              "type": "nvarchar(150)",
+              "meaning": "Tên danh mục bằng tiếng Việt.",
+              "note": ""
+            },
+            {
+              "name": "is_active",
+              "type": "bit",
+              "meaning": "Cho biết bản ghi đang hoạt động.",
+              "note": ""
+            },
+            {
+              "name": "created_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật bản ghi gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "row_version",
+              "type": "timestamp",
+              "meaning": "Phiên bản hàng dùng để phát hiện cập nhật đồng thời.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "points_of_interest",
+          "purpose": "Vị trí, danh mục, trạng thái vòng đời và trạng thái hiển thị của POI.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh điểm quan tâm.",
+              "note": "PK."
+            },
+            {
+              "name": "category_id",
+              "type": "bigint",
+              "meaning": "Mã danh mục của địa điểm.",
+              "note": "FK đến categories.id."
+            },
+            {
+              "name": "location",
+              "type": "geography",
+              "meaning": "Vị trí địa lý của POI.",
+              "note": ""
+            },
+            {
+              "name": "lifecycle_status",
+              "type": "varchar(20)",
+              "meaning": "Trạng thái vòng đời của bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "activated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm kích hoạt POI.",
+              "note": "NULL."
+            },
+            {
+              "name": "deleted_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm đánh dấu xóa mềm POI.",
+              "note": "NULL."
+            },
+            {
+              "name": "created_by_user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản tạo bản ghi.",
+              "note": "Tham chiếu logic tới Identity. NULL."
+            },
+            {
+              "name": "updated_by_user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản cập nhật bản ghi.",
+              "note": "Tham chiếu logic tới Identity. NULL."
+            },
+            {
+              "name": "created_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật bản ghi gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "row_version",
+              "type": "timestamp",
+              "meaning": "Phiên bản hàng dùng để phát hiện cập nhật đồng thời.",
+              "note": ""
+            },
+            {
+              "name": "is_visible",
+              "type": "bit",
+              "meaning": "Cho biết POI được hiển thị cho khách.",
+              "note": ""
+            },
+            {
+              "name": "visibility_changed_at",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm đổi trạng thái hiển thị gần nhất.",
+              "note": "NULL."
+            },
+            {
+              "name": "visibility_changed_by",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản đổi trạng thái hiển thị.",
+              "note": "Tham chiếu logic tới Identity. NULL."
+            },
+            {
+              "name": "created_by_name",
+              "type": "nvarchar(256)",
+              "meaning": "Tên hiển thị của người tạo.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "narrations",
+          "purpose": "Định danh bài thuyết minh của mỗi POI và lưu bản nguồn đang được chọn để phục vụ.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh bài thuyết minh.",
+              "note": "PK. FK1 ghép.narration_sources(narration_id)."
+            },
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã điểm quan tâm.",
+              "note": "FK2. AK1.points_of_interest(id)."
+            },
+            {
+              "name": "active_source_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã bản nguồn được chọn để phục vụ. Có thể để trống khi chưa chọn bản.",
+              "note": "FK1 ghép.narration_sources(id). NULL."
+            },
+            {
+              "name": "created_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật bản ghi gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "row_version",
+              "type": "timestamp",
+              "meaning": "Phiên bản hàng dùng để phát hiện cập nhật đồng thời.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "narration_sources",
+          "purpose": "Tiêu đề, nội dung và trạng thái của từng phiên bản thuyết minh nguồn.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh bản nguồn.",
+              "note": "PK. AK1."
+            },
+            {
+              "name": "narration_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã bài thuyết minh.",
+              "note": "FK đến narrations.id. AK1. AK2."
+            },
+            {
+              "name": "version",
+              "type": "int",
+              "meaning": "Số phiên bản trong phạm vi một bài thuyết minh.",
+              "note": "AK2."
+            },
+            {
+              "name": "title",
+              "type": "nvarchar(300)",
+              "meaning": "Tiêu đề thuyết minh nguồn.",
+              "note": ""
+            },
+            {
+              "name": "body",
+              "type": "nvarchar(max)",
+              "meaning": "Nội dung thuyết minh nguồn.",
+              "note": ""
+            },
+            {
+              "name": "lifecycle_status",
+              "type": "varchar(20)",
+              "meaning": "Trạng thái vòng đời của bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "published_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm xuất bản bản nguồn.",
+              "note": "NULL."
+            },
+            {
+              "name": "published_by_user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản xuất bản bản nguồn.",
+              "note": "Tham chiếu logic tới Identity. NULL."
+            },
+            {
+              "name": "serving_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm đưa bản nguồn vào phục vụ.",
+              "note": "NULL."
+            },
+            {
+              "name": "archived_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm lưu trữ bản nguồn.",
+              "note": "NULL."
+            },
+            {
+              "name": "created_by_user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản tạo bản ghi.",
+              "note": "Tham chiếu logic tới Identity. NULL."
+            },
+            {
+              "name": "updated_by_user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản cập nhật bản ghi.",
+              "note": "Tham chiếu logic tới Identity. NULL."
+            },
+            {
+              "name": "created_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật bản ghi gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "row_version",
+              "type": "timestamp",
+              "meaning": "Phiên bản hàng dùng để phát hiện cập nhật đồng thời.",
+              "note": ""
+            },
+            {
+              "name": "published_by_name",
+              "type": "nvarchar(150)",
+              "meaning": "Tên hiển thị của người xuất bản.",
+              "note": "NULL."
+            },
+            {
+              "name": "created_by_name",
+              "type": "nvarchar(256)",
+              "meaning": "Tên hiển thị của người tạo.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "catalog_delivery_contents",
+          "purpose": "Tiêu đề, văn bản và thông tin âm thanh dành cho khách theo từng phiên bản thuyết minh và ngôn ngữ.",
+          "fields": [
+            {
+              "name": "narration_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã bài thuyết minh.",
+              "note": "PK ghép (1/3). FK1 ghép.narration_sources(narration_id)."
+            },
+            {
+              "name": "source_version",
+              "type": "int",
+              "meaning": "Số phiên bản nội dung nguồn.",
+              "note": "PK ghép (2/3). FK1 ghép.narration_sources(version)."
+            },
+            {
+              "name": "language_code",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ áp dụng.",
+              "note": "PK ghép (3/3). FK2.supported_languages(code)."
+            },
+            {
+              "name": "title",
+              "type": "nvarchar(300)",
+              "meaning": "Tiêu đề theo ngôn ngữ phục vụ.",
+              "note": "NULL."
+            },
+            {
+              "name": "body",
+              "type": "nvarchar(max)",
+              "meaning": "Nội dung văn bản theo ngôn ngữ phục vụ.",
+              "note": "NULL."
+            },
+            {
+              "name": "audio_object_key",
+              "type": "nvarchar(500)",
+              "meaning": "Khóa dùng để truy xuất tệp âm thanh trong kho lưu trữ.",
+              "note": "NULL."
+            },
+            {
+              "name": "audio_duration_ms",
+              "type": "int",
+              "meaning": "Thời lượng âm thanh tính bằng mili giây.",
+              "note": "NULL."
+            },
+            {
+              "name": "text_ready_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm văn bản sẵn sàng phục vụ.",
+              "note": "NULL."
+            },
+            {
+              "name": "audio_ready_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm âm thanh sẵn sàng phục vụ.",
+              "note": "NULL."
+            },
+            {
+              "name": "projection_updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật dữ liệu phục vụ.",
+              "note": ""
+            },
+            {
+              "name": "last_event_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã sự kiện gần nhất đã cập nhật dữ liệu phục vụ.",
+              "note": "NULL."
+            },
+            {
+              "name": "transcript_json",
+              "type": "nvarchar(max)",
+              "meaning": "Bản chép lời của âm thanh ở dạng JSON.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "generation_requests",
+          "purpose": "Yêu cầu tạo nội dung và tiến độ xử lý theo phiên bản và ngôn ngữ.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh yêu cầu tạo nội dung.",
+              "note": "PK."
+            },
+            {
+              "name": "narration_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã bài thuyết minh.",
+              "note": "FK1 ghép. AK2.narration_sources(narration_id)."
+            },
+            {
+              "name": "source_version",
+              "type": "int",
+              "meaning": "Số phiên bản nội dung nguồn.",
+              "note": "FK1 ghép. AK2.narration_sources(version)."
+            },
+            {
+              "name": "language_code",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ áp dụng.",
+              "note": "FK2. AK2.supported_languages(code)."
+            },
+            {
+              "name": "request_type",
+              "type": "varchar(20)",
+              "meaning": "Loại yêu cầu, gồm xuất bản hoặc thử lại.",
+              "note": ""
+            },
+            {
+              "name": "status",
+              "type": "varchar(20)",
+              "meaning": "Trạng thái xử lý yêu cầu.",
+              "note": ""
+            },
+            {
+              "name": "idempotency_key",
+              "type": "varchar(128)",
+              "meaning": "Khóa giúp hệ thống nhận ra và tránh ghi trùng một yêu cầu.",
+              "note": "AK1."
+            },
+            {
+              "name": "correlation_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã liên kết các thông điệp hoặc thao tác trong cùng luồng xử lý.",
+              "note": ""
+            },
+            {
+              "name": "attempt_count",
+              "type": "int",
+              "meaning": "Số lần đã thử xử lý yêu cầu.",
+              "note": ""
+            },
+            {
+              "name": "failure_stage",
+              "type": "varchar(30)",
+              "meaning": "Bước xử lý phát sinh lỗi.",
+              "note": "NULL."
+            },
+            {
+              "name": "failure_code",
+              "type": "varchar(100)",
+              "meaning": "Mã lỗi phát sinh.",
+              "note": "NULL."
+            },
+            {
+              "name": "requested_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tiếp nhận yêu cầu.",
+              "note": ""
+            },
+            {
+              "name": "status_updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật trạng thái gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "completed_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm hoàn tất yêu cầu.",
+              "note": "NULL."
+            },
+            {
+              "name": "row_version",
+              "type": "timestamp",
+              "meaning": "Phiên bản hàng dùng để phát hiện cập nhật đồng thời.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "poi_localizations",
+          "purpose": "Tên và tóm tắt của POI theo từng ngôn ngữ.",
+          "fields": [
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã điểm quan tâm.",
+              "note": "PK ghép (1/2). FK1.points_of_interest(id)."
+            },
+            {
+              "name": "language_code",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ áp dụng.",
+              "note": "PK ghép (2/2). FK2.supported_languages(code)."
+            },
+            {
+              "name": "name",
+              "type": "nvarchar(200)",
+              "meaning": "Tên POI theo ngôn ngữ.",
+              "note": ""
+            },
+            {
+              "name": "summary",
+              "type": "nvarchar(1000)",
+              "meaning": "Tóm tắt POI theo ngôn ngữ.",
+              "note": "NULL."
+            },
+            {
+              "name": "updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật bản ghi gần nhất.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "poi_media",
+          "purpose": "Tư liệu của POI, kèm nguồn, thông tin ghi công và thứ tự hiển thị.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh tư liệu.",
+              "note": "PK."
+            },
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã điểm quan tâm.",
+              "note": "FK. AK1.points_of_interest(id)."
+            },
+            {
+              "name": "media_type",
+              "type": "varchar(20)",
+              "meaning": "Loại tư liệu của POI.",
+              "note": ""
+            },
+            {
+              "name": "source_url",
+              "type": "nvarchar(1000)",
+              "meaning": "URL nguồn của tư liệu.",
+              "note": "AK1."
+            },
+            {
+              "name": "object_key",
+              "type": "nvarchar(500)",
+              "meaning": "Khóa truy xuất tư liệu trong kho lưu trữ.",
+              "note": "NULL."
+            },
+            {
+              "name": "attribution",
+              "type": "nvarchar(500)",
+              "meaning": "Thông tin ghi công cho tư liệu.",
+              "note": "NULL."
+            },
+            {
+              "name": "display_order",
+              "type": "smallint",
+              "meaning": "Thứ tự hiển thị tư liệu.",
+              "note": ""
+            },
+            {
+              "name": "created_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "poi_external_references",
+          "purpose": "Mã đối chiếu của POI trên các nguồn dữ liệu bên ngoài.",
+          "fields": [
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã điểm quan tâm.",
+              "note": "PK ghép (1/2). FK.points_of_interest(id)."
+            },
+            {
+              "name": "provider",
+              "type": "varchar(30)",
+              "meaning": "Mã nguồn cung cấp dữ liệu.",
+              "note": "PK ghép (2/2). AK1."
+            },
+            {
+              "name": "external_id",
+              "type": "varchar(200)",
+              "meaning": "Mã POI tại nguồn cung cấp.",
+              "note": "AK1."
+            },
+            {
+              "name": "source_url",
+              "type": "nvarchar(1000)",
+              "meaning": "URL của bản ghi tại nguồn cung cấp.",
+              "note": "NULL."
+            },
+            {
+              "name": "retrieved_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm lấy dữ liệu từ nguồn cung cấp.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "poi_search_documents",
+          "purpose": "Tên POI theo từng ngôn ngữ để tra cứu nhanh.",
+          "fields": [
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã điểm quan tâm.",
+              "note": "PK. FK.points_of_interest(id)."
+            },
+            {
+              "name": "name_vi",
+              "type": "nvarchar(200)",
+              "meaning": "Tên POI bằng tiếng Việt dùng cho tìm kiếm.",
+              "note": ""
+            },
+            {
+              "name": "name_en",
+              "type": "nvarchar(200)",
+              "meaning": "Tên POI bằng tiếng Anh dùng cho tìm kiếm.",
+              "note": "NULL."
+            },
+            {
+              "name": "name_ja",
+              "type": "nvarchar(200)",
+              "meaning": "Tên POI bằng tiếng Nhật dùng cho tìm kiếm.",
+              "note": "NULL."
+            },
+            {
+              "name": "name_ko",
+              "type": "nvarchar(200)",
+              "meaning": "Tên POI bằng tiếng Hàn dùng cho tìm kiếm.",
+              "note": "NULL."
+            },
+            {
+              "name": "name_zh",
+              "type": "nvarchar(200)",
+              "meaning": "Tên POI bằng tiếng Trung dùng cho tìm kiếm.",
+              "note": "NULL."
+            },
+            {
+              "name": "updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật bản ghi gần nhất.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "supported_languages",
+          "purpose": "Danh sách ngôn ngữ, thứ tự hiển thị và ngôn ngữ dự phòng.",
+          "fields": [
+            {
+              "name": "code",
+              "type": "varchar(5)",
+              "meaning": "Mã định danh ngôn ngữ.",
+              "note": "PK."
+            },
+            {
+              "name": "display_name",
+              "type": "nvarchar(50)",
+              "meaning": "Tên ngôn ngữ dùng để hiển thị.",
+              "note": ""
+            },
+            {
+              "name": "fallback_language_code",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ dự phòng khi nội dung chưa sẵn sàng.",
+              "note": "FK. NULL.supported_languages(code)."
+            },
+            {
+              "name": "display_order",
+              "type": "smallint",
+              "meaning": "Thứ tự hiển thị ngôn ngữ.",
+              "note": "AK1."
+            },
+            {
+              "name": "is_active",
+              "type": "bit",
+              "meaning": "Cho biết ngôn ngữ được bật để phục vụ.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "system_issues",
+          "purpose": "Sự cố vận hành, trạng thái xử lý và số lần ghi nhận.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh sự cố.",
+              "note": "PK."
+            },
+            {
+              "name": "fingerprint",
+              "type": "varchar(150)",
+              "meaning": "Giá trị dùng để gộp nhiều lần ghi nhận cùng một sự cố.",
+              "note": "AK1."
+            },
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã POI liên quan đến sự cố.",
+              "note": "Tham chiếu logicpoints_of_interest."
+            },
+            {
+              "name": "version",
+              "type": "int",
+              "meaning": "Số phiên bản thuyết minh liên quan đến sự cố.",
+              "note": "NULL."
+            },
+            {
+              "name": "language",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ liên quan đến sự cố.",
+              "note": ""
+            },
+            {
+              "name": "kind",
+              "type": "varchar(30)",
+              "meaning": "Loại sự cố.",
+              "note": ""
+            },
+            {
+              "name": "status",
+              "type": "varchar(10)",
+              "meaning": "Trạng thái xử lý sự cố.",
+              "note": ""
+            },
+            {
+              "name": "occurrences",
+              "type": "int",
+              "meaning": "Số lần sự cố được ghi nhận.",
+              "note": ""
+            },
+            {
+              "name": "first_seen",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm ghi nhận đầu tiên.",
+              "note": ""
+            },
+            {
+              "name": "last_seen",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm ghi nhận gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "note",
+              "type": "nvarchar(2000)",
+              "meaning": "Ghi chú xử lý hiện tại.",
+              "note": ""
+            },
+            {
+              "name": "row_version",
+              "type": "timestamp",
+              "meaning": "Phiên bản hàng dùng để phát hiện cập nhật đồng thời.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "issue_history",
+          "purpose": "Lịch sử thay đổi trạng thái và ghi chú xử lý sự cố.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh lần ghi lịch sử.",
+              "note": "PK."
+            },
+            {
+              "name": "issue_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã sự cố được ghi nhận trong lịch sử.",
+              "note": "Tham chiếu logic tới system_issues."
+            },
+            {
+              "name": "status",
+              "type": "varchar(10)",
+              "meaning": "Trạng thái sự cố tại lần ghi này.",
+              "note": ""
+            },
+            {
+              "name": "note",
+              "type": "nvarchar(2000)",
+              "meaning": "Nội dung ghi chú tại lần ghi này.",
+              "note": ""
+            },
+            {
+              "name": "staff_id",
+              "type": "nvarchar(100)",
+              "meaning": "Định danh nhân sự hoặc hệ thống thực hiện thao tác.",
+              "note": ""
+            },
+            {
+              "name": "at",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm ghi nhận thay đổi.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "visitor_events",
+          "purpose": "Sự kiện truy cập, xem địa điểm và nghe thuyết minh.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh sự kiện của khách.",
+              "note": "PK."
+            },
+            {
+              "name": "deduplication_key",
+              "type": "varchar(150)",
+              "meaning": "Khóa dùng để loại trừ sự kiện trùng.",
+              "note": "AK1."
+            },
+            {
+              "name": "visitor_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã nhận diện khách.",
+              "note": "NULL."
+            },
+            {
+              "name": "tab_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã nhận diện tab trình duyệt.",
+              "note": "NULL."
+            },
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã POI liên quan đến sự kiện.",
+              "note": "Tham chiếu logicpoints_of_interest.NULL."
+            },
+            {
+              "name": "kind",
+              "type": "varchar(30)",
+              "meaning": "Loại hành vi được ghi nhận.",
+              "note": ""
+            },
+            {
+              "name": "language",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ mà khách sử dụng.",
+              "note": ""
+            },
+            {
+              "name": "version",
+              "type": "int",
+              "meaning": "Số phiên bản thuyết minh liên quan đến sự kiện.",
+              "note": "NULL."
+            },
+            {
+              "name": "occurred_at",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm sự kiện xảy ra.",
+              "note": ""
+            },
+            {
+              "name": "received_at",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm hệ thống nhận sự kiện.",
+              "note": ""
+            },
+            {
+              "name": "audio_language",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ của âm thanh đã phát.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "visitor_presence",
+          "purpose": "Trạng thái hiện diện gần nhất của từng khách theo tab trình duyệt.",
+          "fields": [
+            {
+              "name": "visitor_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã nhận diện khách.",
+              "note": "PK ghép (1/2)."
+            },
+            {
+              "name": "tab_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã nhận diện tab trình duyệt.",
+              "note": "PK ghép (2/2)."
+            },
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã POI khách đang xem, nếu có.",
+              "note": "Tham chiếu logicpoints_of_interest.NULL."
+            },
+            {
+              "name": "last_seen",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm ghi nhận gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "is_active",
+              "type": "bit",
+              "meaning": "Cho biết khách đang hiện diện ở tab này.",
+              "note": ""
+            },
+            {
+              "name": "occurred_at",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm phát sinh tín hiệu hiện diện gần nhất.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "visitor_memberships",
+          "purpose": "Ghi nhận từng khách theo giờ để đếm số khách khác nhau của một POI hoặc toàn ứng dụng.",
+          "fields": [
+            {
+              "name": "date",
+              "type": "date",
+              "meaning": "Ngày thống kê.",
+              "note": "PK ghép (1/4)."
+            },
+            {
+              "name": "hour",
+              "type": "int",
+              "meaning": "Khung giờ thống kê.",
+              "note": "PK ghép (2/4)."
+            },
+            {
+              "name": "visitor_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã nhận diện khách.",
+              "note": "PK ghép (4/4)."
+            },
+            {
+              "name": "scope_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã POI hoặc giá trị quy ước cho toàn ứng dụng.",
+              "note": "PK ghép (3/4)."
+            },
+            {
+              "name": "language",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ ghi nhận cho khách trong khung giờ.",
+              "note": ""
+            },
+            {
+              "name": "first_seen",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm ghi nhận đầu tiên.",
+              "note": ""
+            },
+            {
+              "name": "last_seen",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm ghi nhận gần nhất.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "listening_metrics",
+          "purpose": "Tổng số lượt nghe theo ngày, POI và ngôn ngữ âm thanh.",
+          "fields": [
+            {
+              "name": "date",
+              "type": "date",
+              "meaning": "Ngày thống kê.",
+              "note": "PK ghép (1/3)."
+            },
+            {
+              "name": "poi_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã POI có lượt nghe được tổng hợp.",
+              "note": "PK ghép (2/3).Tham chiếu logicpoints_of_interest."
+            },
+            {
+              "name": "language",
+              "type": "varchar(5)",
+              "meaning": "Mã ngôn ngữ âm thanh dùng để tổng hợp lượt nghe.",
+              "note": "PK ghép (3/3)."
+            },
+            {
+              "name": "plays",
+              "type": "int",
+              "meaning": "Tổng số lượt nghe trong nhóm thống kê.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "analytics_state",
+          "purpose": "Mốc bắt đầu thu thập dữ liệu phân tích.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "int",
+              "meaning": "Mã bản ghi trạng thái phân tích.",
+              "note": "PK."
+            },
+            {
+              "name": "started_at",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm hệ thống bắt đầu thu thập dữ liệu phân tích.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "outbox_messages",
+          "purpose": "Thông điệp Catalog cần phát hành, kèm thời điểm phát hành và thông tin thử lại.",
+          "fields": [
+            {
+              "name": "message_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh thông điệp.",
+              "note": "PK."
+            },
+            {
+              "name": "correlation_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã liên kết các thông điệp hoặc thao tác trong cùng luồng xử lý.",
+              "note": "NULL."
+            },
+            {
+              "name": "message_type",
+              "type": "nvarchar(200)",
+              "meaning": "Tên loại thông điệp.",
+              "note": ""
+            },
+            {
+              "name": "payload",
+              "type": "nvarchar(max)",
+              "meaning": "Nội dung thông điệp cần phát hành.",
+              "note": ""
+            },
+            {
+              "name": "occurred_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm sự kiện xảy ra.",
+              "note": ""
+            },
+            {
+              "name": "published_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm thông điệp được phát hành thành công.",
+              "note": "NULL."
+            },
+            {
+              "name": "retry_count",
+              "type": "int",
+              "meaning": "Số lần thử lại khi phát hành thông điệp.",
+              "note": ""
+            },
+            {
+              "name": "last_error",
+              "type": "nvarchar(max)",
+              "meaning": "Thông tin lỗi phát hành gần nhất.",
+              "note": "NULL."
+            },
+            {
+              "name": "trace_parent",
+              "type": "varchar(55)",
+              "meaning": "Thông tin dùng để nối quá trình xử lý thông điệp với thao tác ban đầu.",
+              "note": "NULL."
+            },
+            {
+              "name": "trace_state",
+              "type": "varchar(512)",
+              "meaning": "Thông tin bổ sung để theo dõi luồng xử lý qua các dịch vụ.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "processed_messages",
+          "purpose": "Thông điệp mà từng thành phần tiếp nhận đã xử lý, dùng để tránh xử lý trùng.",
+          "fields": [
+            {
+              "name": "message_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh thông điệp.",
+              "note": "PK ghép (1/2)."
+            },
+            {
+              "name": "consumer_name",
+              "type": "nvarchar(200)",
+              "meaning": "Tên thành phần tiếp nhận và xử lý thông điệp.",
+              "note": "PK ghép (2/2)."
+            },
+            {
+              "name": "message_type",
+              "type": "nvarchar(200)",
+              "meaning": "Tên loại thông điệp.",
+              "note": ""
+            },
+            {
+              "name": "processed_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm thành phần tiếp nhận xử lý xong thông điệp.",
+              "note": ""
+            }
+          ]
+        }
+      ],
+      "image": "erd-catalog"
+    },
+    {
+      "id": "localization",
+      "name": "Localization",
+      "summary": "Localization lưu tiêu đề và nội dung thuyết minh theo bài, phiên bản và ngôn ngữ. Bảng thuật ngữ quy định cách dịch hoặc giữ nguyên từ và tên riêng theo ngôn ngữ đích.",
+      "tables": [
+        {
+          "name": "Translations",
+          "purpose": "Tiêu đề và nội dung thuyết minh theo phiên bản và ngôn ngữ. Tiếng Việt dùng văn bản gốc.",
+          "fields": [
+            {
+              "name": "Id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh bản dịch.",
+              "note": "PK."
+            },
+            {
+              "name": "NarrationId",
+              "type": "uniqueidentifier",
+              "meaning": "Mã bài thuyết minh nguồn.",
+              "note": "AK1. Tham chiếu logic tới Catalog."
+            },
+            {
+              "name": "PoiId",
+              "type": "uniqueidentifier",
+              "meaning": "Mã điểm quan tâm của bài thuyết minh.",
+              "note": "Tham chiếu logic tới Catalog."
+            },
+            {
+              "name": "SourceVersion",
+              "type": "int",
+              "meaning": "Số phiên bản bài thuyết minh nguồn.",
+              "note": "AK1. Tham chiếu logic tới Catalog."
+            },
+            {
+              "name": "Lang",
+              "type": "nvarchar(8)",
+              "meaning": "Mã ngôn ngữ đích.",
+              "note": "AK1."
+            },
+            {
+              "name": "Title",
+              "type": "nvarchar(max)",
+              "meaning": "Tiêu đề dùng cho ngôn ngữ đích.",
+              "note": ""
+            },
+            {
+              "name": "Body",
+              "type": "nvarchar(max)",
+              "meaning": "Nội dung thuyết minh dùng cho ngôn ngữ đích.",
+              "note": ""
+            },
+            {
+              "name": "Model",
+              "type": "nvarchar(max)",
+              "meaning": "Tên mô hình dịch hoặc giá trị quy ước cho văn bản gốc.",
+              "note": ""
+            },
+            {
+              "name": "PromptVersion",
+              "type": "nvarchar(max)",
+              "meaning": "Phiên bản hướng dẫn gửi cho mô hình dịch.",
+              "note": ""
+            },
+            {
+              "name": "CreatedAt",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "GlossaryEntries",
+          "purpose": "Thuật ngữ cần giữ nguyên hoặc dùng cách dịch đã định theo từng ngôn ngữ.",
+          "fields": [
+            {
+              "name": "Id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh mục thuật ngữ.",
+              "note": "PK."
+            },
+            {
+              "name": "Term",
+              "type": "nvarchar(200)",
+              "meaning": "Thuật ngữ gốc cần áp dụng quy tắc dịch.",
+              "note": "AK1."
+            },
+            {
+              "name": "Lang",
+              "type": "nvarchar(8)",
+              "meaning": "Mã ngôn ngữ đích.",
+              "note": "AK1."
+            },
+            {
+              "name": "Translation",
+              "type": "nvarchar(max)",
+              "meaning": "Cách dịch thuật ngữ. Giá trị NULL giữ nguyên thuật ngữ gốc.",
+              "note": "NULL."
+            }
+          ]
+        }
+      ],
+      "image": "erd-localization"
+    },
+    {
+      "id": "speech",
+      "name": "Speech",
+      "summary": "Speech theo dõi công việc tạo giọng đọc theo bài thuyết minh, phiên bản nguồn và ngôn ngữ. Sau khi tạo âm thanh, Speech ghi thông tin tệp để truy xuất từ kho lưu trữ.",
+      "tables": [
+        {
+          "name": "SynthesisJobs",
+          "purpose": "Công việc tạo giọng đọc theo phiên bản và ngôn ngữ, kèm trạng thái, số lần thử và lỗi gần nhất.",
+          "fields": [
+            {
+              "name": "Id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh công việc tổng hợp giọng nói.",
+              "note": "PK."
+            },
+            {
+              "name": "NarrationId",
+              "type": "uniqueidentifier",
+              "meaning": "Mã bài thuyết minh nguồn.",
+              "note": "AK1. Tham chiếu logic tới Catalog."
+            },
+            {
+              "name": "PoiId",
+              "type": "uniqueidentifier",
+              "meaning": "Mã điểm quan tâm của bài thuyết minh.",
+              "note": "Tham chiếu logic tới Catalog."
+            },
+            {
+              "name": "SourceVersion",
+              "type": "int",
+              "meaning": "Số phiên bản bài thuyết minh nguồn.",
+              "note": "AK1. Tham chiếu logic tới Catalog."
+            },
+            {
+              "name": "Lang",
+              "type": "nvarchar(8)",
+              "meaning": "Mã ngôn ngữ đích.",
+              "note": "AK1."
+            },
+            {
+              "name": "Voice",
+              "type": "nvarchar(64)",
+              "meaning": "Mã giọng đọc dùng cho công việc.",
+              "note": ""
+            },
+            {
+              "name": "Status",
+              "type": "int",
+              "meaning": "Trạng thái công việc gồm chờ xử lý, đang xử lý, thành công hoặc thất bại.",
+              "note": ""
+            },
+            {
+              "name": "AttemptCount",
+              "type": "int",
+              "meaning": "Số lần đã bắt đầu xử lý công việc.",
+              "note": ""
+            },
+            {
+              "name": "LastError",
+              "type": "nvarchar(max)",
+              "meaning": "Thông tin lỗi gần nhất của công việc.",
+              "note": "NULL."
+            },
+            {
+              "name": "CreatedAt",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "UpdatedAt",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm cập nhật công việc gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "LeaseExpiresAt",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm hết hạn giữ quyền xử lý công việc.",
+              "note": "NULL."
+            },
+            {
+              "name": "LeaseToken",
+              "type": "uniqueidentifier",
+              "meaning": "Mã xác nhận tiến trình nào đang giữ quyền xử lý công việc.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "AudioFiles",
+          "purpose": "Khóa để lấy tệp âm thanh từ kho lưu trữ, thời lượng, kích thước và bản chép lời nếu có.",
+          "fields": [
+            {
+              "name": "Id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh tệp âm thanh.",
+              "note": "PK."
+            },
+            {
+              "name": "JobId",
+              "type": "uniqueidentifier",
+              "meaning": "Mã công việc đã tạo tệp âm thanh.",
+              "note": "FK đến SynthesisJobs.Id. AK1."
+            },
+            {
+              "name": "ObjectKey",
+              "type": "nvarchar(max)",
+              "meaning": "Khóa dùng để lấy tệp âm thanh từ kho lưu trữ.",
+              "note": ""
+            },
+            {
+              "name": "DurationMs",
+              "type": "int",
+              "meaning": "Thời lượng âm thanh tính bằng mili giây.",
+              "note": ""
+            },
+            {
+              "name": "SizeBytes",
+              "type": "bigint",
+              "meaning": "Kích thước tệp tính bằng byte.",
+              "note": ""
+            },
+            {
+              "name": "CreatedAt",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "TranscriptJson",
+              "type": "nvarchar(max)",
+              "meaning": "Bản chép lời của âm thanh ở dạng JSON.",
+              "note": "NULL."
+            }
+          ]
+        }
+      ],
+      "image": "erd-speech"
+    },
+    {
+      "id": "identity",
+      "name": "Identity",
+      "summary": "Identity quản lý tài khoản, vai trò, đăng nhập qua nhà cung cấp bên ngoài và token xác thực. Claim là thông tin xác thực hoặc phân quyền gắn với tài khoản hoặc vai trò.",
+      "tables": [
+        {
+          "name": "roles",
+          "purpose": "Vai trò dùng để phân quyền trong hệ thống.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh vai trò.",
+              "note": "PK."
+            },
+            {
+              "name": "is_active",
+              "type": "bit",
+              "meaning": "Cho biết bản ghi đang hoạt động.",
+              "note": ""
+            },
+            {
+              "name": "created_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật bản ghi gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "name",
+              "type": "nvarchar(256)",
+              "meaning": "Tên hiển thị của vai trò.",
+              "note": "NULL."
+            },
+            {
+              "name": "normalized_name",
+              "type": "nvarchar(256)",
+              "meaning": "Tên chuẩn hóa dùng để tra cứu vai trò.",
+              "note": "UQ1 khi có giá trị. NULL."
+            },
+            {
+              "name": "concurrency_stamp",
+              "type": "nvarchar(36)",
+              "meaning": "Giá trị giúp phát hiện hai thao tác cùng sửa một vai trò.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "users",
+          "purpose": "Tài khoản người dùng và dữ liệu phục vụ xác thực.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh tài khoản.",
+              "note": "PK."
+            },
+            {
+              "name": "is_active",
+              "type": "bit",
+              "meaning": "Cho biết bản ghi đang hoạt động.",
+              "note": ""
+            },
+            {
+              "name": "created_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "updated_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm cập nhật bản ghi gần nhất.",
+              "note": ""
+            },
+            {
+              "name": "last_login_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm đăng nhập gần nhất.",
+              "note": "NULL."
+            },
+            {
+              "name": "user_name",
+              "type": "nvarchar(256)",
+              "meaning": "Tên đăng nhập.",
+              "note": "NULL."
+            },
+            {
+              "name": "normalized_user_name",
+              "type": "nvarchar(256)",
+              "meaning": "Tên đăng nhập đã chuẩn hóa để tra cứu.",
+              "note": "UQ2 khi có giá trị. NULL."
+            },
+            {
+              "name": "email",
+              "type": "nvarchar(256)",
+              "meaning": "Địa chỉ email của tài khoản.",
+              "note": "NULL."
+            },
+            {
+              "name": "normalized_email",
+              "type": "nvarchar(256)",
+              "meaning": "Địa chỉ email đã chuẩn hóa để tra cứu.",
+              "note": "UQ1 khi có giá trị. NULL."
+            },
+            {
+              "name": "email_confirmed",
+              "type": "bit",
+              "meaning": "Cho biết email đã được xác nhận.",
+              "note": ""
+            },
+            {
+              "name": "password_hash",
+              "type": "nvarchar(max)",
+              "meaning": "Giá trị băm của mật khẩu.",
+              "note": "NULL."
+            },
+            {
+              "name": "security_stamp",
+              "type": "nvarchar(36)",
+              "meaning": "Giá trị giúp hệ thống kiểm tra phiên đăng nhập còn hợp lệ.",
+              "note": "NULL."
+            },
+            {
+              "name": "concurrency_stamp",
+              "type": "nvarchar(36)",
+              "meaning": "Giá trị giúp phát hiện hai thao tác cùng sửa một tài khoản.",
+              "note": "NULL."
+            },
+            {
+              "name": "two_factor_enabled",
+              "type": "bit",
+              "meaning": "Cho biết tài khoản đã bật xác thực hai yếu tố.",
+              "note": ""
+            },
+            {
+              "name": "lockout_end",
+              "type": "datetimeoffset(7)",
+              "meaning": "Thời điểm hết hạn khóa đăng nhập.",
+              "note": "NULL."
+            },
+            {
+              "name": "lockout_enabled",
+              "type": "bit",
+              "meaning": "Cho biết tài khoản áp dụng cơ chế khóa đăng nhập.",
+              "note": ""
+            },
+            {
+              "name": "access_failed_count",
+              "type": "int",
+              "meaning": "Số lần đăng nhập thất bại.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "refresh_tokens",
+          "purpose": "Giá trị băm và thời hạn của token dùng để làm mới phiên đăng nhập, kèm thời điểm sử dụng hoặc thu hồi.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã định danh refresh token.",
+              "note": "PK."
+            },
+            {
+              "name": "user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản người dùng.",
+              "note": "FK đến users.id."
+            },
+            {
+              "name": "token_hash",
+              "type": "varchar(128)",
+              "meaning": "Giá trị băm của refresh token.",
+              "note": "AK1."
+            },
+            {
+              "name": "created_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm tạo bản ghi.",
+              "note": ""
+            },
+            {
+              "name": "expires_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm token hết hiệu lực.",
+              "note": ""
+            },
+            {
+              "name": "consumed_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm token đã được sử dụng.",
+              "note": "NULL."
+            },
+            {
+              "name": "revoked_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm token bị thu hồi.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "user_roles",
+          "purpose": "Liên kết tài khoản với vai trò được gán.",
+          "fields": [
+            {
+              "name": "user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản người dùng.",
+              "note": "PK ghép (1/2). FK2 đến users.id."
+            },
+            {
+              "name": "role_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã vai trò.",
+              "note": "PK ghép (2/2). FK1 đến roles.id."
+            },
+            {
+              "name": "assigned_at",
+              "type": "datetimeoffset(3)",
+              "meaning": "Thời điểm vai trò được gán cho tài khoản.",
+              "note": ""
+            }
+          ]
+        },
+        {
+          "name": "user_claims",
+          "purpose": "Các claim được cấp trực tiếp cho tài khoản.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "int",
+              "meaning": "Mã định danh claim của tài khoản.",
+              "note": "PK."
+            },
+            {
+              "name": "user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản người dùng.",
+              "note": "FK đến users.id."
+            },
+            {
+              "name": "claim_type",
+              "type": "nvarchar(max)",
+              "meaning": "Loại claim.",
+              "note": "NULL."
+            },
+            {
+              "name": "claim_value",
+              "type": "nvarchar(max)",
+              "meaning": "Giá trị của claim.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "role_claims",
+          "purpose": "Các claim được cấp cho vai trò.",
+          "fields": [
+            {
+              "name": "id",
+              "type": "int",
+              "meaning": "Mã định danh claim của vai trò.",
+              "note": "PK."
+            },
+            {
+              "name": "role_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã vai trò.",
+              "note": "FK đến roles.id."
+            },
+            {
+              "name": "claim_type",
+              "type": "nvarchar(max)",
+              "meaning": "Loại claim.",
+              "note": "NULL."
+            },
+            {
+              "name": "claim_value",
+              "type": "nvarchar(max)",
+              "meaning": "Giá trị của claim.",
+              "note": "NULL."
+            }
+          ]
+        },
+        {
+          "name": "user_logins",
+          "purpose": "Liên kết tài khoản với nhà cung cấp đăng nhập ngoài.",
+          "fields": [
+            {
+              "name": "login_provider",
+              "type": "nvarchar(450)",
+              "meaning": "Tên nhà cung cấp đăng nhập.",
+              "note": "PK ghép (1/2)."
+            },
+            {
+              "name": "provider_key",
+              "type": "nvarchar(450)",
+              "meaning": "Mã tài khoản tại nhà cung cấp đăng nhập bên ngoài.",
+              "note": "PK ghép (2/2)."
+            },
+            {
+              "name": "provider_display_name",
+              "type": "nvarchar(max)",
+              "meaning": "Tên hiển thị của nhà cung cấp đăng nhập.",
+              "note": "NULL."
+            },
+            {
+              "name": "user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản người dùng.",
+              "note": "FK đến users.id."
+            }
+          ]
+        },
+        {
+          "name": "user_tokens",
+          "purpose": "Giá trị token theo người dùng, nhà cung cấp và tên token.",
+          "fields": [
+            {
+              "name": "user_id",
+              "type": "uniqueidentifier",
+              "meaning": "Mã tài khoản người dùng.",
+              "note": "PK ghép (1/3). FK đến users.id."
+            },
+            {
+              "name": "login_provider",
+              "type": "nvarchar(450)",
+              "meaning": "Tên nhà cung cấp đăng nhập.",
+              "note": "PK ghép (2/3)."
+            },
+            {
+              "name": "name",
+              "type": "nvarchar(450)",
+              "meaning": "Tên token trong phạm vi nhà cung cấp.",
+              "note": "PK ghép (3/3)."
+            },
+            {
+              "name": "value",
+              "type": "nvarchar(max)",
+              "meaning": "Giá trị token do nhà cung cấp quản lý.",
+              "note": "NULL."
+            }
+          ]
+        }
+      ],
+      "image": "erd-identity"
+    }
+  ],
+  "images": {
+    "uc-general": {
+      "src": "diagrams/uc-general.png",
+      "originalMedia": "media/image18.png",
+      "sourceBodyIndex": 308,
+      "sourceVersion": "Use case v2"
+    },
+    "uc1-activity": {
+      "src": "diagrams/uc1-activity.png",
+      "originalMedia": "media/image28.png",
+      "sourceBodyIndex": 312,
+      "sourceVersion": "Use case v2"
+    },
+    "uc2-activity": {
+      "src": "diagrams/uc2-activity.png",
+      "originalMedia": "media/image4.png",
+      "sourceBodyIndex": 316,
+      "sourceVersion": "Use case v2"
+    },
+    "uc3-activity": {
+      "src": "diagrams/uc3-activity.png",
+      "originalMedia": "media/image19.png",
+      "sourceBodyIndex": 320,
+      "sourceVersion": "Use case v2"
+    },
+    "uc4-activity": {
+      "src": "diagrams/uc4-activity.png",
+      "originalMedia": "media/image36.png",
+      "sourceBodyIndex": 324,
+      "sourceVersion": "Use case v2"
+    },
+    "uc5-activity": {
+      "src": "diagrams/uc5-activity.png",
+      "originalMedia": "media/image31.png",
+      "sourceBodyIndex": 328,
+      "sourceVersion": "Use case v2"
+    },
+    "uc6-activity": {
+      "src": "diagrams/uc6-activity.png",
+      "originalMedia": "media/image35.png",
+      "sourceBodyIndex": 332,
+      "sourceVersion": "Use case v2"
+    },
+    "uc7-activity": {
+      "src": "diagrams/uc7-activity.png",
+      "originalMedia": "media/image14.png",
+      "sourceBodyIndex": 336,
+      "sourceVersion": "Use case v2"
+    },
+    "uc8-activity": {
+      "src": "diagrams/uc8-activity.png",
+      "originalMedia": "media/image8.png",
+      "sourceBodyIndex": 340,
+      "sourceVersion": "Use case v2"
+    },
+    "uc9-activity": {
+      "src": "diagrams/uc9-activity.png",
+      "originalMedia": "media/image30.png",
+      "sourceBodyIndex": 344,
+      "sourceVersion": "Use case v2"
+    },
+    "erd-catalog": {
+      "src": "diagrams/erd-catalog.png",
+      "originalMedia": "media/image11.png",
+      "sourceBodyIndex": 23,
+      "sourceVersion": "PRD.docx"
+    },
+    "erd-localization": {
+      "src": "diagrams/erd-localization.png",
+      "originalMedia": "media/image10.png",
+      "sourceBodyIndex": 47,
+      "sourceVersion": "PRD.docx"
+    },
+    "erd-speech": {
+      "src": "diagrams/erd-speech.png",
+      "originalMedia": "media/image2.png",
+      "sourceBodyIndex": 52,
+      "sourceVersion": "PRD.docx"
+    },
+    "erd-identity": {
+      "src": "diagrams/erd-identity.png",
+      "originalMedia": "media/image24.png",
+      "sourceBodyIndex": 30,
+      "sourceVersion": "PRD.docx"
+    },
+    "class-catalog-application": {
+      "src": "diagrams/class-catalog-application.png",
+      "originalMedia": "media/image40.png",
+      "sourceBodyIndex": 217,
+      "sourceVersion": "PRD.docx"
+    },
+    "class-catalog-domain": {
+      "src": "diagrams/class-catalog-domain.png",
+      "originalMedia": "media/image39.png",
+      "sourceBodyIndex": 222,
+      "sourceVersion": "PRD.docx"
+    },
+    "class-localization": {
+      "src": "diagrams/class-localization.png",
+      "originalMedia": "media/image29.png",
+      "sourceBodyIndex": 208,
+      "sourceVersion": "PRD.docx"
+    },
+    "class-speech": {
+      "src": "diagrams/class-speech.png",
+      "originalMedia": "media/image41.png",
+      "sourceBodyIndex": 202,
+      "sourceVersion": "PRD.docx"
+    },
+    "sequence-auth": {
+      "src": "diagrams/sequence-auth.png",
+      "originalMedia": "media/image34.png",
+      "sourceBodyIndex": 260,
+      "sourceVersion": "PRD.docx"
+    },
+    "sequence-nearby": {
+      "src": "diagrams/sequence-nearby.png",
+      "originalMedia": "media/image15.png",
+      "sourceBodyIndex": 263,
+      "sourceVersion": "PRD.docx"
+    },
+    "sequence-generate": {
+      "src": "diagrams/sequence-generate.png",
+      "originalMedia": "media/image32.png",
+      "sourceBodyIndex": 265,
+      "sourceVersion": "PRD.docx"
+    },
+    "sequence-play": {
+      "src": "diagrams/sequence-play.png",
+      "originalMedia": "media/image22.png",
+      "sourceBodyIndex": 267,
+      "sourceVersion": "PRD.docx"
+    },
+    "sequence-publish": {
+      "src": "diagrams/sequence-publish.png",
+      "originalMedia": "media/image26.png",
+      "sourceBodyIndex": 270,
+      "sourceVersion": "PRD.docx"
+    },
+    "sequence-jobs": {
+      "src": "diagrams/sequence-jobs.png",
+      "originalMedia": "media/image1.png",
+      "sourceBodyIndex": 272,
+      "sourceVersion": "PRD.docx"
+    },
+    "component": {
+      "src": "diagrams/component.png",
+      "originalMedia": "media/image33.png",
+      "sourceBodyIndex": 11,
+      "sourceVersion": "PRD.docx"
+    },
+    "deployment": {
+      "src": "diagrams/deployment.png",
+      "originalMedia": "media/image27.png",
+      "sourceBodyIndex": 14,
+      "sourceVersion": "PRD.docx"
+    },
+    "dfd-level-0": {
+      "src": "diagrams/dfd-level-0.png",
+      "originalMedia": "media/image2.png",
+      "sourceBodyIndex": 3,
+      "sourceVersion": "PRD_DFD.docx"
+    },
+    "dfd-level-1": {
+      "src": "diagrams/dfd-level-1.png",
+      "originalMedia": "media/image1.png",
+      "sourceBodyIndex": 5,
+      "sourceVersion": "PRD_DFD.docx"
+    },
+    "dfd-5-publish": {
+      "src": "diagrams/dfd-5-publish.png",
+      "originalMedia": "media/image7.png",
+      "sourceBodyIndex": 20,
+      "sourceVersion": "PRD_DFD.docx"
+    },
+    "dfd-3-serve": {
+      "src": "diagrams/dfd-3-serve.png",
+      "originalMedia": "media/image4.png",
+      "sourceBodyIndex": 25,
+      "sourceVersion": "PRD_DFD.docx"
+    },
+    "dfd-6-translate": {
+      "src": "diagrams/dfd-6-translate.png",
+      "originalMedia": "media/image5.png",
+      "sourceBodyIndex": 30,
+      "sourceVersion": "PRD_DFD.docx"
+    },
+    "dfd-7-synthesize": {
+      "src": "diagrams/dfd-7-synthesize.png",
+      "originalMedia": "media/image3.png",
+      "sourceBodyIndex": 35,
+      "sourceVersion": "PRD_DFD.docx"
+    },
+    "dfd-9-report": {
+      "src": "diagrams/dfd-9-report.png",
+      "originalMedia": "media/image6.png",
+      "sourceBodyIndex": 40,
+      "sourceVersion": "PRD_DFD.docx"
+    },
+    "sequence-statistics": {
+      "src": "diagrams/sequence-statistics.png",
+      "originalMedia": "media/image34.png",
+      "sourceBodyIndex": 453,
+      "sourceVersion": "Nhom2_BaoCao_CNPM.docx"
+    },
+    "sequence-export": {
+      "src": "diagrams/sequence-export.png",
+      "originalMedia": "media/image35.png",
+      "sourceBodyIndex": 462,
+      "sourceVersion": "Nhom2_BaoCao_CNPM.docx"
+    }
+  },
+  "codeAliases": {
+    "AF": "src/Identity/Auth/AuthEndpoints.cs",
+    "SM": "src/Web/apps/admin/src/features/auth/model/session.ts",
+    "AL": "src/Web/apps/admin/src/app/AdminLayout.tsx",
+    "LG": "src/Web/apps/pwa/src/app/LocationGate.tsx",
+    "NR": "src/Web/apps/pwa/src/app/routes/NearbyRoute.tsx",
+    "NS": "src/Web/apps/pwa/src/features/nearby/components/NearbyScreen.tsx",
+    "MR": "src/Web/apps/pwa/src/app/routes/MapRoute.tsx",
+    "SC": "src/Web/apps/pwa/src/features/story/components/StoryScreen.tsx",
+    "CE": "src/Catalog/Catalog.Api/Endpoints/CatalogEndpoints.cs",
+    "AE": "src/Web/apps/pwa/src/features/player/components/AudioEngine.tsx",
+    "LR": "src/Web/apps/pwa/src/features/story/api/useLanguageRequest.ts",
+    "PM": "src/Web/apps/pwa/src/features/player/model/playerMachine.ts",
+    "PS": "src/Web/apps/admin/src/features/places/components/PlacesScreen.tsx",
+    "PE": "src/Web/apps/admin/src/features/places/components/PlaceEditorScreen.tsx",
+    "AP": "src/Catalog/Catalog.Api/Endpoints/AdminPoiEndpoints.cs",
+    "CW": "src/Catalog/Catalog.Api/Application/CatalogWorkflow.cs",
+    "JS": "src/Web/apps/admin/src/features/jobs/components/JobsScreen.tsx",
+    "DS": "src/Web/apps/admin/src/features/dashboard/DashboardScreen.tsx"
+  },
+  "decisions": {
+    "UC1": "D1 Valid session available? → SM 39, 52–66; AL 28, 65–68D2 Credentials valid? → AF 37–47D3 Account active? → AF 48–50D4 Active staff role? → AF 51–53, 104–109D5 Has Editor role? → SM 76",
+    "UC2": "D1 Location available? → LG 18–29; NR 22–24D2 Data loaded? → NS 94–106; MR 95D3 Any places found? → NS 108–119; MR 97",
+    "UC3": "D1 Narration loaded? → SC 39–60D2 Chosen language ready? / D3 English ready? → CE 53–65D4 Playback succeeds? → AE 32–48, 62–77",
+    "UC4": "D1 Request accepted? → LR 49–63D2 Requested language ready? → LR 78–92D3 Failed or 30 s elapsed? → LR 65–73, 90–92D4 Fallback still playing? / D5 Switch now? → PM 129–158",
+    "UC5": "D1 Add or edit a place? → PS 39, 54–57; PE 65–97D2 Data valid? → PE 67–74; AP 173–182D3 Confirm? → PS 28–35, 62–65Archive / visibility / restore → AP 29–63",
+    "UC6": "D1 Draft publishable? → CW 19–35D2 Vietnamese text and audio ready? → CW 133–169Draft version allocation → AP 153–166Publish state and queue → CW 39–57",
+    "UC7": "D1 Job list loaded? → JS 51–59D2 Failed job to handle? → JS 24–26, 55–58, 82D3 Regenerate? / D4 Request accepted? → JS 29–36, 89Queue attempt → CE 144–150; CW 100–112",
+    "UC8": "D1 Data loaded? → DS 17, 34–35D2 Retry? → DS 35 (Try again action)D3 Change period or place? → DS 31, 54",
+    "UC9": "D1 Cancel export? → DS 170D2 Dates valid? → DS 160–164, 171, 177D3 Report generated? / D4 Retry export? → DS 165–171, 178"
+  }
+}
