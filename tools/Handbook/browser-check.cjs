@@ -173,7 +173,7 @@ const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
         await page.locator('.commit-detail').waitFor();
         check(await page.locator('.book h1').innerText() === commit.title, 'Incorrect commit title');
         await verifyDatesAtRight(page.locator('.commit-detail-heading'));
-        const overview = teamNotes[commit.sha] ?? phongNotes[commit.pullRequest];
+        const overview = teamNotes[commit.sha] ?? phongNotes[commit.sha];
         check(await page.locator('.commit-goal').innerText() === 'Mục tiêu. ' + overview.goal, 'Wrong commit goal');
         const changes = await page.locator('.commit-notes > li').allTextContents();
         const expectedChanges = overview.changes.map(({ label, action, outcome }) => label + '. ' + action + ' ' + outcome);
@@ -324,6 +324,6 @@ const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
     check(unexpected.length === 0, 'App requested external services: ' + unexpected.join(','));
     check(errors.length === 0, errors.join('\n'));
     fs.writeFileSync(path.join(output, 'browser-check-result.json'), JSON.stringify({ result: 'passed', routes: routes.length, diagrams: 35, tables: 32, stories: 23, widths: [1440, 1280, 1180, 1050, 1024, 1000, 851, 850, 768, 480, 375, 320], externalRequests: unexpected, consoleErrors: errors }, null, 2));
-    console.log('PASS: 51 sidebar routes and 48 commit routes, all diagrams and schema roles, full UC text, code map, zoom, download, hash history, search, real 3D turn, sound only on footer, mute, light-only, collapsed TOC, four header links, responsive 320–1440 px; no background external/API requests.');
+    console.log('PASS: 51 sidebar routes and 49 commit routes, all diagrams and schema roles, full UC text, code map, zoom, download, hash history, search, real 3D turn, sound only on footer, mute, light-only, collapsed TOC, four header links, responsive 320–1440 px; no background external/API requests.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exit(1); });

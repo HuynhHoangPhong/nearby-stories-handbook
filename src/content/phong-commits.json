@@ -1,5 +1,13 @@
 [
   {
+    "sha": "c6c1f8aea4306fd7eb8c4058c3c1c98f10ccb1b6",
+    "title": "Add handbook link to README",
+    "date": "2026-11-15",
+    "subject": "Add handbook link to README",
+    "summary": "Thêm địa chỉ handbook vào đầu README của repo Nearby Stories.",
+    "fileCount": 1
+  },
+  {
     "sha": "0a0b7c1db815eb4d7526b9e73167859201d47d3f",
     "title": "fix(catalog): preserve Vietnamese Wikipedia IDs (#33)",
     "date": "2026-11-15",

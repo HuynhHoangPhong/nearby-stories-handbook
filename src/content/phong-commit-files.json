@@ -1,4 +1,11 @@
 {
+  "c6c1f8aea4306fd7eb8c4058c3c1c98f10ccb1b6": [
+    {
+      "path": "README.md",
+      "status": "M",
+      "description": "Thêm một dòng dưới tiêu đề dự án, ghi địa chỉ nearby-stories-handbook.vercel.app để người đọc repo tìm được sổ tay."
+    }
+  ],
   "0a0b7c1db815eb4d7526b9e73167859201d47d3f": [
     {
       "path": "src/Catalog/Catalog.Api/Infrastructure/CatalogDbContext.cs",

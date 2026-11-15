@@ -8,7 +8,7 @@
 - Đã đối chiếu 103 đích liên kết theo tệp và dòng ở commit `fbf425462cbab0e1ec5e8a70d1f190f7af4f8696`, đang là `main` trên GitHub tại lúc kiểm tra. Liên kết cần quyền đọc repo.
 - Trong repo Nearby Stories trên máy, 60 chú thích trong 23 tệp bao phủ 10 tiến trình Level 1 và 27 tiến trình con Level 2. Đã so sánh với commit GitHub và xác nhận toàn bộ thay đổi mã nguồn là chú thích. Khi chú thích được đưa lên GitHub, tạo lại liên kết theo hướng dẫn trong README để lấy số dòng mới.
 
-- Đối chiếu 48 commit và 1.783 lượt thay đổi tệp với lịch sử Git tại `0a0b7c1`. ThNhan713 được đối chiếu qua các tên tác giả Do Nhan, Nhan, ThNhan và ThNhan713 có cùng địa chỉ tác giả trong Git. Danh sách của commit gộp nhánh được so với cha thứ nhất. Chromium kiểm tra đủ 48 trang chi tiết, tên commit, ngày, mục tiêu, các gạch đầu dòng, vị trí liên kết và nhóm tệp.
+- Đối chiếu 49 commit và 1.784 lượt thay đổi tệp với lịch sử Git tại `c6c1f8a`. ThNhan713 được đối chiếu qua các tên tác giả Do Nhan, Nhan, ThNhan và ThNhan713 có cùng địa chỉ tác giả trong Git. Danh sách của commit gộp nhánh được so với cha thứ nhất. Chromium kiểm tra đủ 49 trang chi tiết, tên commit, ngày, mục tiêu, các gạch đầu dòng, vị trí liên kết và nhóm tệp.
 
 ## Chạy lại kiểm tra
 

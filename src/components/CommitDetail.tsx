@@ -3,7 +3,7 @@ import { repository } from '../config/assets'
 import history from '../content/phong-commit-files.json'
 import teamFiles from '../content/team-commit-files.json'
 import teamNotes from '../content/team-commit-notes.json'
-import notes from '../content/phong-commit-notes.json'
+import phongNotes from '../content/phong-commit-notes.json'
 import { commitMembership } from '../content/member-commits'
 import type { CommitFile } from '../content/member-commits'
 import { PullRequestLink, formatDate } from './MemberCommits'
@@ -14,9 +14,8 @@ interface CommitNotes {
   changes: { label: string; action: string; outcome: string }[]
 }
 
-const notesByPullRequest: Partial<Record<number, CommitNotes>> = notes
 const filesByCommit = { ...history, ...teamFiles } as Record<string, CommitFile[]>
-const overviewByCommit: Partial<Record<string, CommitNotes>> = teamNotes
+const overviewByCommit: Record<string, CommitNotes> = { ...phongNotes, ...teamNotes }
 const statuses: Record<CommitFile['status'], string> = {
   A: 'Thêm', M: 'Sửa', D: 'Xóa', R: 'Đổi tên', C: 'Sao chép', T: 'Đổi loại',
 }
@@ -40,7 +39,7 @@ function groupFiles(files: CommitFile[]) {
 export default function MemberCommitDetail({ sha, navigate }: { sha: string; navigate: (id: string) => void }) {
   const { commit, member } = commitMembership.get(sha)!
   const filesByGroup = groupFiles(filesByCommit[sha]!)
-  const overview = overviewByCommit[sha] ?? notesByPullRequest[commit.pullRequest!]!
+  const overview = overviewByCommit[sha]!
   return <section className="paper-full member-commits commit-detail">
     <CrossLink to={member.page} navigate={navigate}>Về danh sách commit của {member.name}</CrossLink>
     <div className="commit-detail-heading">

@@ -1,270 +1,40 @@
 {
-  "5": {
-    "goal": "Cho mỗi dịch vụ lưu và nâng cấp dữ liệu riêng, đồng thời giúp cả nhóm khởi chạy hệ thống từ một môi trường SQL Server chung.",
+  "c6c1f8aea4306fd7eb8c4058c3c1c98f10ccb1b6": {
+    "goal": "Giúp thành viên và người đọc repo mở handbook ngay từ trang chính của dự án.",
     "changes": [
       {
-        "label": "Cơ sở dữ liệu riêng",
-        "action": "Tạo bốn cơ sở dữ liệu logic cho Catalog, Identity, Localization và Speech.",
-        "outcome": "Mỗi dịch vụ dùng kết nối riêng để quản lý phần dữ liệu của mình."
-      },
-      {
-        "label": "Lưu nội dung địa điểm",
-        "action": "Tạo các bảng cho điểm tham quan, phiên bản thuyết minh và yêu cầu xử lý.",
-        "outcome": "Catalog có nơi giữ cả nội dung đang phục vụ lẫn bản đang chuẩn bị."
-      },
-      {
-        "label": "Lưu tài khoản",
-        "action": "Thiết lập các bảng tài khoản, vai trò và thông tin làm mới phiên.",
-        "outcome": "Identity có dữ liệu để xác định ai được truy cập trang quản trị và giữ phiên đăng nhập."
-      },
-      {
-        "label": "Khởi động hệ thống",
-        "action": "Thêm bước chờ SQL Server sẵn sàng và chạy khởi tạo trong Docker Compose.",
-        "outcome": "Nhóm có thể dựng cơ sở dữ liệu ban đầu theo cùng một trình tự."
+        "label": "Địa chỉ handbook",
+        "action": "Đặt địa chỉ handbook trên Vercel ngay dưới tiêu đề Nearby Stories trong README.",
+        "outcome": "Người đọc thấy ngay nơi mở sổ tay khi vào repo."
       }
     ]
   },
-  "6": {
-    "goal": "Giúp khách mở danh sách và thấy các điểm tham quan gần vị trí hiện tại nhất.",
+  "0a0b7c1db815eb4d7526b9e73167859201d47d3f": {
+    "goal": "Giữ và khôi phục dấu tiếng Việt trong mã tham chiếu Wikipedia của các điểm tham quan.",
     "changes": [
       {
-        "label": "Xác định khu vực tìm",
-        "action": "API nhận tọa độ của khách và dùng bán kính mặc định 100 m.",
-        "outcome": "Ứng dụng có thể lấy danh sách quanh đúng vị trí của khách."
+        "label": "Giữ dấu khi lưu mới",
+        "action": "Đổi cột mã tham chiếu sang kiểu Unicode nvarchar(200).",
+        "outcome": "Các mã Wikipedia tiếng Việt mới giữ nguyên dấu khi được ghi vào SQL Server."
       },
       {
-        "label": "Sắp xếp theo khoảng cách",
-        "action": "Catalog tính khoảng cách từ tọa độ khách tới từng địa điểm bằng kiểu dữ liệu địa lý của SQL Server.",
-        "outcome": "Các điểm gần hơn xuất hiện trước trong kết quả."
+        "label": "Sửa dữ liệu đã nhập",
+        "action": "Dùng URL nguồn để khôi phục tên bài viết gốc của các mã bị mất dấu trong bộ dữ liệu mẫu.",
+        "outcome": "Các tham chiếu cũ có thể được nhận diện đúng trong lần nhập tiếp theo."
       },
       {
-        "label": "Chuẩn bị cho nhiều địa điểm",
-        "action": "Thêm chỉ mục không gian và tập lệnh đo truy vấn.",
-        "outcome": "Nhóm có thể kiểm tra truy vấn theo bán kính khi tăng số lượng địa điểm."
+        "label": "Duy trì mã duy nhất",
+        "action": "Tạo lại chỉ mục duy nhất theo nhà cung cấp và mã tham chiếu.",
+        "outcome": "Catalog tiếp tục ngăn hai bản ghi cùng dùng một mã từ một nguồn."
+      },
+      {
+        "label": "Kiểm tra khi nâng cấp",
+        "action": "Dùng dữ liệu cũ có mã sai dấu để thử nâng cấp SQL Server và nhập lại dữ liệu mẫu.",
+        "outcome": "Bài kiểm thử kiểm tra cả việc phục hồi mã lẫn việc tránh tạo địa điểm trùng."
       }
     ]
   },
-  "7": {
-    "goal": "Chuẩn bị cho chức năng tìm địa điểm theo tên bằng nhiều ngôn ngữ, kể cả khi người dùng gõ tiếng Việt không dấu.",
-    "changes": [
-      {
-        "label": "Lập chỉ mục tên",
-        "action": "Tạo chỉ mục tìm kiếm cho năm cột tên địa điểm, mỗi cột ứng với một ngôn ngữ.",
-        "outcome": "SQL Server có thể tìm trong dữ liệu tên của từng ngôn ngữ."
-      },
-      {
-        "label": "Tách từ theo ngôn ngữ",
-        "action": "Chia tên thành từ theo ngôn ngữ. Khi thiếu bộ tách từ tiếng Việt, SQL Server dùng bộ xử lý chung.",
-        "outcome": "Nhóm có thể lập chỉ mục tên tiếng Việt trên các máy chủ có cấu hình khác nhau."
-      },
-      {
-        "label": "Tìm khi bỏ dấu",
-        "action": "Cấu hình tìm kiếm để tên bỏ dấu có thể khớp tên có dấu, kèm tập lệnh đo kết quả.",
-        "outcome": "Nhóm có thể kiểm tra các truy vấn theo cách khách thường gõ."
-      }
-    ]
-  },
-  "11": {
-    "goal": "Chuẩn bị nội dung thử nghiệm bám sát địa điểm thật để biên tập viên có thể rà soát trước khi xuất bản.",
-    "changes": [
-      {
-        "label": "Dựng bản nháp",
-        "action": "Đóng gói dữ liệu của 16 địa điểm tại TP.HCM, có tọa độ OSM và bản nháp thuyết minh tiếng Việt.",
-        "outcome": "Biên tập viên có sẵn dữ liệu để đọc, sửa và chuẩn bị xuất bản."
-      },
-      {
-        "label": "Nhập lại an toàn",
-        "action": "Dùng mã đối tượng OSM để nhận ra địa điểm đã được nhập.",
-        "outcome": "Chạy lại trình nhập giúp bổ sung bản ghi mới và giữ những bản đã được sửa."
-      },
-      {
-        "label": "Ghi công ảnh",
-        "action": "Lưu nguồn, giấy phép và thông tin ghi công cùng liên kết ảnh.",
-        "outcome": "Giao diện có dữ liệu để hiển thị nguồn ảnh cho người đọc."
-      },
-      {
-        "label": "Đo với tọa độ thật",
-        "action": "Tách một tập tọa độ OSM cho bài đo truy vấn không gian.",
-        "outcome": "Nhóm có thể đánh giá truy vấn trên vị trí thực tế mà vẫn giữ bộ dữ liệu mẫu riêng."
-      }
-    ]
-  },
-  "13": {
-    "goal": "Đưa bản nháp đã lưu vào quy trình tự động dịch, tạo audio và theo dõi tiến độ xuất bản.",
-    "changes": [
-      {
-        "label": "Ghi yêu cầu xuất bản",
-        "action": "Catalog lưu bản đang xử lý, yêu cầu theo từng ngôn ngữ và sự kiện ContentPublished trong cùng giao dịch SQL.",
-        "outcome": "Nếu lưu thành công, hệ thống có cả dữ liệu xuất bản lẫn tín hiệu để bắt đầu xử lý."
-      },
-      {
-        "label": "Gửi việc chạy nền",
-        "action": "Tiến trình gửi sự kiện đọc hàng đợi lưu trong cơ sở dữ liệu và đánh dấu đã gửi sau xác nhận từ RabbitMQ.",
-        "outcome": "Yêu cầu vẫn có thể được gửi lại sau khi kết nối tạm thời bị gián đoạn."
-      },
-      {
-        "label": "Cập nhật kết quả",
-        "action": "Catalog ghi văn bản đã dịch, audio hoặc lỗi theo từng ngôn ngữ và nhận diện thông điệp đã xử lý.",
-        "outcome": "Biên tập viên có thể theo dõi từng phần, kể cả khi một thông điệp được giao lại."
-      },
-      {
-        "label": "Đưa nội dung vào phục vụ",
-        "action": "Thêm API theo dõi tiến độ và đọc MP3. Ở commit này, phiên bản mới chỉ kích hoạt khi đủ văn bản và audio của cả năm ngôn ngữ.",
-        "outcome": "Màn hình quản trị có thể báo khi phiên bản đã sẵn sàng cho khách."
-      }
-    ]
-  },
-  "17": {
-    "goal": "Giữ trải nghiệm nghe liền mạch khi bản mới đang được xử lý hoặc ngôn ngữ khách chọn chưa sẵn sàng.",
-    "changes": [
-      {
-        "label": "Chuyển phiên bản khi tiếng Việt sẵn sàng",
-        "action": "Đổi điều kiện kích hoạt sang đủ văn bản và audio tiếng Việt. Trong lúc chờ, địa điểm đang hoạt động tiếp tục dùng bản cũ.",
-        "outcome": "Khách vẫn có bài để nghe khi biên tập viên xuất bản bản mới."
-      },
-      {
-        "label": "Chọn ngôn ngữ dự phòng",
-        "action": "Ưu tiên ngôn ngữ khách đã chọn, rồi đến tiếng Anh và tiếng Việt. Yêu cầu đang chờ được dùng lại.",
-        "outcome": "Khách có thể nghe bản đã sẵn sàng và tiếp tục chờ bản mong muốn."
-      },
-      {
-        "label": "Bảo vệ chỉnh sửa địa điểm",
-        "action": "Thêm thao tác tạo, sửa, lưu bản nháp và lưu trữ. API kiểm tra phiên bản bản ghi khi lưu.",
-        "outcome": "Biên tập viên được báo khi mở dữ liệu cũ và một người khác đã lưu thay đổi."
-      },
-      {
-        "label": "Chạy lại phần lỗi",
-        "action": "Hiển thị riêng bốn việc dịch và năm việc tạo audio trên màn hình tiến độ.",
-        "outcome": "Nhân viên vận hành có thể nhận ra ngôn ngữ lỗi và chạy lại đúng việc đó."
-      }
-    ]
-  },
-  "18": {
-    "goal": "Cho khách khám phá địa điểm trực quan và bắt đầu nghe ngay từ bản đồ.",
-    "changes": [
-      {
-        "label": "Xem vị trí trên bản đồ",
-        "action": "Tích hợp MapLibre và OpenFreeMap để hiển thị vị trí của khách cùng các điểm đánh dấu.",
-        "outcome": "Khách có thể nhìn các điểm tham quan trong bối cảnh khu vực xung quanh."
-      },
-      {
-        "label": "Mở thông tin điểm tham quan",
-        "action": "Thêm API trả địa điểm công khai trong vùng tọa độ của bản đồ.",
-        "outcome": "Khi chọn một điểm đánh dấu, khách có thông tin để quyết định đọc hoặc nghe."
-      },
-      {
-        "label": "Tiếp tục nghe khi đổi màn hình",
-        "action": "Đặt điều khiển audio trong phần dùng chung của ứng dụng.",
-        "outcome": "Bài đang nghe tiếp tục phát khi khách chọn điểm khác hoặc mở màn hình đọc."
-      },
-      {
-        "label": "Hỗ trợ định vị và thử bản đồ",
-        "action": "Bắt đầu định vị khi khách cho phép hoặc chọn vị trí mô phỏng. Kiểm tra luồng khi bản đồ tải lỗi.",
-        "outcome": "Người dùng có thể chủ động chọn cách cung cấp vị trí, còn nhóm biết hành vi khi bản đồ gặp sự cố."
-      }
-    ]
-  },
-  "19": {
-    "goal": "Giúp khách đọc theo lời thuyết minh và kiểm soát việc phát khi di chuyển giữa các màn hình.",
-    "changes": [
-      {
-        "label": "Thu gọn hoặc đóng trình phát",
-        "action": "Thêm hai thao tác riêng. Thu gọn giữ vị trí nghe, còn đóng dừng phát và giải phóng audio.",
-        "outcome": "Khách có thể quay về màn hình trước hoặc kết thúc bài đang nghe."
-      },
-      {
-        "label": "Tạo mốc cho từng câu",
-        "action": "Dịch vụ Speech đặt dấu mốc trước câu để Google TTS trả về thời điểm cùng tệp MP3.",
-        "outcome": "Ứng dụng có thể ghép từng câu với đúng vị trí trong bản ghi."
-      },
-      {
-        "label": "Ghép lời với đúng bản audio",
-        "action": "Catalog nhận và kiểm tra các mốc được gửi cùng kết quả tạo audio.",
-        "outcome": "Khi phát bản dự phòng, lời trên màn hình vẫn tương ứng với ngôn ngữ đang nghe."
-      },
-      {
-        "label": "Theo dõi lời đang phát",
-        "action": "Tô câu theo thời gian phát, cập nhật khi khách tua và cho phép cuộn tay.",
-        "outcome": "Khách có thể đọc ở nhịp riêng rồi bật lại chế độ bám theo lời đọc."
-      }
-    ]
-  },
-  "23": {
-    "goal": "Cho nhân sự biết khách đang dùng ứng dụng ra sao và xử lý sự cố hoặc trạng thái địa điểm ngay trong trang quản trị.",
-    "changes": [
-      {
-        "label": "Xem thống kê",
-        "action": "Thêm tổng quan, thống kê theo địa điểm và bộ lọc kỳ báo cáo.",
-        "outcome": "Nhân sự có thể xem lượt khách, hiện diện và lượt nghe trong phạm vi cần theo dõi."
-      },
-      {
-        "label": "Lưu báo cáo Excel",
-        "action": "Tạo bảng tính trong trình duyệt từ số liệu của phạm vi và khoảng ngày đã chọn.",
-        "outcome": "Nhân sự có thể lưu hoặc chia sẻ đúng kỳ báo cáo."
-      },
-      {
-        "label": "Đếm lượt nghe thực tế",
-        "action": "PWA gửi sự kiện khi âm thanh phát và dùng lại mã lượt nghe lúc tạm dừng rồi nghe tiếp.",
-        "outcome": "Nhân sự có thể so sánh số lượt nghe giữa các địa điểm dựa trên các lượt phát thực tế."
-      },
-      {
-        "label": "Kiểm soát POI công khai",
-        "action": "Tách thao tác ẩn, hiện và lưu trữ. Một địa điểm có bản đang phục vụ sẽ ở trạng thái ẩn sau khi khôi phục.",
-        "outcome": "Biên tập viên có thể kiểm tra nội dung trước khi mở lại cho khách."
-      },
-      {
-        "label": "Xử lý sự cố",
-        "action": "Gom các lỗi theo địa điểm và nội dung liên quan, cho nhân viên vận hành cập nhật trạng thái.",
-        "outcome": "Nhóm có thể theo dõi một sự cố qua các lần phát sinh và xử lý."
-      }
-    ]
-  },
-  "24": {
-    "goal": "Giảm lỗi dọn dẹp sau bước build và test để quy trình kiểm tra tự động chạy ổn định hơn.",
-    "changes": [
-      {
-        "label": "Chuẩn hóa môi trường chạy",
-        "action": "Ghim Ubuntu 24.04 cho các job backend liên quan và cập nhật action tải mã, thiết lập .NET.",
-        "outcome": "Nhóm có môi trường kiểm tra với phiên bản được chỉ định rõ."
-      },
-      {
-        "label": "Dừng tiến trình build",
-        "action": "Tắt tái sử dụng MSBuild server và thêm bước dừng tiến trình có giới hạn thời gian.",
-        "outcome": "Runner có thể dọn tiến trình biên dịch ngay cả khi build hoặc test lỗi."
-      },
-      {
-        "label": "Cập nhật hướng dẫn vận hành",
-        "action": "Chỉnh workflow frontend và bổ sung điều kiện kích hoạt runner Windows.",
-        "outcome": "Người phụ trách có thể đối chiếu yêu cầu khi chuẩn bị máy triển khai."
-      }
-    ]
-  },
-  "25": {
-    "goal": "Giúp biên tập viên tìm và lưu đúng vị trí điểm tham quan ngay trong biểu mẫu quản trị.",
-    "changes": [
-      {
-        "label": "Chọn vị trí bằng bản đồ",
-        "action": "Thêm cách bấm vào bản đồ, kéo ghim và nhập tọa độ trong cùng biểu mẫu.",
-        "outcome": "Biên tập viên có thể dò vị trí trực quan rồi tinh chỉnh trước khi lưu."
-      },
-      {
-        "label": "Tìm theo tên hoặc địa chỉ",
-        "action": "Catalog gọi Photon khi biên tập viên bấm tìm và lưu kết quả tạm.",
-        "outcome": "Giao diện có gợi ý vị trí trong khi hạn chế gọi lại dịch vụ cho truy vấn lặp."
-      },
-      {
-        "label": "Cập nhật tọa độ đã kiểm tra",
-        "action": "Giao diện và API đều kiểm tra tọa độ. Khi một địa điểm đang hoạt động được lưu, dữ liệu công khai dùng vị trí mới.",
-        "outcome": "Vị trí trên bản đồ của khách cập nhật độc lập với phiên bản thuyết minh."
-      },
-      {
-        "label": "Giữ cách nhập tay",
-        "action": "Biểu mẫu vẫn cho nhập tọa độ khi bản đồ hoặc tìm kiếm gặp lỗi. Kiểm thử cả trường hợp tọa độ bằng 0.",
-        "outcome": "Biên tập viên vẫn có thể hoàn tất việc lưu tọa độ hợp lệ."
-      }
-    ]
-  },
-  "29": {
+  "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e": {
     "goal": "Giúp nhóm truy vết từng bản xuất bản, quản lý tài khoản nhân sự và tránh ghi đè kết quả khi nhiều tiến trình cùng tạo audio.",
     "changes": [
       {
@@ -294,28 +64,268 @@
       }
     ]
   },
-  "33": {
-    "goal": "Giữ và khôi phục dấu tiếng Việt trong mã tham chiếu Wikipedia của các điểm tham quan.",
+  "ab6717190f8ba23f2d76fd918b8177d4bb7acbaa": {
+    "goal": "Giúp biên tập viên tìm và lưu đúng vị trí điểm tham quan ngay trong biểu mẫu quản trị.",
     "changes": [
       {
-        "label": "Giữ dấu khi lưu mới",
-        "action": "Đổi cột mã tham chiếu sang kiểu Unicode nvarchar(200).",
-        "outcome": "Các mã Wikipedia tiếng Việt mới giữ nguyên dấu khi được ghi vào SQL Server."
+        "label": "Chọn vị trí bằng bản đồ",
+        "action": "Thêm cách bấm vào bản đồ, kéo ghim và nhập tọa độ trong cùng biểu mẫu.",
+        "outcome": "Biên tập viên có thể dò vị trí trực quan rồi tinh chỉnh trước khi lưu."
       },
       {
-        "label": "Sửa dữ liệu đã nhập",
-        "action": "Dùng URL nguồn để khôi phục tên bài viết gốc của các mã bị mất dấu trong bộ dữ liệu mẫu.",
-        "outcome": "Các tham chiếu cũ có thể được nhận diện đúng trong lần nhập tiếp theo."
+        "label": "Tìm theo tên hoặc địa chỉ",
+        "action": "Catalog gọi Photon khi biên tập viên bấm tìm và lưu kết quả tạm.",
+        "outcome": "Giao diện có gợi ý vị trí trong khi hạn chế gọi lại dịch vụ cho truy vấn lặp."
       },
       {
-        "label": "Duy trì mã duy nhất",
-        "action": "Tạo lại chỉ mục duy nhất theo nhà cung cấp và mã tham chiếu.",
-        "outcome": "Catalog tiếp tục ngăn hai bản ghi cùng dùng một mã từ một nguồn."
+        "label": "Cập nhật tọa độ đã kiểm tra",
+        "action": "Giao diện và API đều kiểm tra tọa độ. Khi một địa điểm đang hoạt động được lưu, dữ liệu công khai dùng vị trí mới.",
+        "outcome": "Vị trí trên bản đồ của khách cập nhật độc lập với phiên bản thuyết minh."
       },
       {
-        "label": "Kiểm tra khi nâng cấp",
-        "action": "Dùng dữ liệu cũ có mã sai dấu để thử nâng cấp SQL Server và nhập lại dữ liệu mẫu.",
-        "outcome": "Bài kiểm thử kiểm tra cả việc phục hồi mã lẫn việc tránh tạo địa điểm trùng."
+        "label": "Giữ cách nhập tay",
+        "action": "Biểu mẫu vẫn cho nhập tọa độ khi bản đồ hoặc tìm kiếm gặp lỗi. Kiểm thử cả trường hợp tọa độ bằng 0.",
+        "outcome": "Biên tập viên vẫn có thể hoàn tất việc lưu tọa độ hợp lệ."
+      }
+    ]
+  },
+  "f7917e26c6f9f878f9a62a0e4397df1b5d4d48c9": {
+    "goal": "Giảm lỗi dọn dẹp sau bước build và test để quy trình kiểm tra tự động chạy ổn định hơn.",
+    "changes": [
+      {
+        "label": "Chuẩn hóa môi trường chạy",
+        "action": "Ghim Ubuntu 24.04 cho các job backend liên quan và cập nhật action tải mã, thiết lập .NET.",
+        "outcome": "Nhóm có môi trường kiểm tra với phiên bản được chỉ định rõ."
+      },
+      {
+        "label": "Dừng tiến trình build",
+        "action": "Tắt tái sử dụng MSBuild server và thêm bước dừng tiến trình có giới hạn thời gian.",
+        "outcome": "Runner có thể dọn tiến trình biên dịch ngay cả khi build hoặc test lỗi."
+      },
+      {
+        "label": "Cập nhật hướng dẫn vận hành",
+        "action": "Chỉnh workflow frontend và bổ sung điều kiện kích hoạt runner Windows.",
+        "outcome": "Người phụ trách có thể đối chiếu yêu cầu khi chuẩn bị máy triển khai."
+      }
+    ]
+  },
+  "b32631e2b197abaa821a3c6c4e4486d032814760": {
+    "goal": "Cho nhân sự biết khách đang dùng ứng dụng ra sao và xử lý sự cố hoặc trạng thái địa điểm ngay trong trang quản trị.",
+    "changes": [
+      {
+        "label": "Xem thống kê",
+        "action": "Thêm tổng quan, thống kê theo địa điểm và bộ lọc kỳ báo cáo.",
+        "outcome": "Nhân sự có thể xem lượt khách, hiện diện và lượt nghe trong phạm vi cần theo dõi."
+      },
+      {
+        "label": "Lưu báo cáo Excel",
+        "action": "Tạo bảng tính trong trình duyệt từ số liệu của phạm vi và khoảng ngày đã chọn.",
+        "outcome": "Nhân sự có thể lưu hoặc chia sẻ đúng kỳ báo cáo."
+      },
+      {
+        "label": "Đếm lượt nghe thực tế",
+        "action": "PWA gửi sự kiện khi âm thanh phát và dùng lại mã lượt nghe lúc tạm dừng rồi nghe tiếp.",
+        "outcome": "Nhân sự có thể so sánh số lượt nghe giữa các địa điểm dựa trên các lượt phát thực tế."
+      },
+      {
+        "label": "Kiểm soát POI công khai",
+        "action": "Tách thao tác ẩn, hiện và lưu trữ. Một địa điểm có bản đang phục vụ sẽ ở trạng thái ẩn sau khi khôi phục.",
+        "outcome": "Biên tập viên có thể kiểm tra nội dung trước khi mở lại cho khách."
+      },
+      {
+        "label": "Xử lý sự cố",
+        "action": "Gom các lỗi theo địa điểm và nội dung liên quan, cho nhân viên vận hành cập nhật trạng thái.",
+        "outcome": "Nhóm có thể theo dõi một sự cố qua các lần phát sinh và xử lý."
+      }
+    ]
+  },
+  "b952bf08d6fdfd47a303889d119cbce776ee76eb": {
+    "goal": "Giúp khách đọc theo lời thuyết minh và kiểm soát việc phát khi di chuyển giữa các màn hình.",
+    "changes": [
+      {
+        "label": "Thu gọn hoặc đóng trình phát",
+        "action": "Thêm hai thao tác riêng. Thu gọn giữ vị trí nghe, còn đóng dừng phát và giải phóng audio.",
+        "outcome": "Khách có thể quay về màn hình trước hoặc kết thúc bài đang nghe."
+      },
+      {
+        "label": "Tạo mốc cho từng câu",
+        "action": "Dịch vụ Speech đặt dấu mốc trước câu để Google TTS trả về thời điểm cùng tệp MP3.",
+        "outcome": "Ứng dụng có thể ghép từng câu với đúng vị trí trong bản ghi."
+      },
+      {
+        "label": "Ghép lời với đúng bản audio",
+        "action": "Catalog nhận và kiểm tra các mốc được gửi cùng kết quả tạo audio.",
+        "outcome": "Khi phát bản dự phòng, lời trên màn hình vẫn tương ứng với ngôn ngữ đang nghe."
+      },
+      {
+        "label": "Theo dõi lời đang phát",
+        "action": "Tô câu theo thời gian phát, cập nhật khi khách tua và cho phép cuộn tay.",
+        "outcome": "Khách có thể đọc ở nhịp riêng rồi bật lại chế độ bám theo lời đọc."
+      }
+    ]
+  },
+  "eb4e1b0edc315001768920f95a9f5d2ba3f18fed": {
+    "goal": "Cho khách khám phá địa điểm trực quan và bắt đầu nghe ngay từ bản đồ.",
+    "changes": [
+      {
+        "label": "Xem vị trí trên bản đồ",
+        "action": "Tích hợp MapLibre và OpenFreeMap để hiển thị vị trí của khách cùng các điểm đánh dấu.",
+        "outcome": "Khách có thể nhìn các điểm tham quan trong bối cảnh khu vực xung quanh."
+      },
+      {
+        "label": "Mở thông tin điểm tham quan",
+        "action": "Thêm API trả địa điểm công khai trong vùng tọa độ của bản đồ.",
+        "outcome": "Khi chọn một điểm đánh dấu, khách có thông tin để quyết định đọc hoặc nghe."
+      },
+      {
+        "label": "Tiếp tục nghe khi đổi màn hình",
+        "action": "Đặt điều khiển audio trong phần dùng chung của ứng dụng.",
+        "outcome": "Bài đang nghe tiếp tục phát khi khách chọn điểm khác hoặc mở màn hình đọc."
+      },
+      {
+        "label": "Hỗ trợ định vị và thử bản đồ",
+        "action": "Bắt đầu định vị khi khách cho phép hoặc chọn vị trí mô phỏng. Kiểm tra luồng khi bản đồ tải lỗi.",
+        "outcome": "Người dùng có thể chủ động chọn cách cung cấp vị trí, còn nhóm biết hành vi khi bản đồ gặp sự cố."
+      }
+    ]
+  },
+  "e9e2ff5d5b1e9179f88fb2cb7c5a2fd76bbcf6ff": {
+    "goal": "Giữ trải nghiệm nghe liền mạch khi bản mới đang được xử lý hoặc ngôn ngữ khách chọn chưa sẵn sàng.",
+    "changes": [
+      {
+        "label": "Chuyển phiên bản khi tiếng Việt sẵn sàng",
+        "action": "Đổi điều kiện kích hoạt sang đủ văn bản và audio tiếng Việt. Trong lúc chờ, địa điểm đang hoạt động tiếp tục dùng bản cũ.",
+        "outcome": "Khách vẫn có bài để nghe khi biên tập viên xuất bản bản mới."
+      },
+      {
+        "label": "Chọn ngôn ngữ dự phòng",
+        "action": "Ưu tiên ngôn ngữ khách đã chọn, rồi đến tiếng Anh và tiếng Việt. Yêu cầu đang chờ được dùng lại.",
+        "outcome": "Khách có thể nghe bản đã sẵn sàng và tiếp tục chờ bản mong muốn."
+      },
+      {
+        "label": "Bảo vệ chỉnh sửa địa điểm",
+        "action": "Thêm thao tác tạo, sửa, lưu bản nháp và lưu trữ. API kiểm tra phiên bản bản ghi khi lưu.",
+        "outcome": "Biên tập viên được báo khi mở dữ liệu cũ và một người khác đã lưu thay đổi."
+      },
+      {
+        "label": "Chạy lại phần lỗi",
+        "action": "Hiển thị riêng bốn việc dịch và năm việc tạo audio trên màn hình tiến độ.",
+        "outcome": "Nhân viên vận hành có thể nhận ra ngôn ngữ lỗi và chạy lại đúng việc đó."
+      }
+    ]
+  },
+  "40e1170cdb9fd3dbca254c7f2138bb781118e7aa": {
+    "goal": "Đưa bản nháp đã lưu vào quy trình tự động dịch, tạo audio và theo dõi tiến độ xuất bản.",
+    "changes": [
+      {
+        "label": "Ghi yêu cầu xuất bản",
+        "action": "Catalog lưu bản đang xử lý, yêu cầu theo từng ngôn ngữ và sự kiện ContentPublished trong cùng giao dịch SQL.",
+        "outcome": "Nếu lưu thành công, hệ thống có cả dữ liệu xuất bản lẫn tín hiệu để bắt đầu xử lý."
+      },
+      {
+        "label": "Gửi việc chạy nền",
+        "action": "Tiến trình gửi sự kiện đọc hàng đợi lưu trong cơ sở dữ liệu và đánh dấu đã gửi sau xác nhận từ RabbitMQ.",
+        "outcome": "Yêu cầu vẫn có thể được gửi lại sau khi kết nối tạm thời bị gián đoạn."
+      },
+      {
+        "label": "Cập nhật kết quả",
+        "action": "Catalog ghi văn bản đã dịch, audio hoặc lỗi theo từng ngôn ngữ và nhận diện thông điệp đã xử lý.",
+        "outcome": "Biên tập viên có thể theo dõi từng phần, kể cả khi một thông điệp được giao lại."
+      },
+      {
+        "label": "Đưa nội dung vào phục vụ",
+        "action": "Thêm API theo dõi tiến độ và đọc MP3. Ở commit này, phiên bản mới chỉ kích hoạt khi đủ văn bản và audio của cả năm ngôn ngữ.",
+        "outcome": "Màn hình quản trị có thể báo khi phiên bản đã sẵn sàng cho khách."
+      }
+    ]
+  },
+  "b784cc01a7fa237cada9d30676dd43de640ae076": {
+    "goal": "Chuẩn bị nội dung thử nghiệm bám sát địa điểm thật để biên tập viên có thể rà soát trước khi xuất bản.",
+    "changes": [
+      {
+        "label": "Dựng bản nháp",
+        "action": "Đóng gói dữ liệu của 16 địa điểm tại TP.HCM, có tọa độ OSM và bản nháp thuyết minh tiếng Việt.",
+        "outcome": "Biên tập viên có sẵn dữ liệu để đọc, sửa và chuẩn bị xuất bản."
+      },
+      {
+        "label": "Nhập lại an toàn",
+        "action": "Dùng mã đối tượng OSM để nhận ra địa điểm đã được nhập.",
+        "outcome": "Chạy lại trình nhập giúp bổ sung bản ghi mới và giữ những bản đã được sửa."
+      },
+      {
+        "label": "Ghi công ảnh",
+        "action": "Lưu nguồn, giấy phép và thông tin ghi công cùng liên kết ảnh.",
+        "outcome": "Giao diện có dữ liệu để hiển thị nguồn ảnh cho người đọc."
+      },
+      {
+        "label": "Đo với tọa độ thật",
+        "action": "Tách một tập tọa độ OSM cho bài đo truy vấn không gian.",
+        "outcome": "Nhóm có thể đánh giá truy vấn trên vị trí thực tế mà vẫn giữ bộ dữ liệu mẫu riêng."
+      }
+    ]
+  },
+  "7aac3eb64881fb39e9e62c9efbde0c5f7eb39df9": {
+    "goal": "Chuẩn bị cho chức năng tìm địa điểm theo tên bằng nhiều ngôn ngữ, kể cả khi người dùng gõ tiếng Việt không dấu.",
+    "changes": [
+      {
+        "label": "Lập chỉ mục tên",
+        "action": "Tạo chỉ mục tìm kiếm cho năm cột tên địa điểm, mỗi cột ứng với một ngôn ngữ.",
+        "outcome": "SQL Server có thể tìm trong dữ liệu tên của từng ngôn ngữ."
+      },
+      {
+        "label": "Tách từ theo ngôn ngữ",
+        "action": "Chia tên thành từ theo ngôn ngữ. Khi thiếu bộ tách từ tiếng Việt, SQL Server dùng bộ xử lý chung.",
+        "outcome": "Nhóm có thể lập chỉ mục tên tiếng Việt trên các máy chủ có cấu hình khác nhau."
+      },
+      {
+        "label": "Tìm khi bỏ dấu",
+        "action": "Cấu hình tìm kiếm để tên bỏ dấu có thể khớp tên có dấu, kèm tập lệnh đo kết quả.",
+        "outcome": "Nhóm có thể kiểm tra các truy vấn theo cách khách thường gõ."
+      }
+    ]
+  },
+  "69622257e7139ca037942f6e6958591f16ed937e": {
+    "goal": "Giúp khách mở danh sách và thấy các điểm tham quan gần vị trí hiện tại nhất.",
+    "changes": [
+      {
+        "label": "Xác định khu vực tìm",
+        "action": "API nhận tọa độ của khách và dùng bán kính mặc định 100 m.",
+        "outcome": "Ứng dụng có thể lấy danh sách quanh đúng vị trí của khách."
+      },
+      {
+        "label": "Sắp xếp theo khoảng cách",
+        "action": "Catalog tính khoảng cách từ tọa độ khách tới từng địa điểm bằng kiểu dữ liệu địa lý của SQL Server.",
+        "outcome": "Các điểm gần hơn xuất hiện trước trong kết quả."
+      },
+      {
+        "label": "Chuẩn bị cho nhiều địa điểm",
+        "action": "Thêm chỉ mục không gian và tập lệnh đo truy vấn.",
+        "outcome": "Nhóm có thể kiểm tra truy vấn theo bán kính khi tăng số lượng địa điểm."
+      }
+    ]
+  },
+  "e241d7054727e7570da745b31d1caec1bf2d2765": {
+    "goal": "Cho mỗi dịch vụ lưu và nâng cấp dữ liệu riêng, đồng thời giúp cả nhóm khởi chạy hệ thống từ một môi trường SQL Server chung.",
+    "changes": [
+      {
+        "label": "Cơ sở dữ liệu riêng",
+        "action": "Tạo bốn cơ sở dữ liệu logic cho Catalog, Identity, Localization và Speech.",
+        "outcome": "Mỗi dịch vụ dùng kết nối riêng để quản lý phần dữ liệu của mình."
+      },
+      {
+        "label": "Lưu nội dung địa điểm",
+        "action": "Tạo các bảng cho điểm tham quan, phiên bản thuyết minh và yêu cầu xử lý.",
+        "outcome": "Catalog có nơi giữ cả nội dung đang phục vụ lẫn bản đang chuẩn bị."
+      },
+      {
+        "label": "Lưu tài khoản",
+        "action": "Thiết lập các bảng tài khoản, vai trò và thông tin làm mới phiên.",
+        "outcome": "Identity có dữ liệu để xác định ai được truy cập trang quản trị và giữ phiên đăng nhập."
+      },
+      {
+        "label": "Khởi động hệ thống",
+        "action": "Thêm bước chờ SQL Server sẵn sàng và chạy khởi tạo trong Docker Compose.",
+        "outcome": "Nhóm có thể dựng cơ sở dữ liệu ban đầu theo cùng một trình tự."
       }
     ]
   }
