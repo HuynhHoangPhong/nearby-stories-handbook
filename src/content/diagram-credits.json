@@ -1,0 +1,367 @@
+{
+  "uc-general": {
+    "Commit liên quan": [
+      {
+        "sha": "95389be39c42bba17bc698383a1e62c5b651238e"
+      }
+    ]
+  },
+  "uc1-activity": {
+    "Triển khai": [
+      {
+        "sha": "4efad39cdf6951b6ec82d1a92541da4667526fdb"
+      },
+      {
+        "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801"
+      }
+    ]
+  },
+  "uc2-activity": {
+    "Triển khai": [
+      {
+        "sha": "9c36747b000ba1b5deeed072879500422d0ae078"
+      },
+      {
+        "sha": "eb4e1b0edc315001768920f95a9f5d2ba3f18fed"
+      },
+      {
+        "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801"
+      }
+    ]
+  },
+  "uc3-activity": {
+    "Triển khai": [
+      {
+        "sha": "b952bf08d6fdfd47a303889d119cbce776ee76eb"
+      },
+      {
+        "sha": "9c36747b000ba1b5deeed072879500422d0ae078"
+      },
+      {
+        "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801"
+      }
+    ]
+  },
+  "uc4-activity": {
+    "Triển khai": [
+      {
+        "sha": "e9e2ff5d5b1e9179f88fb2cb7c5a2fd76bbcf6ff"
+      },
+      {
+        "sha": "229be9f9064d91a2a19d6b7ddae52582bdf098db"
+      }
+    ]
+  },
+  "uc5-activity": {
+    "Triển khai": [
+      {
+        "sha": "ab6717190f8ba23f2d76fd918b8177d4bb7acbaa"
+      },
+      {
+        "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801"
+      }
+    ]
+  },
+  "uc6-activity": {
+    "Triển khai": [
+      {
+        "sha": "40e1170cdb9fd3dbca254c7f2138bb781118e7aa"
+      },
+      {
+        "sha": "7675fcb7b04f770b841e45d123393fd0a6c7cb37"
+      },
+      {
+        "sha": "b0d0451b20da7cafea9fa19e66fba8affe3ae2fd"
+      }
+    ]
+  },
+  "uc7-activity": {
+    "Triển khai": [
+      {
+        "sha": "f60c6ff3c6ba0b35d2449b77ce017557817164a0"
+      },
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ]
+  },
+  "uc8-activity": {
+    "Triển khai": [
+      {
+        "sha": "b32631e2b197abaa821a3c6c4e4486d032814760"
+      }
+    ]
+  },
+  "uc9-activity": {
+    "Triển khai": [
+      {
+        "sha": "b32631e2b197abaa821a3c6c4e4486d032814760"
+      }
+    ]
+  },
+  "dfd-level-0": {
+    "Tác giả": [
+      {
+        "name": "n1giahuy"
+      }
+    ]
+  },
+  "dfd-level-1": {
+    "Tác giả": [
+      {
+        "name": "n1giahuy"
+      }
+    ]
+  },
+  "dfd-3-serve": {
+    "Triển khai": [
+      {
+        "sha": "e9e2ff5d5b1e9179f88fb2cb7c5a2fd76bbcf6ff"
+      },
+      {
+        "sha": "9c36747b000ba1b5deeed072879500422d0ae078"
+      },
+      {
+        "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801"
+      }
+    ]
+  },
+  "dfd-5-publish": {
+    "Triển khai": [
+      {
+        "sha": "40e1170cdb9fd3dbca254c7f2138bb781118e7aa"
+      },
+      {
+        "sha": "7675fcb7b04f770b841e45d123393fd0a6c7cb37"
+      },
+      {
+        "sha": "b0d0451b20da7cafea9fa19e66fba8affe3ae2fd"
+      }
+    ]
+  },
+  "dfd-6-translate": {
+    "Triển khai": [
+      {
+        "sha": "229be9f9064d91a2a19d6b7ddae52582bdf098db"
+      },
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ]
+  },
+  "dfd-7-synthesize": {
+    "Triển khai": [
+      {
+        "sha": "394ea48aacb855173556720b8aa0aa034267cdf1"
+      },
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ]
+  },
+  "dfd-9-report": {
+    "Triển khai": [
+      {
+        "sha": "b32631e2b197abaa821a3c6c4e4486d032814760"
+      }
+    ]
+  },
+  "erd-catalog": {
+    "Tác giả": [
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ]
+  },
+  "erd-identity": {
+    "Tác giả": [
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ]
+  },
+  "erd-localization": {
+    "Tác giả": [
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ],
+    "Triển khai": [
+      {
+        "sha": "229be9f9064d91a2a19d6b7ddae52582bdf098db"
+      }
+    ]
+  },
+  "erd-speech": {
+    "Tác giả": [
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ],
+    "Triển khai": [
+      {
+        "sha": "394ea48aacb855173556720b8aa0aa034267cdf1"
+      }
+    ]
+  },
+  "class-catalog-application": {
+    "Triển khai": [
+      {
+        "sha": "40e1170cdb9fd3dbca254c7f2138bb781118e7aa"
+      },
+      {
+        "sha": "b0d0451b20da7cafea9fa19e66fba8affe3ae2fd"
+      }
+    ]
+  },
+  "class-catalog-domain": {
+    "Triển khai": [
+      {
+        "sha": "e241d7054727e7570da745b31d1caec1bf2d2765"
+      },
+      {
+        "sha": "85d2cd8b786ec09ad6d62b65cb56dd70d5d3e022"
+      }
+    ]
+  },
+  "class-localization": {
+    "Triển khai": [
+      {
+        "sha": "229be9f9064d91a2a19d6b7ddae52582bdf098db"
+      }
+    ]
+  },
+  "class-speech": {
+    "Triển khai": [
+      {
+        "sha": "394ea48aacb855173556720b8aa0aa034267cdf1"
+      },
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ]
+  },
+  "sequence-auth": {
+    "Triển khai": [
+      {
+        "sha": "4efad39cdf6951b6ec82d1a92541da4667526fdb"
+      },
+      {
+        "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801"
+      }
+    ]
+  },
+  "sequence-nearby": {
+    "Đăng sơ đồ": [
+      {
+        "sha": "f3d48eb6c25be02d52337a0e236b6703540a6d03"
+      }
+    ],
+    "Triển khai": [
+      {
+        "sha": "eb4e1b0edc315001768920f95a9f5d2ba3f18fed"
+      },
+      {
+        "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801"
+      }
+    ]
+  },
+  "sequence-generate": {
+    "Đăng sơ đồ": [
+      {
+        "sha": "f3d48eb6c25be02d52337a0e236b6703540a6d03"
+      }
+    ],
+    "Triển khai": [
+      {
+        "sha": "e9e2ff5d5b1e9179f88fb2cb7c5a2fd76bbcf6ff"
+      },
+      {
+        "sha": "229be9f9064d91a2a19d6b7ddae52582bdf098db"
+      }
+    ]
+  },
+  "sequence-publish": {
+    "Đăng sơ đồ": [
+      {
+        "sha": "f3d48eb6c25be02d52337a0e236b6703540a6d03"
+      }
+    ],
+    "Triển khai": [
+      {
+        "sha": "40e1170cdb9fd3dbca254c7f2138bb781118e7aa"
+      },
+      {
+        "sha": "7675fcb7b04f770b841e45d123393fd0a6c7cb37"
+      }
+    ]
+  },
+  "sequence-jobs": {
+    "Đăng sơ đồ": [
+      {
+        "sha": "f3d48eb6c25be02d52337a0e236b6703540a6d03"
+      }
+    ],
+    "Triển khai": [
+      {
+        "sha": "f60c6ff3c6ba0b35d2449b77ce017557817164a0"
+      },
+      {
+        "sha": "7ea2cc5f9c0ff800414324fb0a82549bbbae7b3e"
+      }
+    ]
+  },
+  "sequence-play": {
+    "Triển khai": [
+      {
+        "sha": "b952bf08d6fdfd47a303889d119cbce776ee76eb"
+      },
+      {
+        "sha": "9c36747b000ba1b5deeed072879500422d0ae078"
+      },
+      {
+        "sha": "ecfbe9f926b0cf93e615d5acfd10c09360bc3801"
+      }
+    ]
+  },
+  "sequence-statistics": {
+    "Triển khai": [
+      {
+        "sha": "b32631e2b197abaa821a3c6c4e4486d032814760"
+      }
+    ]
+  },
+  "sequence-export": {
+    "Triển khai": [
+      {
+        "sha": "b32631e2b197abaa821a3c6c4e4486d032814760"
+      }
+    ]
+  },
+  "component": {
+    "Commit liên quan": [
+      {
+        "sha": "85d2cd8b786ec09ad6d62b65cb56dd70d5d3e022"
+      },
+      {
+        "sha": "98bddb5cf67e812b8cfc7a21981b63bece1ecb00"
+      },
+      {
+        "sha": "e241d7054727e7570da745b31d1caec1bf2d2765"
+      }
+    ]
+  },
+  "deployment": {
+    "Triển khai": [
+      {
+        "sha": "d4629d66cd27e5552837daf52f27ea52b4a74dbf"
+      },
+      {
+        "sha": "f7917e26c6f9f878f9a62a0e4397df1b5d4d48c9"
+      },
+      {
+        "sha": "b1f9d65da59643df57d10418b8dd436914918987"
+      }
+    ]
+  }
+}

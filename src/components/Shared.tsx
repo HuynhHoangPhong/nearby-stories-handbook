@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { ArrowDownToLine, ArrowUpRight, Check, Code2, Copy, Expand, FileText } from 'lucide-react'
 import { asset, repository } from '../config/assets'
 import { codeData, source } from '../content/data'
+import credits from '../content/diagram-credits.json'
+import { commitMembership, commitPageId } from '../content/member-commits'
 import type { CodeFile } from '../content/types'
 
 function codeUrl(file: CodeFile) {
@@ -10,13 +12,45 @@ function codeUrl(file: CodeFile) {
 }
 
 export interface ZoomImage { key: string; title: string }
-export function Figure({ imageKey, title, onZoom }: { imageKey: string; title: string; onZoom: (image: ZoomImage) => void }) {
+type DiagramContributor = { sha: string } | { name: string }
+const diagramCredits: Partial<Record<string, Record<string, DiagramContributor[]>>> = credits
+
+export function Figure({ imageKey, title, onZoom, navigate }: {
+  imageKey: string
+  title: string
+  onZoom: (image: ZoomImage) => void
+  navigate: (id: string) => void
+}) {
   const image = source.images[imageKey]
   if (!image) return <p>Chưa có hình cho mục này.</p>
+  const contributorGroups = Object.entries(diagramCredits[imageKey] ?? {})
   return <figure className="document-figure">
     <div className="figure-toolbar"><span>{image.sourceVersion}</span><button type="button" onClick={() => onZoom({ key: imageKey, title })}><Expand size={15} /> Phóng to</button></div>
     <button className="figure-image" type="button" onClick={() => onZoom({ key: imageKey, title })} aria-label={'Phóng to ' + title}><img src={asset(image.src)} alt={title} decoding="async" /></button>
-    <figcaption><FileText size={13} /><span>{title}</span><a href={asset(image.src)} download aria-label={'Tải hình ' + title}><ArrowDownToLine size={14} /></a></figcaption>
+    <figcaption>
+      <div className="figure-caption">
+        <FileText size={13} aria-hidden="true" /><span>{title}</span>
+        <a href={asset(image.src)} download aria-label={'Tải hình ' + title}><ArrowDownToLine size={14} /></a>
+      </div>
+      {contributorGroups.map(([label, contributors]) => (
+        <p className="figure-credit" key={label}>
+          <span>{label}</span>
+          {contributors.map(contributor => {
+            if ('name' in contributor) return <span className="figure-credit-member" key={contributor.name}>
+              <strong>{contributor.name}</strong>
+            </span>
+            const { sha } = contributor
+            const { member, commit } = commitMembership.get(sha)!
+            return <span className="figure-credit-member" key={sha}>
+              <strong>{member.name}</strong>
+              <CrossLink to={commitPageId(sha)} navigate={navigate}>
+                {commit.pullRequest ? 'PR #' + commit.pullRequest : sha.slice(0, 7)}
+              </CrossLink>
+            </span>
+          })}
+        </p>
+      ))}
+    </figcaption>
   </figure>
 }
 

@@ -2,6 +2,7 @@
 
 - TypeScript, bản dựng Vite và 8 kiểm thử nội dung đều đạt.
 - Chromium đã kiểm tra 51 mục lục, gồm 34 trang có tab Mã nguồn và 16 liên kết ở trang Công nghệ. Trang DFD Level 2 liệt kê đủ 5 sơ đồ con. Đã kiểm tra liên kết tới ERD, phóng to và tải hình.
+- Đã kiểm tra chú thích của 35 hình. Có 33 hình hiển thị liên kết commit, trong đó 24 hình ghi nhiều thành viên. DFD Level 0 và Level 1 ghi n1giahuy theo xác nhận của nhóm. Bấm PR #13 ở Catalog · Lớp ứng dụng mở đúng trang chi tiết commit.
 - Bảy hình DFD trùng với hình trong `PRD_DFD.docx`. Bốn ERD đối chiếu với 32 bảng trong EF Core.
 - Đã kiểm tra nền sách trắng, vùng xanh bên ngoài và năm nút đầu trang ở 12 kích thước từ 320 đến 1440 px. Bốn liên kết đầu trang mở tab mới. Nút tiếng giấy ở ngoài cùng bên phải.
 - Các nhóm mục lục đóng khi mở trang hoặc tải lại một liên kết trực tiếp. Tìm kiếm hiển thị các mục phù hợp. Nhóm DFD dùng nhãn gọn và phần ghi chú cũ ở cuối mục lục đã được gỡ.

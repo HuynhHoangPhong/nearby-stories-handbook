@@ -64,6 +64,7 @@ python tools/Handbook/build_code_references.py --root "C:/code/Nearby-Stories" -
 - Mục lục DFD có Level 0, Level 1 và Level 2. Trang Level 2 dẫn tới năm sơ đồ con. Level 1 cũng có liên kết tới Level 2 và các ERD liên quan. Tab Mã nguồn nhóm liên kết theo tiến trình.
 - ERD liệt kê các bảng của Catalog (20), Identity (8), Localization (2) và Speech (2). Có phần tra cứu khóa, kiểu và ý nghĩa từng thuộc tính.
 - Mã nguồn giữ tên file, đường dẫn, hàm, số dòng, trách nhiệm và liên kết mã gốc.
+- Dòng ghi công nằm ngay dưới chú thích hình. Mỗi thành viên có một liên kết khi có commit đối chiếu. Nhãn PR dùng số pull request của commit khi có.
 - Mục **Commit** nằm cuối mục lục và có ba trang thành viên. HuynhHoangPhong có 14 commit, n1giahuy có 11 và ThNhan713 có 24. Danh sách theo lịch sử nhánh `main` tại `c6c1f8a`, với ngày ở cột phải. Chọn tiêu đề để xem mục tiêu, tác dụng của từng thay đổi, diễn giải theo tệp và liên kết GitHub. Tệp của commit gộp nhánh được đối chiếu với trạng thái của nhánh nhận trước khi gộp.
 - Hiệu ứng lật trang hai mặt kéo dài 1,35 giây. Tiếng giấy tổng hợp chỉ phát ở Trang trước / Trang sau khi bật tiếng.
 - Sidebar, mở code, phóng to và nút bật tiếng không phát âm thanh. Tôn trọng thiết lập giảm chuyển động của thiết bị.

@@ -12,6 +12,17 @@ const phongNotes = require('../../src/content/phong-commit-notes.json');
 const teamCommits = require('../../src/content/team-commits.json');
 const teamFiles = require('../../src/content/team-commit-files.json');
 const teamNotes = require('../../src/content/team-commit-notes.json');
+const diagramCredits = require('../../src/content/diagram-credits.json');
+const { images: diagramImages } = require('../../src/content/generated.json');
+const imageKeys = new Map(Object.entries(diagramImages).map(([key, image]) => [image.src, key]));
+const members = [
+  { page: 'commit-huy-nguyen', name: 'n1giahuy', commits: teamCommits.huy },
+  { page: 'commit-thnhan713', name: 'ThNhan713', commits: teamCommits.nhan },
+  { page: 'commit-huynhhoangphong', name: 'HuynhHoangPhong', commits: phongCommits },
+];
+const commitCredits = new Map(members.flatMap(member =>
+  member.commits.map(commit => [commit.sha, { ...commit, author: member.name }])
+));
 const sourceUrls = new Set(Object.values(files).map(file =>
   'https://github.com/n1giahuy/Nearby-Stories/blob/' + revision + '/' +
   file.path.split('/').map(encodeURIComponent).join('/') + '#L' + file.line));
@@ -90,11 +101,64 @@ const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
       await page.locator('.book h1').first().waitFor();
       for (const img of await page.locator('.book img').all()) await img.evaluate(image => image.decode());
     }
+    const checkedFigures = new Set();
+    let multiMemberFigures = 0;
+    const confirmedByName = new Set();
     for (const route of routes) {
       await go(route.href);
       check(!(await page.locator('.book').innerText()).includes('undefined'), 'Undefined content at ' + route.href);
       check(await page.locator('.book h1').count() === 1, 'Wrong primary heading at ' + route.href);
+      for (const figure of await page.locator('.book .document-figure').all()) {
+        const image = await figure.locator('img').getAttribute('src');
+        const key = imageKeys.get(image.replace(/^\.\//, ''));
+        check(Object.hasOwn(diagramCredits, key), 'Missing diagram credit data for ' + image);
+        checkedFigures.add(key);
+        const groups = Object.entries(diagramCredits[key]);
+        const rows = figure.locator('figcaption > .figure-credit');
+        check(await rows.count() === groups.length, 'Wrong credit rows: ' + key);
+        if (!groups.length) continue;
+        check(await figure.locator('figcaption > .figure-caption + .figure-credit').isVisible(),
+          'Credit must appear below the diagram caption: ' + key);
+        const people = new Set();
+        for (const [index, [label, expectedContributors]] of groups.entries()) {
+          const row = rows.nth(index);
+          check(await row.locator(':scope > span').first().innerText() === label, 'Wrong credit label: ' + key);
+          const contributors = row.locator('.figure-credit-member');
+          check(await contributors.count() === expectedContributors.length, 'Wrong contributor count: ' + key);
+          for (const [offset, expected] of expectedContributors.entries()) {
+            const member = contributors.nth(offset);
+            if ('name' in expected) {
+              check(await member.locator('strong').innerText() === expected.name && await member.getByRole('link').count() === 0,
+                'Wrong author without commit: ' + key);
+              check(!people.has(expected.name), 'Duplicate contributor: ' + key);
+              people.add(expected.name);
+              confirmedByName.add(key);
+              continue;
+            }
+            const { sha } = expected;
+            const commit = commitCredits.get(sha);
+            check(commit && commit.author === await member.locator('strong').innerText(), 'Wrong diagram contributor: ' + key);
+            check(!people.has(commit.author), 'Duplicate contributor: ' + key);
+            people.add(commit.author);
+            const linkLabel = commit.pullRequest ? 'PR #' + commit.pullRequest : sha.slice(0, 7);
+            const link = member.getByRole('link', { name: linkLabel, exact: true });
+            check(await link.getAttribute('href') === '#/commit-' + sha.slice(0, 7), 'Wrong diagram commit: ' + key);
+          }
+        }
+        if (people.size > 1) multiMemberFigures += 1;
+      }
     }
+    check(checkedFigures.size === 35 && checkedFigures.size === Object.keys(diagramCredits).length, 'Wrong figure attribution inventory');
+    check(multiMemberFigures === 24, 'Unexpected number of diagrams crediting multiple contributors');
+    check(confirmedByName.size === 2 && confirmedByName.has('dfd-level-0') && confirmedByName.has('dfd-level-1'),
+      'Wrong diagrams with manually confirmed authors');
+    await go('#/class-catalog-application');
+    await page.locator('.figure-credit').scrollIntoViewIfNeeded();
+    await page.screenshot({ path: path.join(output, 'handbook-class-catalog-credit.png') });
+    await page.locator('.figure-credit').getByRole('link', { name: 'PR #13', exact: true }).click();
+    await page.locator('.commit-detail').waitFor();
+    check(await page.locator('.commit-actions a[aria-label="Pull request #13"]').getAttribute('href') ===
+      'https://github.com/n1giahuy/Nearby-Stories/pull/13', 'Catalog credit should open the commit for PR #13');
     check(await page.evaluate(() => window.__paperStarts) === 0, 'Audio from sidebar');
     await go('#/uc6');
     for (const title of ['Mục tiêu', 'Cách hoạt động', 'Các nhánh thay thế', 'Khi xảy ra lỗi', 'Kết quả']) check(await page.getByRole('heading', { name: title, exact: true }).isVisible(), 'Hidden explanation ' + title);
@@ -147,14 +211,9 @@ const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
       }));
       check(dateColumns.length > 0 && dateColumns.every(item => item.sideBySide && /^\d{4}-\d{2}-\d{2}$/.test(item.date)), 'Date should be in the right column beside its heading');
     }
-    const profiles = [
-      { page: 'commit-huy-nguyen', name: 'n1giahuy', commits: teamCommits.huy },
-      { page: 'commit-thnhan713', name: 'ThNhan713', commits: teamCommits.nhan },
-      { page: 'commit-huynhhoangphong', name: 'HuynhHoangPhong', commits: phongCommits },
-    ];
     const repository = 'https://github.com/n1giahuy/Nearby-Stories';
     const supportedPages = new Set(routes.map(route => route.href));
-    for (const profile of profiles) {
+    for (const profile of members) {
       await go('#/' + profile.page);
       check(await page.locator('#toc-member-commits a[href="#/' + profile.page + '"]').innerText() === profile.name, 'Incorrect member sidebar name');
       check(await page.locator('.book h1').innerText() === profile.name, 'Incorrect member heading');
@@ -305,7 +364,7 @@ const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
       }));
       check(controls.length === 5 && controls.every(control => control.left >= 0 && control.right <= width + 1), 'Clipped header at ' + width);
       check(controls.every((control, index) => index === 0 || control.left >= controls[index - 1].right), 'Overlapping header controls at ' + width);
-      for (const id of ['gioi-thieu', 'uc2', 'dfd-level-1', 'dfd-level-2', 'erd-catalog', 'cong-nghe', 'backlog-staff']) {
+      for (const id of ['gioi-thieu', 'uc2', 'dfd-level-1', 'dfd-level-2', 'erd-catalog', 'class-catalog-application', 'cong-nghe', 'backlog-staff']) {
         await go('#/' + id);
         const size = await page.evaluate(() => ({ width: innerWidth, scroll: document.documentElement.scrollWidth }));
         check(size.scroll <= size.width + 1, 'Horizontal overflow ' + width + ' ' + id + ' ' + size.scroll);
@@ -324,6 +383,6 @@ const mime = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css
     check(unexpected.length === 0, 'App requested external services: ' + unexpected.join(','));
     check(errors.length === 0, errors.join('\n'));
     fs.writeFileSync(path.join(output, 'browser-check-result.json'), JSON.stringify({ result: 'passed', routes: routes.length, diagrams: 35, tables: 32, stories: 23, widths: [1440, 1280, 1180, 1050, 1024, 1000, 851, 850, 768, 480, 375, 320], externalRequests: unexpected, consoleErrors: errors }, null, 2));
-    console.log('PASS: 51 sidebar routes and 49 commit routes, all diagrams and schema roles, full UC text, code map, zoom, download, hash history, search, real 3D turn, sound only on footer, mute, light-only, collapsed TOC, four header links, responsive 320–1440 px; no background external/API requests.');
+    console.log('PASS: 51 sidebar routes and 49 commit routes, 35 figure captions with 24 multi-member diagrams, all diagrams and schema roles, full UC text, code map, zoom, download, hash history, search, real 3D turn, sound only on footer, mute, light-only, collapsed TOC, four header links, responsive 320–1440 px; no background external/API requests.');
   } finally { await browser.close(); }
 })().catch(error => { console.error(error); process.exit(1); });

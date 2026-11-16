@@ -159,8 +159,14 @@ code { font-family: "JetBrains Mono", Consolas, monospace; }
 .figure-toolbar button { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--hb-primary); padding: 5px 0; }
 .figure-image { display: block; background: white; border: 1px solid var(--hb-line); border-radius: 6px; padding: 9px; width: 100%; cursor: zoom-in; }
 .figure-image img { width: 100%; height: auto; max-height: 610px; object-fit: contain; display: block; }
-.document-figure figcaption { display: flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 10px; color: var(--hb-muted); }
-.document-figure figcaption>a { margin-left: auto; display: grid; place-items: center; width: 24px; height: 24px; }
+.document-figure figcaption { margin-top: 12px; font-size: 10px; color: var(--hb-muted); }
+.figure-caption, .figure-credit { display: flex; align-items: center; gap: 6px; }
+.figure-caption > a { margin-left: auto; display: grid; place-items: center; flex: 0 0 24px; height: 24px; }
+.figure-credit { flex-wrap: wrap; gap: 5px 9px; margin-top: 6px; font-size: 11px; }
+.figure-credit-member { display: inline-flex; align-items: baseline; gap: 5px; min-width: 0; }
+.figure-credit strong { color: var(--hb-ink); overflow-wrap: anywhere; }
+.figure-credit-member + .figure-credit-member::before { content: "·"; margin-right: 2px; }
+.figure-credit .cross-link { font-size: inherit; line-height: 1.5; }
 .figure-reading-hint { font-size: 11px; color: var(--hb-muted); margin: 19px 0 12px; line-height: 1.85; }
 .diagram-legend { display: flex; gap: 16px; flex-wrap: wrap; color: #928d84; font-size: 9px; margin-top: 17px; }
 .diagram-legend>span { display: flex; align-items: center; gap: 6px; }

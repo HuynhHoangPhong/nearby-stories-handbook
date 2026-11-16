@@ -11,7 +11,8 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          if (id.replaceAll('\\', '/').endsWith('/content/team-commits.json')) return 'team-commits'
+          const path = id.replaceAll('\\', '/')
+          if (/\/content\/(team-commits|diagram-credits)\.json$/.test(path)) return 'handbook-index'
         },
       },
     },
